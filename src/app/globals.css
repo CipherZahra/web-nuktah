@@ -28,7 +28,7 @@
 }
 
 @theme {
-  --font-sans: "Tajawal", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Amiri", "Tajawal", ui-serif, Georgia, serif;
 }
 
 @layer base {
@@ -134,5 +134,10 @@
     color: var(--color-accent);
     padding: 0.1em 0.4em;
     border-radius: 6px;
+  }
+  .prose-nuktah a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }

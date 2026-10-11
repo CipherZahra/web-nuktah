@@ -1,15 +1,15 @@
 import { NextIntlClientProvider } from "next-intl";
-import { Tajawal } from "next/font/google";
+import { Amiri } from "next/font/google";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import type { Metadata } from "next";
 import arMessages from "../../../messages/ar.json";
 
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  weight: ["300", "400", "500", "700", "800"],
+const amiri = Amiri({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "700"],
   display: "swap",
-  variable: "--font-tajawal",
+  variable: "--font-amiri",
 });
 
 const BUILD_TIME = new Date();
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
 export default function ArLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <body className={`${tajawal.variable} font-sans antialiased`}>
+      <body className={`${amiri.variable} font-sans antialiased`}>
         <NextIntlClientProvider
           locale="ar"
           messages={arMessages}

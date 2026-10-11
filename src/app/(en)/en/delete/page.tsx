@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <LegalPage kind="delete" />;
+  return <LegalPage kind="delete" lang="en" />;
 }

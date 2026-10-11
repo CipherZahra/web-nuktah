@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <LegalPage kind="privacy" />;
+  return <LegalPage kind="privacy" lang="en" />;
 }

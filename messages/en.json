@@ -398,17 +398,36 @@
     "empty": "No guides yet — check back soon."
   },
   "legal": {
+    "updated": "Last updated: September 28, 2026",
     "privacy": {
-      "title": "Privacy policy",
-      "stub": "The full privacy text is being ported from the current site — it will be published here before launch."
+      "title": "Privacy policy"
     },
     "terms": {
-      "title": "Terms of use",
-      "stub": "The full terms text is being ported from the current site — it will be published here before launch."
+      "title": "Terms of use"
     },
     "delete": {
-      "title": "Delete account",
-      "stub": "Account deletion happens in the app and on the web — the full page text is being ported from the current site and will be published here before launch."
+      "title": "Delete account"
+    },
+    "deleteWizard": {
+      "emailLabel": "Account email",
+      "sendBtn": "Send verification link",
+      "sendingBtn": "Sending…",
+      "sentMsg": "We sent a link to {email} — open it in this browser, then come back here to finish.",
+      "codeLabel": "Or enter the code from the email:",
+      "verifyBtn": "Verify and continue",
+      "verifyingBtn": "Verifying…",
+      "resendBtn": "Resend link",
+      "backBtn": "Back",
+      "confirmMsg": "You are about to permanently delete {email}. This cannot be undone.",
+      "deleteBtn": "Permanently delete my account",
+      "deletingBtn": "Deleting…",
+      "cancelBtn": "Cancel",
+      "successMsg": "✓ Your account has been permanently deleted.",
+      "errEmail": "Enter a valid email address.",
+      "errCaptcha": "Complete the verification first.",
+      "errSend": "Could not send the link. Try again.",
+      "errVerify": "Verification failed. Check the link or code.",
+      "errDelete": "Could not delete the account. Try again."
     }
   },
   "payment": {

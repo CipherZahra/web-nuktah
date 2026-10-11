@@ -25,6 +25,7 @@ function escapeHtml(s: string): string {
 
 function inline(s: string): string {
   return escapeHtml(s)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/`([^`]+)`/g, "<code>$1</code>");
 }
