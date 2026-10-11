@@ -87,3 +87,52 @@
     background-clip: text;
   }
 }
+
+@layer components {
+  .prose-nuktah p {
+    margin-bottom: 1.1rem;
+  }
+  .prose-nuktah h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 2rem 0 0.75rem;
+  }
+  .prose-nuktah h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 1.5rem 0 0.5rem;
+  }
+  .prose-nuktah h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 1.25rem 0 0.5rem;
+  }
+  .prose-nuktah ul,
+  .prose-nuktah ol {
+    margin: 0 0 1.1rem;
+    padding-inline-start: 1.5rem;
+  }
+  .prose-nuktah ul {
+    list-style: disc;
+  }
+  .prose-nuktah ol {
+    list-style: decimal;
+  }
+  .prose-nuktah li {
+    margin-bottom: 0.4rem;
+  }
+  .prose-nuktah strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+  .prose-nuktah code {
+    font-size: 0.85em;
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+    padding: 0.1em 0.4em;
+    border-radius: 6px;
+  }
+}

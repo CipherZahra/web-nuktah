@@ -1,0 +1,425 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "support": "Support",
+    "guides": "Guides",
+    "download": "Get the app",
+    "contact": "Contact",
+    "menuToggle": "Menu"
+  },
+  "hero": {
+    "badge": "For teachers in Algeria",
+    "title": "Photograph the sheet. Get the grades.",
+    "subtitle": "Nuktah reads handwritten grade sheets and matches every student by matricule — you review every result before saving, then export your class report.",
+    "ctaPrimary": "Join the beta on Google Play",
+    "ctaSecondary": "Pricing"
+  },
+  "features": {
+    "label": "Features",
+    "title": "Everything you need in one app",
+    "subtitle": "Designed specifically for Algerian teachers to simplify grading and attendance.",
+    "ocr": "Scan grade sheets",
+    "ocrDesc": "Scan paper grade sheets with AI and get the results in seconds.",
+    "manual": "Manual grade entry",
+    "manualDesc": "Enter grades easily through a simple, flexible interface that fits every need.",
+    "attendance": "Attendance tracking",
+    "attendanceDesc": "Track student attendance day by day, neatly and consistently.",
+    "reports": "Professional reports",
+    "reportsDesc": "Build detailed performance reports for students and classes.",
+    "analytics": "Performance analytics",
+    "analyticsDesc": "Smart analytics that help you understand how your students are doing — strengths and weaknesses included.",
+    "sync": "Data sync",
+    "syncDesc": "Automatic syncing of your data across all your devices, securely.",
+    "export": "Excel & PDF export",
+    "exportDesc": "Export grades and reports to Excel and PDF with one tap.",
+    "backup": "Automatic backup",
+    "backupDesc": "Automatic cloud backups of all your data."
+  },
+  "howItWorks": {
+    "label": "How it works",
+    "title": "In five simple steps",
+    "subtitle": "We designed the app to be simple and fast, from start to finish.",
+    "step1": "Choose the class",
+    "step1Desc": "Pick the class whose grades you want to manage.",
+    "step2": "Upload a grade sheet photo",
+    "step2Desc": "Photograph the paper grade sheet or load it from your gallery.",
+    "step3": "Review the scan results",
+    "step3Desc": "The app reviews the results with high accuracy using AI.",
+    "step4": "Save the grades",
+    "step4Desc": "Save the grades to the app's database, securely.",
+    "step5": "Build reports",
+    "step5Desc": "Export the reports and analytics you need with one tap."
+  },
+  "whyNuktah": {
+    "label": "Why Nuktah",
+    "title": "Built for Algerian teachers",
+    "subtitle": "Designed to save you time and cut down on mistakes.",
+    "benefit1": "Saves time",
+    "benefit1Desc": "Save hours every week with smart scanning of grade sheets.",
+    "benefit2": "Fewer mistakes",
+    "benefit2Desc": "High OCR accuracy with the ability to review and correct.",
+    "benefit3": "Easy to use",
+    "benefit3Desc": "A simple interface designed to be easy for every teacher.",
+    "benefit4": "For Algerian schools",
+    "benefit4Desc": "Built to match the Algerian education system and its official grade sheets.",
+    "benefit5": "AI-powered",
+    "benefit5Desc": "Advanced AI to process and handle grades accurately."
+  },
+  "screenshots": {
+    "label": "App screenshots",
+    "title": "See Nuktah in action",
+    "subtitle": "Screens from the app showing a clean, simple interface.",
+    "home": "Home",
+    "import": "Excel import",
+    "scan": "Scanning",
+    "reading": "Smart reading",
+    "manual": "Manual entry",
+    "gradebook": "Gradebook",
+    "analytics": "Analytics",
+    "sharing": "Workbook sharing",
+    "prev": "Previous",
+    "next": "Next",
+    "goTo": "Go to slide"
+  },
+  "testimonials": {
+    "label": "Teacher reviews",
+    "title": "Loved by teachers",
+    "subtitle": "Real reviews from teachers using Nuktah will appear here soon.",
+    "demoBadge": "Demo content — real reviews coming soon",
+    "quote1": "This app completely changed how I teach. I now finish grading in half the time.",
+    "quote2": "A simple, easy interface. I love the scanning feature that saves me from typing grades by hand.",
+    "quote3": "The reports and analytics helped me understand my students' performance better than ever.",
+    "name": "Teacher's name",
+    "role1": "Primary school teacher",
+    "role2": "Maths teacher, secondary school",
+    "role3": "Middle school teacher",
+    "location1": "Algiers",
+    "location2": "Oran",
+    "location3": "Constantine"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Answers to your questions",
+    "subtitle": "We answer the most common questions about the Nuktah app.",
+    "q1": "Does the app work offline?",
+    "a1": "Yes, you can use most features without an internet connection. Cloud sync requires the internet.",
+    "q2": "How accurate is the OCR?",
+    "a2": "OCR accuracy reaches over 99% in suitable conditions. You can always review and correct the results manually.",
+    "q3": "Can I edit results after scanning?",
+    "a3": "Yes, you can edit any grade after scanning and before final saving. You can also go back and edit saved grades at any time.",
+    "q4": "Does the app support Excel files?",
+    "a4": "Yes, you can export grades and reports to Excel files compatible with all versions.",
+    "q5": "Is data saved automatically?",
+    "a5": "Yes, all data is saved automatically in the cloud with periodic backups so no information is lost.",
+    "q6": "Does the app support Arabic?",
+    "a6": "Yes, the app interface is fully in Arabic with complete right-to-left support."
+  },
+  "download": {
+    "label": "Get the app",
+    "title": "Start using Nuktah today",
+    "subtitle": "Download the app now and start saving time and organizing your students' grades.",
+    "ctaApk": "Download APK",
+    "ctaPlay": "Google Play",
+    "ctaPlaySoon": "Coming soon to Google Play"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Have a question?",
+    "subtitle": "We'd love to hear from you — for any question or suggestion.",
+    "email": "Email",
+    "emailValue": "support@nuktah.app",
+    "namePlaceholder": "Name",
+    "emailPlaceholder": "Email",
+    "messagePlaceholder": "Your message...",
+    "submit": "Send"
+  },
+  "footer": {
+    "tagline": "A smart app for student grade management",
+    "developedBy": "The Nuktah app is developed by",
+    "bayan": "Bayan",
+    "linksHeading": "Links",
+    "followHeading": "Follow us",
+    "home": "Home",
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "guides": "Guides",
+    "download": "Get the app",
+    "contact": "Contact",
+    "support": "Support",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "deleteAccount": "Delete account",
+    "copyright": "© 2026 Nuktah. All rights reserved."
+  },
+  "seo": {
+    "title": "Nuktah — student grade management app for teachers in Algeria",
+    "description": "Nuktah is a smart app that helps teachers in Algeria scan grade sheets, enter marks, track attendance, and build reports — quickly and accurately.",
+    "ogTitle": "Nuktah — student grade management made easier",
+    "ogDescription": "A smart app for scanning and managing student grades for teachers in Algeria."
+  },
+  "pricing": {
+    "title": "Pricing",
+    "h1": "Pay as you go — no subscription.",
+    "lead": "Buy credits whenever you need them — credits never expire and work across all your devices.",
+    "metricLine": "1 credit = 1 action: scan a sheet, import a file, or export — and your first import is free.",
+    "chips": [
+      "Credits never expire",
+      "CIB & Edahabia via Chargily",
+      "No charge until a read succeeds"
+    ],
+    "plans": [
+      {
+        "name": "Starter",
+        "credits": "5",
+        "creditsUnit": "credits",
+        "price": "250",
+        "priceUnit": "DZD",
+        "tag": "A handful of sheets — try every feature"
+      },
+      {
+        "name": "Standard",
+        "credits": "15",
+        "creditsUnit": "credits",
+        "price": "750",
+        "priceUnit": "DZD",
+        "tag": "Regular grading for a single class"
+      },
+      {
+        "name": "Plus",
+        "credits": "30",
+        "creditsUnit": "credits",
+        "price": "1300",
+        "priceUnit": "DZD",
+        "tag": "Heavy use across a full term"
+      },
+      {
+        "name": "Teacher",
+        "credits": "75",
+        "creditsUnit": "credits",
+        "price": "3600",
+        "priceUnit": "DZD",
+        "tag": "Every class, all year long"
+      }
+    ],
+    "featuredBadge": "Most popular",
+    "buy": "Buy now",
+    "perCredit": "DZD / credit",
+    "free": {
+      "name": "Start for free",
+      "desc": "2 scans + 1 import for every new account — no card needed.",
+      "cta": "Try Nuktah",
+      "stateNote": "The app is available now via the testing link on Google Play."
+    },
+    "note": "Payments are securely processed by Chargily — CIB or E-Dahabia card. No monthly subscription; credits never expire and are only used when you use them.",
+    "faqTitle": "Frequently asked questions",
+    "faqItems": [
+      {
+        "q": "Is there a monthly subscription?",
+        "a": "No. Nuktah is pay-as-you-go — buy credits whenever you need them, with no monthly subscription."
+      },
+      {
+        "q": "Do credits expire?",
+        "a": "Never. Your credits are valid forever and are not tied to an academic year."
+      },
+      {
+        "q": "What do I get for free?",
+        "a": "Every new account starts with 2 scans and 1 Excel import — free, no card required."
+      },
+      {
+        "q": "How do I pay?",
+        "a": "Payments are processed securely by Chargily — CIB or E-Dahabia card, charged immediately at purchase."
+      },
+      {
+        "q": "When are credits deducted?",
+        "a": "From your wallet on each scan or import after the free allowance is used — track your balance anytime in the app."
+      },
+      {
+        "q": "Can I use my credits on multiple devices?",
+        "a": "Yes — credits are tied to your account and work on all your devices."
+      }
+    ]
+  },
+  "faqPage": {
+    "title": "FAQ",
+    "h1": "Everything you need to know about Nuktah.",
+    "lead": "Short answers, grouped by topic — the questions teachers ask most.",
+    "topics": {
+      "basics": "Getting started",
+      "scanning": "Scanning & grades",
+      "billing": "Credits & billing",
+      "account": "Account & support"
+    },
+    "items": [
+      {
+        "cat": "basics",
+        "q": "What is Nuktah?",
+        "a": "An app for teachers in Algeria: photograph a handwritten grade sheet, every student matched by matricule, and complete class reports — with PDF export and Excel workbook updates."
+      },
+      {
+        "cat": "basics",
+        "q": "Who is Nuktah for?",
+        "a": "Teachers in Algerian schools — it follows the local grading system: three grade parts (continuous, test, exam), with wilaya, school and class structure."
+      },
+      {
+        "cat": "basics",
+        "q": "How do I import an Excel sheet?",
+        "a": "From the import screen: pick the ministry file (.xlsx or .xls) — classes and students are created automatically. Your first import is free; later ones draw from your credits."
+      },
+      {
+        "cat": "basics",
+        "q": "Which file formats are supported?",
+        "a": "Excel files in .xlsx and .xls from the original ministry template — for all three levels (primary, middle school, secondary) — with student columns and matricules."
+      },
+      {
+        "cat": "scanning",
+        "q": "How does scanning work?",
+        "a": "Open the camera and photograph the sheet — results are read by the OCR service, which needs an internet connection. A scan credit is consumed only after the read succeeds, never on capturing the photo."
+      },
+      {
+        "cat": "scanning",
+        "q": "Can I review results before saving?",
+        "a": "Yes — the review screen shows every row matched by matricule before anything is saved, and you can correct any value by hand. Nothing is written without your confirmation."
+      },
+      {
+        "cat": "scanning",
+        "q": "Can I edit student or grade information?",
+        "a": "Yes — students from the students screen, and any grade by tapping it on the grades screen; changes apply immediately."
+      },
+      {
+        "cat": "basics",
+        "q": "What should I do if an import fails?",
+        "a": "Check that the file follows the ministry template and has numeric matricules in the ID column, then try again. If it keeps failing, email us the file name and what happened."
+      },
+      {
+        "cat": "billing",
+        "q": "Does the free version show ads?",
+        "a": "Ads appear only when you run out of credits. You can watch a short ad for one extra credit (up to twice a day) — and the Pro tier is completely ad-free."
+      },
+      {
+        "cat": "billing",
+        "q": "What do actions cost? Do credits expire?",
+        "a": "The free tier covers manual entry, two scans and one import. After that, each scan, import or export costs one credit — and credits never expire."
+      },
+      {
+        "cat": "account",
+        "q": "How do I delete my account?",
+        "a": "From the «Delete account» page on the web — confirmed by email, straight away and without a support ticket."
+      },
+      {
+        "cat": "account",
+        "q": "How do I contact support?",
+        "a": "Email us at support@nuktah.app — we will get back to you as soon as we can."
+      }
+    ],
+    "contactTitle": "Still stuck?",
+    "contactLead": "Email us and we will get back to you soon.",
+    "contactButton": "Email us"
+  },
+  "downloadPage": {
+    "title": "Download",
+    "h1": "Get Nuktah — start free.",
+    "lead": "2 scans and 1 import free — no card, no subscription.",
+    "playButton": "Join the beta on Google Play",
+    "betaNotice": "Closed testing — join from the testing link",
+    "needsTitle": "What you need",
+    "needsItems": [
+      "An Android phone with a camera.",
+      "An internet connection while scanning.",
+      "The original ministry file — all three levels: primary, middle school, secondary — to create classes automatically.",
+      "An email address for a free account."
+    ],
+    "requirementsTitle": "Requirements",
+    "requirements": [
+      "Android 8.0 or later.",
+      "Internet connection while scanning a sheet.",
+      "Excel file from the original ministry template (.xlsx or .xls)."
+    ],
+    "qrAlt": "Scan the QR code to download Nuktah",
+    "ctaPricing": "See pricing"
+  },
+  "support": {
+    "title": "Support",
+    "h1": "How can we help?",
+    "lead": "Find your own fix in seconds — or write to us and we will get back to you.",
+    "selfServeTitle": "Start here",
+    "faqTitle": "FAQ",
+    "faqText": "Short answers to what teachers ask most — imports, scanning, credits.",
+    "faqCta": "Browse the FAQ",
+    "guidesTitle": "Teacher guides",
+    "guidesText": "Detailed step-by-step walkthroughs for real classroom tasks.",
+    "guidesCta": "Read the guides",
+    "troublesTitle": "Quick fixes",
+    "troublesHint": "The issues we see most — everything else is covered in the FAQ.",
+    "troubles": [
+      {
+        "q": "The scan was misread",
+        "a": "Photograph the sheet on a flat surface in good light, without folds — then correct any value on the review screen before saving. Nothing is saved without your confirmation."
+      },
+      {
+        "q": "Verification code never arrived",
+        "a": "Check your spam folder, then request the code again. If it still doesn't arrive, email us with the address you used."
+      },
+      {
+        "q": "My balance looks out of date",
+        "a": "Reopen the app or sign in again so the balance refreshes from the server — if it stays wrong, email us."
+      },
+      {
+        "q": "I paid but credits are missing",
+        "a": "Credits are added automatically after the payment is confirmed. Wait a few minutes and reopen the app; if they still haven't arrived, email us the payment reference."
+      },
+      {
+        "q": "The camera won't open",
+        "a": "Open your phone settings → apps → Nuktah → permissions, and allow the camera. Then reopen the scan screen."
+      },
+      {
+        "q": "I can't sign in",
+        "a": "Check the email and password exactly as you entered them when you registered. Still stuck? Email us from the address you registered with."
+      }
+    ],
+    "contactTitle": "Still need help?",
+    "contactLead": "Describe what happened — the more detail (file name, screen, steps), the faster we can fix it.",
+    "contactButton": "support@nuktah.app",
+    "linksTitle": "Useful links",
+    "linkPrivacy": "Privacy policy",
+    "linkTerms": "Terms of use",
+    "linkDelete": "Delete account",
+    "linkPricing": "Pricing"
+  },
+  "guides": {
+    "title": "Teacher guides",
+    "h1": "Teacher guides",
+    "lead": "Step-by-step walkthroughs for real classroom tasks — longer and more detailed than the FAQ.",
+    "back": "All guides",
+    "updated": "Updated",
+    "read": "Read the guide",
+    "empty": "No guides yet — check back soon."
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy policy",
+      "stub": "The full privacy text is being ported from the current site — it will be published here before launch."
+    },
+    "terms": {
+      "title": "Terms of use",
+      "stub": "The full terms text is being ported from the current site — it will be published here before launch."
+    },
+    "delete": {
+      "title": "Delete account",
+      "stub": "Account deletion happens in the app and on the web — the full page text is being ported from the current site and will be published here before launch."
+    }
+  },
+  "payment": {
+    "successTitle": "Payment received",
+    "successDesc": "Your Nuktah payment was received and your credits are on the way. They appear in the app automatically within a few minutes.",
+    "failureTitle": "Payment not completed",
+    "failureDesc": "The payment was not completed. You have not been charged — you can try again from the app.",
+    "openApp": "Open the app",
+    "backHome": "Back to home"
+  }
+}

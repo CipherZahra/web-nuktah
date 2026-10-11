@@ -5,15 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { LangSwitch } from "@/components/shared/lang-switch";
+import { Link } from "@/i18n";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "#hero", key: "home" },
-  { href: "#features", key: "features" },
-  { href: "#how-it-works", key: "howItWorks" },
-  { href: "#faq", key: "faq" },
-  { href: "#download", key: "download" },
-  { href: "#contact", key: "contact" },
+  { href: "/", key: "home" },
+  { href: "/pricing", key: "pricing" },
+  { href: "/faq", key: "faq" },
+  { href: "/support", key: "support" },
+  { href: "/guides", key: "guides" },
 ];
 
 export function Navbar() {
@@ -29,7 +30,9 @@ export function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   return (
@@ -41,7 +44,7 @@ export function Navbar() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
           ? "bg-white/80 backdrop-blur-xl border-b border-border-subtle"
-          : "bg-transparent"
+          : "bg-white/60 backdrop-blur-md"
       )}
     >
       <nav
@@ -50,34 +53,34 @@ export function Navbar() {
           scrolled ? "h-16" : "h-24"
         )}
       >
-        <a href="#hero" className="flex items-center gap-3 shrink-0 group">
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
           <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center shadow-glow transition-shadow duration-300">
             <span className="text-white font-bold text-sm">ن</span>
           </div>
-          <span className="font-bold text-xl tracking-tight text-text-primary">
-            نقطة
-          </span>
-        </a>
+          <span className="font-bold text-xl tracking-tight text-text-primary">نقطة</span>
+        </Link>
 
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary rounded-lg hover:bg-accent-subtle transition-all duration-200"
             >
               {t(link.key)}
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="hidden md:flex items-center gap-2">
+          <LangSwitch />
           <Button size="sm" asChild>
-            <a href="#download">{t("download")}</a>
+            <Link href="/download">{t("download")}</Link>
           </Button>
         </div>
 
         <div className="flex md:hidden items-center gap-2">
+          <LangSwitch />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-accent-subtle transition-all duration-200"
@@ -99,19 +102,19 @@ export function Navbar() {
           >
             <div className="container-main py-6 flex flex-col gap-2">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className="px-4 py-3 text-text-secondary hover:text-text-primary rounded-lg hover:bg-accent-subtle transition-all duration-200"
                 >
                   {t(link.key)}
-                </a>
+                </Link>
               ))}
               <Button className="mt-2" asChild>
-                <a href="#download" onClick={() => setMobileOpen(false)}>
+                <Link href="/download" onClick={() => setMobileOpen(false)}>
                   {t("download")}
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>

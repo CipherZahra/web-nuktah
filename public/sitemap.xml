@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://nuktah.app/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://nuktah.app/en/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://nuktah.app/pricing/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://nuktah.app/en/pricing/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://nuktah.app/faq/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nuktah.app/en/faq/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nuktah.app/support/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nuktah.app/en/support/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nuktah.app/download/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://nuktah.app/en/download/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://nuktah.app/privacy/</loc><lastmod>2026-10-06</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/en/privacy/</loc><lastmod>2026-10-06</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/terms/</loc><lastmod>2026-10-06</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/en/terms/</loc><lastmod>2026-10-06</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/guides/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nuktah.app/en/guides/</loc><lastmod>2026-10-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nuktah.app/guides/organize-gradebook/</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/en/guides/organize-gradebook/</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/guides/import-ministry-excel/</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/en/guides/import-ministry-excel/</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/guides/scan-grade-sheet/</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nuktah.app/en/guides/scan-grade-sheet/</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+</urlset>

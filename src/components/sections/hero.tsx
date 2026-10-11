@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Play } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { ArrowLeft, ArrowRight, Play } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n";
+
+const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
 function PhoneMockup() {
   return (
@@ -54,6 +57,9 @@ function PhoneMockup() {
 
 export function Hero() {
   const t = useTranslations("hero");
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+  const Arrow = isRTL ? ArrowLeft : ArrowRight;
 
   return (
     <section
@@ -96,16 +102,16 @@ export function Hero() {
 
             <div className="flex flex-wrap items-center gap-4">
               <Button size="xl" asChild>
-                <a href="#download">
+                <a href={PLAY_URL} target="_blank" rel="noopener noreferrer">
+                  <Play className="h-5 w-5" />
                   {t("ctaPrimary")}
-                  <ArrowLeft className="mr-2 h-5 w-5" />
                 </a>
               </Button>
               <Button size="xl" variant="outline" asChild>
-                <a href="#features">
-                  <Play className="ml-2 h-5 w-5" />
+                <Link href="/pricing">
                   {t("ctaSecondary")}
-                </a>
+                  <Arrow className="h-5 w-5" />
+                </Link>
               </Button>
             </div>
           </motion.div>

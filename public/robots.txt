@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /turnstile.html
+Disallow: /payment/
+
+Sitemap: https://nuktah.app/sitemap.xml

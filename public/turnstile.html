@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nuktah — verification</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #status {
+        font-size: 12px;
+        color: #64748b;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="widget"></div>
+    <div id="status" hidden>Verification…</div>
+    <script>
+      (function () {
+        var params = new URLSearchParams(location.search);
+        var sitekey = params.get('sitekey') || '';
+        var statusEl = document.getElementById('status');
+
+        function post(msg) {
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage(JSON.stringify(msg));
+          }
+        }
+
+        function render() {
+          var el = document.getElementById('widget');
+          el.innerHTML = '';
+          if (!sitekey) {
+            post({ error: 'missing_sitekey' });
+            return;
+          }
+          if (!window.turnstile) {
+            statusEl.hidden = false;
+            return;
+          }
+          statusEl.hidden = true;
+          window.turnstile.render(el, {
+            sitekey: sitekey,
+            theme: 'auto',
+            size: 'normal',
+            callback: function (token) {
+              post({ token: token });
+            },
+            'expired-callback': function () {
+              post({ expired: true });
+            },
+            'error-callback': function () {
+              post({ error: 'widget_error' });
+            },
+          });
+        }
+
+        var s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        s.async = true;
+        s.onload = render;
+        s.onerror = function () {
+          post({ error: 'script_failed' });
+        };
+        document.head.appendChild(s);
+
+        // The app can request a fresh token: ref.postMessage('{"type":"refresh"}')
+        window.addEventListener('message', function (e) {
+          var data = e.data;
+          try {
+            data = typeof data === 'string' ? JSON.parse(data) : data;
+          } catch (_) {
+            return;
+          }
+          if (data && data.type === 'refresh') render();
+        });
+      })();
+    </script>
+  </body>
+</html>
