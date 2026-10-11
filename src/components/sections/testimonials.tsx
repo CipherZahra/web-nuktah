@@ -55,7 +55,7 @@ export function Testimonials() {
               <div className="border-t border-border/40 pt-4">
                 <div className="font-medium text-sm text-text-primary">{t("name")}</div>
                 <div className="text-xs text-text-muted mt-0.5">
-                  {item.role}، {item.location}
+                  {item.role} · {item.location}
                 </div>
               </div>
             </motion.div>

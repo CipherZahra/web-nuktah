@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Smartphone } from "lucide-react";
+import { Play, Smartphone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n";
+
+const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
 export function Download() {
   const t = useTranslations("download");
@@ -29,24 +32,20 @@ export function Download() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 text-text-primary">
             {t("title")}
           </h2>
-          <p className="text-lg text-text-secondary max-w-lg mx-auto mb-10">
+          <p className="text-lg text-text-secondary max-w-lg mx-auto mb-3">
             {t("subtitle")}
           </p>
+          <p className="text-xs font-medium text-accent mb-10">{t("betaNotice")}</p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button size="xl" asChild>
-              <a href="#">
-                {t("ctaApk")}
-                <ArrowLeft className="mr-2 h-5 w-5" />
+              <a href={PLAY_URL} target="_blank" rel="noopener noreferrer">
+                <Play className="h-5 w-5" />
+                {t("ctaPlay")}
               </a>
             </Button>
-            <Button size="xl" variant="outline" disabled asChild>
-              <a href="#" className="opacity-60 cursor-not-allowed">
-                {t("ctaPlay")}
-                <span className="mr-2 text-[10px] text-text-muted font-normal">
-                  {t("ctaPlaySoon")}
-                </span>
-              </a>
+            <Button size="xl" variant="outline" asChild>
+              <Link href="/download">{t("moreInfo")}</Link>
             </Button>
           </div>
         </motion.div>

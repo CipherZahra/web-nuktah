@@ -122,9 +122,9 @@
     "label": "تحميل التطبيق",
     "title": "ابدأ باستخدام نقطة اليوم",
     "subtitle": "حمّل التطبيق الآن وابدأ في توفير الوقت وتنظيم درجات طلابك.",
-    "ctaApk": "تحميل APK",
-    "ctaPlay": "Google Play",
-    "ctaPlaySoon": "قريباً على Google Play"
+    "ctaPlay": "انضم للتجربة على Google Play",
+    "betaNotice": "نسخة تجريبية مغلقة — انضم من رابط الاختبار",
+    "moreInfo": "كل خيارات التحميل"
   },
   "contact": {
     "label": "تواصل معنا",
@@ -132,10 +132,7 @@
     "subtitle": "نسعد بتواصلك معنا لأي استفسار أو اقتراح.",
     "email": "البريد الإلكتروني",
     "emailValue": "support@nuktah.app",
-    "namePlaceholder": "الاسم",
-    "emailPlaceholder": "البريد الإلكتروني",
-    "messagePlaceholder": "رسالتك...",
-    "submit": "إرسال"
+    "supportLink": "صفحة الدعم"
   },
   "footer": {
     "tagline": "تطبيق ذكي لإدارة درجات الطلاب",

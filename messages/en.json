@@ -122,9 +122,9 @@
     "label": "Get the app",
     "title": "Start using Nuktah today",
     "subtitle": "Download the app now and start saving time and organizing your students' grades.",
-    "ctaApk": "Download APK",
-    "ctaPlay": "Google Play",
-    "ctaPlaySoon": "Coming soon to Google Play"
+    "ctaPlay": "Join the beta on Google Play",
+    "betaNotice": "Closed testing — join from the testing link",
+    "moreInfo": "All download options"
   },
   "contact": {
     "label": "Contact",
@@ -132,10 +132,7 @@
     "subtitle": "We'd love to hear from you — for any question or suggestion.",
     "email": "Email",
     "emailValue": "support@nuktah.app",
-    "namePlaceholder": "Name",
-    "emailPlaceholder": "Email",
-    "messagePlaceholder": "Your message...",
-    "submit": "Send"
+    "supportLink": "Support page"
   },
   "footer": {
     "tagline": "A smart app for student grade management",
