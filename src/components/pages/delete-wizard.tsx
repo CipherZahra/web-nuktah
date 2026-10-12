@@ -278,7 +278,7 @@ export function DeleteWizard() {
         </div>
       )}
 
-      {step === 4 && <p className="text-sm font-bold text-accent">{t("successMsg")}</p>}
+      {step === 4 && <p className="text-sm font-bold text-accent-hover">{t("successMsg")}</p>}
     </div>
   );
 }

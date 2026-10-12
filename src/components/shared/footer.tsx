@@ -37,7 +37,7 @@ export function Footer() {
               {t("developedBy")}{" "}
               <a
                 href="https://github.com/CipherZahra"
-                className="text-accent hover:text-accent-hover transition-colors duration-200 font-medium"
+                className="text-accent-hover hover:text-emerald-800 transition-colors duration-200 font-medium"
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -55,7 +55,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-text-secondary hover:text-accent transition-colors duration-200"
+                  className="text-sm text-text-secondary hover:text-accent-hover transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -71,7 +71,7 @@ export function Footer() {
               <Link
                 href="/support"
                 aria-label={t("support")}
-                className="w-10 h-10 rounded-xl bg-accent-subtle border border-accent/10 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/30 hover:bg-accent/5 transition-all duration-200"
+                className="w-10 h-10 rounded-xl bg-accent-subtle border border-accent/10 flex items-center justify-center text-text-secondary hover:text-accent-hover hover:border-accent/30 hover:bg-accent/5 transition-all duration-200"
               >
                 <Mail size={18} />
               </Link>

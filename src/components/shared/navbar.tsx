@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -17,10 +18,18 @@ const navLinks = [
   { href: "/guides", key: "guides" },
 ];
 
+function useIsActive() {
+  const pathname = usePathname();
+  const stripped = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
+  return (href: string) =>
+    href === "/" ? stripped === "/" : stripped === href || stripped.startsWith(`${href}/`);
+}
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = useTranslations("nav");
+  const isActive = useIsActive();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -65,9 +74,18 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary rounded-lg hover:bg-accent-subtle transition-all duration-200"
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={cn(
+                "relative px-4 py-2 text-sm rounded-lg transition-all duration-200",
+                isActive(link.href)
+                  ? "text-text-primary font-semibold"
+                  : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
+              )}
             >
               {t(link.key)}
+              {isActive(link.href) && (
+                <span className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-accent" />
+              )}
             </Link>
           ))}
         </div>
@@ -106,7 +124,13 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="px-4 py-3 text-text-secondary hover:text-text-primary rounded-lg hover:bg-accent-subtle transition-all duration-200"
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={cn(
+                    "px-4 py-3 rounded-lg transition-all duration-200",
+                    isActive(link.href)
+                      ? "text-text-primary font-semibold bg-accent-subtle"
+                      : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
+                  )}
                 >
                   {t(link.key)}
                 </Link>

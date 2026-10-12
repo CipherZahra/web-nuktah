@@ -30,7 +30,7 @@ export default function NotFound() {
               fontSize: "0.75rem",
               fontWeight: 700,
               letterSpacing: "0.06em",
-              color: "#94A3B8",
+              color: "#64748B",
             }}
           >
             404

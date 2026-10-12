@@ -25,7 +25,7 @@ export function PaymentResult({ kind }: { kind: "success" | "failure" }) {
         >
           {success ? <CheckCircle2 size={32} /> : <XCircle size={32} />}
         </div>
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-text-primary mb-2" dir="rtl">
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-text-primary mb-2 text-balance" dir="rtl">
           {titleAr}
         </h1>
         <p className="text-lg font-semibold text-text-secondary mb-4" dir="ltr">

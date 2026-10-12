@@ -15,12 +15,12 @@ export function LegalPage({ kind, lang }: { kind: LegalKind; lang: LegalLang }) 
     <>
       <section className="pt-32 md:pt-40 pb-12 md:pb-16 bg-white border-b border-border-subtle">
         <div className="container-main max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-text-primary mb-5">
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-text-primary mb-5 text-balance">
             {t.title}
           </h1>
           <p className="text-sm text-text-muted flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
             <span>{updated}</span>
-            <a href="mailto:support@nuktah.app" className="hover:text-accent transition-colors">
+            <a href="mailto:support@nuktah.app" className="hover:text-accent-hover transition-colors">
               support@nuktah.app
             </a>
           </p>

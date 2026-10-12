@@ -67,7 +67,7 @@ export function Screenshots() {
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={prev}
-              className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center hover:border-accent/50 hover:bg-accent-subtle transition-all duration-200 text-text-secondary hover:text-accent"
+              className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center hover:border-accent/50 hover:bg-accent-subtle transition-all duration-200 text-text-secondary hover:text-accent-hover"
               aria-label={t("prev")}
             >
               <PrevIcon size={18} />
@@ -88,7 +88,7 @@ export function Screenshots() {
 
             <button
               onClick={next}
-              className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center hover:border-accent/50 hover:bg-accent-subtle transition-all duration-200 text-text-secondary hover:text-accent"
+              className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center hover:border-accent/50 hover:bg-accent-subtle transition-all duration-200 text-text-secondary hover:text-accent-hover"
               aria-label={t("next")}
             >
               <NextIcon size={18} />

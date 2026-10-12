@@ -78,7 +78,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-subtle border border-accent/15 text-accent text-xs font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-subtle border border-accent/15 text-accent-hover text-xs font-medium mb-8">
               {t("badge")}
             </div>
 
@@ -87,14 +87,14 @@ export function Hero() {
                 <span className="text-white font-bold text-3xl">ن</span>
               </div>
               <div>
-                <h1 className="text-4xl font-bold text-text-primary">نقطة</h1>
+                <p className="text-4xl font-bold text-text-primary">نقطة</p>
                 <p className="text-sm text-text-secondary">Nuktah</p>
               </div>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-6 text-text-primary">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-6 text-text-primary text-balance">
               {t("title")}
-            </h2>
+            </h1>
 
             <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-10 max-w-xl">
               {t("subtitle")}

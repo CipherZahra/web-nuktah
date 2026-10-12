@@ -20,7 +20,7 @@ export function DownloadPage() {
       <section className="py-16 md:py-24">
         <div className="container-main max-w-4xl mx-auto">
           <div className="rounded-2xl border border-accent/20 bg-accent-subtle p-8 md:p-10 text-center mb-14">
-            <p className="text-xs font-semibold text-accent mb-4">{t("betaNotice")}</p>
+            <p className="text-xs font-semibold text-accent-hover mb-4">{t("betaNotice")}</p>
             <a
               href={PLAY_URL}
               target="_blank"

@@ -36,7 +36,7 @@ export function GuidesList({
                       <BookOpen size={18} />
                     </div>
                     <div className="flex-1">
-                      <h2 className="font-bold text-lg text-text-primary mb-1 group-hover:text-accent transition-colors duration-200">
+                      <h2 className="font-bold text-lg text-text-primary mb-1 group-hover:text-accent-hover transition-colors duration-200">
                         {guide.title}
                       </h2>
                       <p className="text-sm text-text-secondary leading-relaxed mb-3">

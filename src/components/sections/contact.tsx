@@ -30,7 +30,7 @@ export function Contact() {
           <div className="rounded-2xl border border-accent/20 bg-accent-subtle p-8">
             <a
               href="mailto:support@nuktah.app"
-              className="inline-flex items-center gap-3 text-lg font-semibold text-text-primary hover:text-accent transition-colors duration-200 mb-6"
+              className="inline-flex items-center gap-3 text-lg font-semibold text-text-primary hover:text-accent-hover transition-colors duration-200 mb-6"
             >
               <span className="w-11 h-11 rounded-xl bg-accent text-white flex items-center justify-center shadow-glow">
                 <Mail size={20} />

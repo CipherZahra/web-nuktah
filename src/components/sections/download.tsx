@@ -35,7 +35,7 @@ export function Download() {
           <p className="text-lg text-text-secondary max-w-lg mx-auto mb-3">
             {t("subtitle")}
           </p>
-          <p className="text-xs font-medium text-accent mb-10">{t("betaNotice")}</p>
+          <p className="text-xs font-medium text-accent-hover mb-10">{t("betaNotice")}</p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button size="xl" asChild>

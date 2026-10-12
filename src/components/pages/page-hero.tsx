@@ -11,7 +11,7 @@ export function PageHero({ ns }: { ns: string }) {
         <span className="text-xs font-semibold text-text-muted tracking-wider mb-4 block">
           {t("title")}
         </span>
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-text-primary">
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-text-primary text-balance">
           {t("h1")}
         </h1>
         <p className="text-text-secondary text-lg leading-relaxed">{t("lead")}</p>

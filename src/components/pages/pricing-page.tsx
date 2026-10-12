@@ -33,7 +33,7 @@ export function PricingPage() {
             {chips.map((chip) => (
               <span
                 key={chip}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-accent-subtle border border-accent/10 text-sm font-medium text-accent"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-accent-subtle border border-accent/10 text-sm font-medium text-accent-hover"
               >
                 <Check size={14} />
                 {chip}

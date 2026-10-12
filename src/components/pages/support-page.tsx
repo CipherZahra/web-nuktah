@@ -27,7 +27,7 @@ export function SupportPage() {
               </div>
               <h3 className="font-bold text-text-primary mb-2">{t("faqTitle")}</h3>
               <p className="text-sm text-text-secondary leading-relaxed mb-4">{t("faqText")}</p>
-              <Link href="/faq" className="text-sm font-medium text-accent hover:text-accent-hover transition-colors duration-200">
+              <Link href="/faq" className="text-sm font-medium text-accent-hover hover:text-accent-hover transition-colors duration-200">
                 {t("faqCta")} →
               </Link>
             </div>
@@ -37,7 +37,7 @@ export function SupportPage() {
               </div>
               <h3 className="font-bold text-text-primary mb-2">{t("guidesTitle")}</h3>
               <p className="text-sm text-text-secondary leading-relaxed mb-4">{t("guidesText")}</p>
-              <Link href="/guides" className="text-sm font-medium text-accent hover:text-accent-hover transition-colors duration-200">
+              <Link href="/guides" className="text-sm font-medium text-accent-hover hover:text-accent-hover transition-colors duration-200">
                 {t("guidesCta")} →
               </Link>
             </div>
@@ -74,16 +74,16 @@ export function SupportPage() {
               {t("linksTitle")}
             </h3>
             <div className="flex flex-wrap gap-3">
-              <Link href="/privacy" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent transition-all duration-200">
+              <Link href="/privacy" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
                 {t("linkPrivacy")}
               </Link>
-              <Link href="/terms" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent transition-all duration-200">
+              <Link href="/terms" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
                 {t("linkTerms")}
               </Link>
-              <Link href="/delete" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent transition-all duration-200">
+              <Link href="/delete" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
                 {t("linkDelete")}
               </Link>
-              <Link href="/pricing" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent transition-all duration-200">
+              <Link href="/pricing" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
                 {t("linkPricing")}
               </Link>
             </div>
