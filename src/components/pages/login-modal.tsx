@@ -20,6 +20,7 @@ declare global {
     turnstile?: {
       render: (el: HTMLElement, opts: Record<string, unknown>) => string;
       reset: (id: string) => void;
+      remove: (id: string) => void;
     };
   }
 }
@@ -92,9 +93,22 @@ export function LoginModal({
     document.head.appendChild(ts);
   }, []);
 
+  // Remove the previous widget through the API before wiping its DOM —
+  // innerHTML alone orphans the instance and Turnstile logs
+  // "Cannot find Widget … consider using turnstile.remove()" (StrictMode
+  // double-mounts this effect in dev, so this path runs for real).
+  const destroyWidget = useCallback(() => {
+    if (widgetIdRef.current && window.turnstile) {
+      window.turnstile.remove(widgetIdRef.current);
+    }
+    widgetIdRef.current = null;
+    if (twRef.current) twRef.current.innerHTML = "";
+    tokenRef.current = "";
+  }, []);
+
   const renderWidget = useCallback(() => {
     if (!window.turnstile || !twRef.current) return;
-    twRef.current.innerHTML = "";
+    destroyWidget();
     widgetIdRef.current = window.turnstile.render(twRef.current, {
       sitekey: TURNSTILE_SITEKEY,
       theme: "auto",
@@ -108,7 +122,7 @@ export function LoginModal({
         tokenRef.current = "";
       },
     });
-  }, []);
+  }, [destroyWidget]);
 
   // While open: render (or re-render) the widget, focus the email field,
   // lock page scroll, and wire Escape at the document level. State resets
@@ -127,6 +141,12 @@ export function LoginModal({
     };
     document.addEventListener("keydown", onKey);
 
+    const cleanup = () => {
+      destroyWidget();
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+
     if (window.turnstile) {
       renderWidget();
     } else {
@@ -138,15 +158,11 @@ export function LoginModal({
       }, 100);
       return () => {
         clearInterval(iv);
-        document.removeEventListener("keydown", onKey);
-        document.body.style.overflow = prevOverflow;
+        cleanup();
       };
     }
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open, onClose, renderWidget]);
+    return cleanup;
+  }, [open, onClose, renderWidget, destroyWidget]);
 
   const trapFocus = (e: ReactKeyboardEvent<HTMLDivElement>) => {
     if (e.key !== "Tab" || !dialogRef.current) return;

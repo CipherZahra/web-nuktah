@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 
 export default function ArLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
+    <html lang="ar" dir="rtl" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${amiri.variable} ${plex.variable} font-sans antialiased`}>
         <NextIntlClientProvider
           locale="ar"

@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${amiri.variable} ${plex.variable} font-sans antialiased`}>
         <NextIntlClientProvider
           locale="en"
