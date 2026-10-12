@@ -87,7 +87,7 @@ export function Hero() {
                 <span className="text-white font-bold text-3xl">ن</span>
               </div>
               <div>
-                <p className="text-4xl font-bold text-text-primary">نقطة</p>
+                <p className="text-4xl font-bold text-text-primary font-display">نقطة</p>
                 <p className="text-sm text-text-secondary">Nuktah</p>
               </div>
             </div>

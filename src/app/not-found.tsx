@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <html lang="ar" dir="rtl">
-      <body className="antialiased" style={{ fontFamily: "Amiri, Tajawal, system-ui, sans-serif" }}>
+      <body className="antialiased" style={{ fontFamily: '"IBM Plex Sans Arabic", Tajawal, system-ui, sans-serif' }}>
         <main
           style={{
             minHeight: "100vh",

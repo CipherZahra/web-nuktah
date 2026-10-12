@@ -28,10 +28,15 @@
 }
 
 @theme {
-  --font-sans: "Amiri", "Tajawal", ui-serif, Georgia, serif;
+  --font-sans: "IBM Plex Sans Arabic", "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Amiri", ui-serif, Georgia, serif;
 }
 
 @layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-border-subtle) transparent;

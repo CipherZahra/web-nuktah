@@ -28,7 +28,7 @@ export function Footer() {
               <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center shadow-glow transition-shadow duration-300">
                 <span className="text-white font-bold text-sm">ن</span>
               </div>
-              <span className="font-bold text-xl tracking-tight text-text-primary">نقطة</span>
+              <span className="font-bold text-xl tracking-tight text-text-primary font-display">نقطة</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed max-w-xs mb-4">
               {t("tagline")}
