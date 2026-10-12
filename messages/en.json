@@ -208,6 +208,24 @@
     "featuredBadge": "Most popular",
     "buy": "Buy now",
     "perCredit": "DZD / credit",
+    "close": "Close",
+    "login": {
+      "title": "Log in",
+      "hint": "Don't have an account? Create it in the Nuktah app first, then log in here.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "working": "Working…"
+    },
+    "err": {
+      "captchaMissing": "Tick the verify box first.",
+      "captchaRejected": "Verification failed — please try again.",
+      "badCreds": "Incorrect email or password.",
+      "rate": "Too many attempts — wait a moment and try again.",
+      "confirm": "Confirm your email address in the Nuktah app first.",
+      "generic": "Something went wrong — please try again.",
+      "payFail": "Could not start checkout — please try again."
+    },
     "free": {
       "name": "Start for free",
       "desc": "2 scans + 1 import for every new account — no card needed.",

@@ -1,10 +1,14 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 import { Check, Sparkles } from "lucide-react";
+
 import { PageHero } from "@/components/pages/page-hero";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n";
+import { LoginModal } from "@/components/pages/login-modal";
+import { getValidSession, startCheckout } from "@/lib/checkout";
 
 type Plan = {
   name: string;
@@ -17,11 +21,49 @@ type Plan = {
 
 type FaqItem = { q: string; a: string };
 
+/** Server catalog order in supabase/functions/_shared/packages.ts. */
+const PACKAGE_IDS = ["starter", "standard", "plus", "teacher"];
+
 export function PricingPage() {
   const t = useTranslations("pricing");
+  const locale = useLocale();
   const plans = t.raw("plans") as Plan[];
   const chips = t.raw("chips") as string[];
   const faqItems = t.raw("faqItems") as FaqItem[];
+
+  const [busyIdx, setBusyIdx] = useState<number | null>(null);
+  const [modalIdx, setModalIdx] = useState<number | null>(null);
+  const [payError, setPayError] = useState(false);
+
+  const runCheckout = async (idx: number) => {
+    setPayError(false);
+    setBusyIdx(idx);
+    try {
+      // Redirects the browser to the Chargily hosted page; on success the
+      // navigation never returns, so busy state persists until then.
+      await startCheckout(PACKAGE_IDS[idx], locale);
+      setBusyIdx(null);
+    } catch {
+      setBusyIdx(null);
+      setPayError(true);
+    }
+  };
+
+  const handleBuy = async (idx: number) => {
+    setPayError(false);
+    try {
+      const session = await getValidSession();
+      if (!session) {
+        setModalIdx(idx);
+        return;
+      }
+      await runCheckout(idx);
+    } catch {
+      setPayError(true);
+    }
+  };
+
+  const pendingPlan = modalIdx !== null ? plans[modalIdx] : null;
 
   return (
     <>
@@ -48,6 +90,7 @@ export function PricingPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {plans.map((plan, i) => {
               const featured = i === 1;
+              const busy = busyIdx === i;
               return (
                 <div
                   key={plan.name}
@@ -63,20 +106,29 @@ export function PricingPage() {
                       {t("featuredBadge")}
                     </span>
                   )}
-                  <h3 className="font-bold text-lg text-text-primary mb-1">{plan.name}</h3>
+                  <h3 className="font-bold text-lg text-text-primary mb-1">
+                    {plan.name}
+                  </h3>
                   <p className="text-sm text-text-muted mb-4">{plan.tag}</p>
                   <div className="flex items-baseline gap-1.5 mb-1">
                     <span className="text-4xl font-extrabold text-text-primary">
                       {plan.price}
                     </span>
-                    <span className="text-sm text-text-secondary">{plan.priceUnit}</span>
+                    <span className="text-sm text-text-secondary">
+                      {plan.priceUnit}
+                    </span>
                   </div>
                   <p className="text-sm text-text-secondary mb-6">
                     {plan.credits} {plan.creditsUnit}
                   </p>
                   <div className="mt-auto">
-                    <Button className="w-full" variant={featured ? "default" : "outline"} asChild>
-                      <Link href="/download">{t("buy")}</Link>
+                    <Button
+                      className="w-full"
+                      variant={featured ? "default" : "outline"}
+                      disabled={busyIdx !== null}
+                      onClick={() => void handleBuy(i)}
+                    >
+                      {busy ? t("login.working") : t("buy")}
                     </Button>
                   </div>
                 </div>
@@ -84,10 +136,21 @@ export function PricingPage() {
             })}
           </div>
 
+          <p
+            role="alert"
+            className="text-center text-sm text-red-600 mt-4 max-w-6xl mx-auto"
+          >
+            {payError ? t("err.payFail") : ""}
+          </p>
+
           <div className="max-w-6xl mx-auto mt-8 rounded-2xl border border-accent/20 bg-accent-subtle p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex-1">
-              <h3 className="font-bold text-lg text-text-primary mb-1">{t("free.name")}</h3>
-              <p className="text-sm text-text-secondary mb-1">{t("free.desc")}</p>
+              <h3 className="font-bold text-lg text-text-primary mb-1">
+                {t("free.name")}
+              </h3>
+              <p className="text-sm text-text-secondary mb-1">
+                {t("free.desc")}
+              </p>
               <p className="text-xs text-text-muted">{t("free.stateNote")}</p>
             </div>
             <Button asChild className="shrink-0">
@@ -109,13 +172,34 @@ export function PricingPage() {
           <div className="space-y-6">
             {faqItems.map((item) => (
               <div key={item.q}>
-                <h3 className="font-semibold text-text-primary mb-2">{item.q}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{item.a}</p>
+                <h3 className="font-semibold text-text-primary mb-2">
+                  {item.q}
+                </h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {item.a}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <LoginModal
+        key={modalIdx ?? "closed"}
+        open={modalIdx !== null}
+        packName={pendingPlan?.name}
+        packMeta={
+          pendingPlan
+            ? `${pendingPlan.credits} ${pendingPlan.creditsUnit} · ${pendingPlan.price} ${pendingPlan.priceUnit}`
+            : undefined
+        }
+        onClose={() => setModalIdx(null)}
+        onSuccess={() => {
+          const idx = modalIdx;
+          setModalIdx(null);
+          if (idx !== null) void runCheckout(idx);
+        }}
+      />
     </>
   );
 }
