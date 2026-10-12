@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/pages/legal-page";
+import { JsonLd } from "@/components/seo/json-ld";
+import { canonical, legalJsonLd } from "@/lib/jsonld";
 import arMessages from "../../../../messages/ar.json";
 
 export const metadata: Metadata = {
   title: `${arMessages.legal.terms.title} — نقطة`,
+  ...canonical("/terms"),
 };
 
 export default function Page() {
-  return <LegalPage kind="terms" lang="ar" />;
+  return (
+    <>
+      <JsonLd data={legalJsonLd("ar", arMessages.legal.terms.title, "/terms")} />
+      <LegalPage kind="terms" lang="ar" />
+    </>
+  );
 }

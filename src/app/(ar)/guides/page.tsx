@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { getGuides, formatGuideDate } from "@/lib/guides";
 import { GuidesList } from "@/components/pages/guides-index";
 import arMessages from "../../../../messages/ar.json";
+import { canonical } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: `${arMessages.guides.title} — نقطة`,
+  ...canonical("/guides"),
   description: arMessages.guides.lead,
 };
 

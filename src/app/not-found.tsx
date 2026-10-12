@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default function NotFound() {
           <p style={{ color: "#475569", margin: 0, maxWidth: "28rem" }}>
             الرابط الذي فتحته غير صالح أو نُقل إلى صفحة أخرى.
           </p>
-          <a
+          <Link
             href="/"
             style={{
               marginTop: "0.5rem",
@@ -53,11 +54,16 @@ export default function NotFound() {
             }}
           >
             العودة إلى الرئيسية
-          </a>
+          </Link>
           <p style={{ fontSize: "0.875rem" }}>
-            <a href="/en/" lang="en" dir="ltr" style={{ color: "#059669", textDecoration: "underline" }}>
+            <Link
+              href="/en/"
+              lang="en"
+              dir="ltr"
+              style={{ color: "#059669", textDecoration: "underline" }}
+            >
               English version
-            </a>
+            </Link>
           </p>
         </main>
       </body>

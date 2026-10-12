@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getGuide, getGuides, formatGuideDate } from "@/lib/guides";
+import { canonical } from "@/lib/jsonld";
 import { GuideArticle } from "@/components/pages/guide-article";
 
 export function generateStaticParams() {
@@ -15,7 +16,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const guide = getGuide("en", slug);
   if (!guide) return {};
-  return { title: `${guide.title} — Nuktah`, description: guide.excerpt };
+  return { title: `${guide.title} — Nuktah`, description: guide.excerpt, ...canonical(`/en/guides/${slug}`) };
 }
 
 export default async function Page({

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CheckCircle2, XCircle } from "lucide-react";
 
 const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
@@ -45,19 +46,19 @@ export function PaymentResult({ kind }: { kind: "success" | "failure" }) {
           >
             افتح التطبيق · Open the app
           </a>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center justify-center h-12 px-6 rounded-xl border border-border/60 text-text-primary text-sm font-medium hover:bg-card-bg hover:border-accent/50 transition-all duration-200"
           >
             الرئيسية · Home
-          </a>
-          <a
+          </Link>
+          <Link
             href="/en/"
             lang="en"
             className="inline-flex items-center justify-center h-12 px-6 rounded-xl border border-border/60 text-text-secondary text-sm font-medium hover:bg-card-bg hover:border-accent/50 transition-all duration-200"
           >
             English
-          </a>
+          </Link>
         </div>
       </div>
     </section>

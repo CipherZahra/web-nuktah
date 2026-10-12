@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { getGuides, formatGuideDate } from "@/lib/guides";
 import { GuidesList } from "@/components/pages/guides-index";
 import enMessages from "../../../../../messages/en.json";
+import { canonical } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: `${enMessages.guides.title} — Nuktah`,
+  ...canonical("/en/guides"),
   description: enMessages.guides.lead,
 };
 

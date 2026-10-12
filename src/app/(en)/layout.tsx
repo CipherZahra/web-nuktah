@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
 import { Amiri } from "next/font/google";
+import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
 import type { Metadata } from "next";
@@ -42,7 +43,6 @@ export const metadata: Metadata = {
     siteName: "Nuktah",
     title: enMessages.seo.ogTitle,
     description: enMessages.seo.ogDescription,
-    url: "https://nuktah.app/en",
     images: [{ url: "https://nuktah.app/og.png", width: 1200, height: 630, alt: "Nuktah" }],
   },
   twitter: {
@@ -53,9 +53,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
-  alternates: {
-    canonical: "https://nuktah.app/en",
   },
 };
 
@@ -70,9 +67,17 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
           formats={{}}
           now={BUILD_TIME}
         >
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <MotionConfig reducedMotion="user">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
+            >
+              {enMessages.nav.skipToContent}
+            </a>
+            <Navbar />
+            <main id="main-content">{children}</main>
+            <Footer />
+          </MotionConfig>
         </NextIntlClientProvider>
       </body>
     </html>
