@@ -28,8 +28,8 @@
 }
 
 @theme {
-  --font-sans: "IBM Plex Sans Arabic", "Tajawal", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Amiri", ui-serif, Georgia, serif;
+  --font-sans: var(--font-ui), "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-amiri), ui-serif, Georgia, serif;
 }
 
 @layer base {

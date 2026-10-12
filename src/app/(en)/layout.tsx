@@ -1,24 +1,10 @@
 import { NextIntlClientProvider } from "next-intl";
-import { Amiri, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
+import { amiri, plex } from "@/fonts";
 import type { Metadata } from "next";
 import enMessages from "../../../messages/en.json";
-
-const amiri = Amiri({
-  subsets: ["latin", "arabic"],
-  weight: ["400", "700"],
-  display: "swap",
-  variable: "--font-amiri",
-});
-
-const plex = IBM_Plex_Sans_Arabic({
-  subsets: ["latin", "arabic"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-ui",
-});
 
 const BUILD_TIME = new Date();
 
@@ -65,8 +51,14 @@ export const metadata: Metadata = {
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" dir="ltr" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={`${amiri.variable} ${plex.variable} font-sans antialiased`}>
+    <html
+      lang="en"
+      dir="ltr"
+      data-scroll-behavior="smooth"
+      className={`${amiri.variable} ${plex.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans antialiased">
         <NextIntlClientProvider
           locale="en"
           messages={enMessages}
