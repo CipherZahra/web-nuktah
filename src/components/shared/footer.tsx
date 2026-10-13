@@ -57,7 +57,6 @@ export function Footer() {
     { label: t("download"), href: "/download" },
     { label: t("privacy"), href: "/privacy" },
     { label: t("terms"), href: "/terms" },
-    { label: t("deleteAccount"), href: "/delete" },
   ];
 
   return (

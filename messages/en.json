@@ -124,7 +124,6 @@
     "support": "Support",
     "privacy": "Privacy policy",
     "terms": "Terms of use",
-    "deleteAccount": "Delete account",
     "copyright": "© 2026 Nuktah. All rights reserved."
   },
   "seo": {
@@ -297,7 +296,7 @@
       {
         "cat": "account",
         "q": "How do I delete my account?",
-        "a": "From the «Delete account» page on the web — confirmed by email, straight away and without a support ticket."
+        "a": "From inside the app: Profile → Delete account — confirmed by email, straight away."
       },
       {
         "cat": "account",
@@ -317,16 +316,10 @@
     "betaNotice": "Closed testing — join from the testing link",
     "needsTitle": "What you need",
     "needsItems": [
-      "An Android phone with a camera.",
+      "An Android phone (8.0 or later) with a camera.",
       "An internet connection while scanning.",
-      "The original ministry file — all three levels: primary, middle school, secondary — to create classes automatically.",
+      "The original ministry file (.xlsx or .xls).",
       "An email address for a free account."
-    ],
-    "requirementsTitle": "Requirements",
-    "requirements": [
-      "Android 8.0 or later.",
-      "Internet connection while scanning a sheet.",
-      "Excel file from the original ministry template (.xlsx or .xls)."
     ],
     "qrAlt": "Scan the QR code to download Nuktah",
     "qrCaption": "Scan the code to get the app",
@@ -397,7 +390,6 @@
     "linksTitle": "Useful links",
     "linkPrivacy": "Privacy policy",
     "linkTerms": "Terms of use",
-    "linkDelete": "Delete account",
     "linkPricing": "Pricing"
   },
   "guides": {
@@ -416,30 +408,6 @@
     },
     "terms": {
       "title": "Terms of use"
-    },
-    "delete": {
-      "title": "Delete account"
-    },
-    "deleteWizard": {
-      "emailLabel": "Account email",
-      "sendBtn": "Send verification link",
-      "sendingBtn": "Sending…",
-      "sentMsg": "We sent a link to {email} — open it in this browser, then come back here to finish.",
-      "codeLabel": "Or enter the code from the email:",
-      "verifyBtn": "Verify and continue",
-      "verifyingBtn": "Verifying…",
-      "resendBtn": "Resend link",
-      "backBtn": "Back",
-      "confirmMsg": "You are about to permanently delete {email}. This cannot be undone.",
-      "deleteBtn": "Permanently delete my account",
-      "deletingBtn": "Deleting…",
-      "cancelBtn": "Cancel",
-      "successMsg": "✓ Your account has been permanently deleted.",
-      "errEmail": "Enter a valid email address.",
-      "errCaptcha": "Complete the verification first.",
-      "errSend": "Could not send the link. Try again.",
-      "errVerify": "Verification failed. Check the link or code.",
-      "errDelete": "Could not delete the account. Try again."
     }
   },
   "payment": {

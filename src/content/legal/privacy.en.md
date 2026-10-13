@@ -98,7 +98,7 @@ After you confirm the deletion, the account and the data linked to it are remove
 
 Some records may remain with service providers, or records that must be kept by law or for legitimate security purposes, within what is permitted.
 
-If you cannot access the app, you can request account deletion through the account-deletion form available on our website, or contact us at:
+If you cannot access the app, you can request account deletion by contacting us at:
 
 **support@nuktah.app**
 

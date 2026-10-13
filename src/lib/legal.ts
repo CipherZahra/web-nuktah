@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { renderGuideBody } from "./guides-md";
 
-export type LegalKind = "privacy" | "terms" | "delete";
+export type LegalKind = "privacy" | "terms";
 export type LegalLang = "ar" | "en";
 
 const cache = new Map<string, string>();

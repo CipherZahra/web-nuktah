@@ -80,9 +80,6 @@ export function SupportPage() {
               <Link href="/terms" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
                 {t("linkTerms")}
               </Link>
-              <Link href="/delete" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
-                {t("linkDelete")}
-              </Link>
               <Link href="/pricing" className="px-4 py-2 rounded-lg border border-border/60 bg-white text-sm text-text-secondary hover:border-accent/30 hover:text-accent-hover transition-all duration-200">
                 {t("linkPricing")}
               </Link>

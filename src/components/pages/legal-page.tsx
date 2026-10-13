@@ -1,6 +1,5 @@
 import { getLegalHtml } from "@/lib/legal";
 import type { LegalKind } from "@/lib/legal";
-import { DeleteWizard } from "./delete-wizard";
 import arMessages from "../../../messages/ar.json";
 import enMessages from "../../../messages/en.json";
 
@@ -33,7 +32,6 @@ export function LegalPage({ kind, lang }: { kind: LegalKind; lang: LegalLang }) 
             className="prose-nuktah text-text-secondary leading-relaxed"
             dangerouslySetInnerHTML={{ __html: html }}
           />
-          {kind === "delete" && <DeleteWizard />}
         </div>
       </section>
     </>
