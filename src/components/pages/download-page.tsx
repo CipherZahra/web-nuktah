@@ -32,32 +32,36 @@ export function DownloadPage() {
             </a>
           </div>
 
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-6 text-text-primary">
-              {t("needsTitle")}
-            </h2>
-            <ul className="space-y-3 mb-10">
-              {(t.raw("needsItems") as string[]).map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed text-start">
-                  <Check size={16} className="text-accent shrink-0 mt-0.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex flex-col items-center gap-3 rounded-2xl border border-accent/20 bg-accent-subtle px-8 py-6">
-                <img
-                  src="/qr-play.png"
-                  alt={t("qrAlt")}
-                  className="w-64 h-64 md:w-72 md:h-72 rounded-2xl border-2 border-accent/25 bg-white p-3 shadow-glow"
-                />
-                <span className="text-sm font-medium text-accent-hover text-center">
-                  {t("qrCaption")}
-                </span>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-6 text-text-primary">
+                  {t("needsTitle")}
+                </h2>
+                <ul className="space-y-3 mb-8">
+                  {(t.raw("needsItems") as string[]).map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-text-secondary leading-relaxed">
+                      <Check size={16} className="text-accent shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild>
+                  <Link href="/pricing">{t("ctaPricing")}</Link>
+                </Button>
               </div>
-              <Button asChild>
-                <Link href="/pricing">{t("ctaPricing")}</Link>
-              </Button>
+              <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-3 rounded-2xl border border-accent/20 bg-accent-subtle px-8 py-6">
+                  <img
+                    src="/qr-play.png"
+                    alt={t("qrAlt")}
+                    className="w-56 h-56 md:w-64 md:h-64 rounded-2xl border-2 border-accent/25 bg-white p-3 shadow-glow"
+                  />
+                  <span className="text-sm font-medium text-accent-hover text-center">
+                    {t("qrCaption")}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
