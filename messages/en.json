@@ -106,14 +106,6 @@
   "download": {
     "ctaPlay": "Join the beta on Google Play"
   },
-  "contact": {
-    "label": "Contact",
-    "title": "Have a question?",
-    "subtitle": "We'd love to hear from you — for any question or suggestion.",
-    "email": "Email",
-    "emailValue": "support@nuktah.app",
-    "supportLink": "Support page"
-  },
   "footer": {
     "tagline": "A smart app for student grade management",
     "developedBy": "The Nuktah app is developed by",

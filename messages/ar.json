@@ -106,14 +106,6 @@
   "download": {
     "ctaPlay": "انضم للتجربة على Google Play"
   },
-  "contact": {
-    "label": "تواصل معنا",
-    "title": "لديك سؤال؟",
-    "subtitle": "نسعد بتواصلك معنا لأي استفسار أو اقتراح.",
-    "email": "البريد الإلكتروني",
-    "emailValue": "support@nuktah.app",
-    "supportLink": "صفحة الدعم"
-  },
   "footer": {
     "tagline": "تطبيق ذكي لإدارة درجات الطلاب",
     "developedBy": "تم تطوير تطبيق نقطة بواسطة",
