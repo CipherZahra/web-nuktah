@@ -11,45 +11,12 @@ const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 function PhoneMockup() {
   return (
     <div className="relative mx-auto w-[280px] md:w-[320px]">
-      <div className="relative rounded-[3rem] border-[3px] border-gray-300 bg-white shadow-xl overflow-hidden aspect-[9/19]">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-6 bg-gray-300 rounded-b-2xl z-10" />
-        <div className="pt-8 pb-4 px-4 h-full flex flex-col">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
-              <span className="text-accent text-[10px] font-bold">ن</span>
-            </div>
-            <div className="text-[10px] text-text-muted font-medium">القسم 3أ</div>
-          </div>
-
-          <div className="text-center mb-4">
-            <div className="text-[10px] text-text-muted mb-0.5">امتحان الرياضيات</div>
-            <div className="text-lg font-bold text-accent">14.6</div>
-            <div className="text-[9px] text-text-muted">المعدل العام</div>
-          </div>
-
-          <div className="flex-1 space-y-1.5">
-            {[
-              { name: "سارة", grade: "18", pct: 90 },
-              { name: "محمد", grade: "16", pct: 80 },
-              { name: "أحمد", grade: "15", pct: 75 },
-              { name: "فاطمة", grade: "19", pct: 95 },
-              { name: "يوسف", grade: "12", pct: 60 },
-            ].map((s, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <div className="text-[10px] text-text-secondary w-10">{s.name}</div>
-                <div className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden">
-                  <div className="h-full rounded-full bg-accent/50" style={{ width: `${s.pct}%` }} />
-                </div>
-                <div className="text-[10px] font-semibold text-text-primary w-4 text-center">{s.grade}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
-            <div className="text-[9px] text-text-muted">إجمالي الطلاب</div>
-            <div className="text-xs font-bold">30</div>
-          </div>
-        </div>
+      <div className="relative rounded-[3rem] border-[3px] border-gray-300 bg-white shadow-xl overflow-hidden aspect-[569/1251]">
+        <img
+          src="/screens/hero-scan.png"
+          alt=""
+          className="w-full h-full object-cover"
+        />
       </div>
     </div>
   );

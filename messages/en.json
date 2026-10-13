@@ -14,8 +14,8 @@
   },
   "hero": {
     "badge": "For teachers in Algeria",
-    "title": "Photograph the sheet. Get the grades.",
-    "subtitle": "Nuktah reads handwritten grade sheets and matches every student by matricule — you review every result before saving, then export your class report.",
+    "title": "One mark on the sheet — and the late nights are over.",
+    "subtitle": "Nuktah reads your handwriting, returns every grade to its student by matricule, and leaves the final call to you.",
     "ctaPrimary": "Join the beta on Google Play",
     "ctaSecondary": "Pricing"
   },
@@ -42,7 +42,7 @@
   },
   "howItWorks": {
     "label": "How it works",
-    "title": "In five simple steps",
+    "title": "Five steps, and you're done",
     "subtitle": "We designed the app to be simple and fast, from start to finish.",
     "step1": "Choose the class",
     "step1Desc": "Pick the class whose grades you want to manage.",
@@ -57,7 +57,7 @@
   },
   "whyNuktah": {
     "label": "Why Nuktah",
-    "title": "Built for Algerian teachers",
+    "title": "Faithful to the Algerian gradebook",
     "subtitle": "Designed to save you time and cut down on mistakes.",
     "benefit1": "Saves time",
     "benefit1Desc": "Save hours every week with smart scanning of grade sheets.",
@@ -104,7 +104,7 @@
   },
   "faq": {
     "label": "FAQ",
-    "title": "Answers to your questions",
+    "title": "Questions teachers actually ask",
     "subtitle": "We answer the most common questions about the Nuktah app.",
     "q1": "Does the app work offline?",
     "a1": "Yes, you can use most features without an internet connection. Cloud sync requires the internet.",
@@ -121,7 +121,7 @@
   },
   "download": {
     "label": "Get the app",
-    "title": "Start using Nuktah today",
+    "title": "Your gradebook, in your pocket.",
     "subtitle": "Download the app now and start saving time and organizing your students' grades.",
     "ctaPlay": "Join the beta on Google Play",
     "betaNotice": "Closed testing — join from the testing link",
@@ -163,8 +163,8 @@
   },
   "pricing": {
     "title": "Pricing",
-    "h1": "Pay as you go — no subscription.",
-    "lead": "Buy credits whenever you need them — credits never expire and work across all your devices.",
+    "h1": "Pay as you go — no subscription",
+    "lead": "No subscription, no expiry — your credits stay with you until you need them, on all your devices.",
     "metricLine": "1 credit = 1 action: scan a sheet, import a file, or export — and your first import is free.",
     "chips": [
       "Credits never expire",
@@ -173,7 +173,7 @@
     ],
     "plans": [
       {
-        "name": "Starter",
+        "name": "Trial",
         "credits": "5",
         "creditsUnit": "credits",
         "price": "250",
@@ -181,7 +181,7 @@
         "tag": "A handful of sheets — try every feature"
       },
       {
-        "name": "Standard",
+        "name": "Class",
         "credits": "15",
         "creditsUnit": "credits",
         "price": "750",
@@ -189,7 +189,7 @@
         "tag": "Regular grading for a single class"
       },
       {
-        "name": "Plus",
+        "name": "Two Classes",
         "credits": "30",
         "creditsUnit": "credits",
         "price": "1300",
@@ -197,7 +197,7 @@
         "tag": "Heavy use across a full term"
       },
       {
-        "name": "Teacher",
+        "name": "Full Year",
         "credits": "75",
         "creditsUnit": "credits",
         "price": "3600",
@@ -205,7 +205,7 @@
         "tag": "Every class, all year long"
       }
     ],
-    "featuredBadge": "Most popular",
+    "featuredBadge": "Most chosen",
     "buy": "Buy now",
     "perCredit": "DZD / credit",
     "close": "Close",
@@ -228,8 +228,8 @@
     },
     "free": {
       "name": "Start for free",
-      "desc": "2 scans + 1 import for every new account — no card needed.",
-      "cta": "Try Nuktah",
+      "desc": "A welcome gift — no card needed.",
+      "cta": "Try your first sheet free",
       "stateNote": "The app is available now via the testing link on Google Play."
     },
     "note": "Payments are securely processed by Chargily — CIB or E-Dahabia card. No monthly subscription; credits never expire and are only used when you use them.",
@@ -357,6 +357,9 @@
       "Excel file from the original ministry template (.xlsx or .xls)."
     ],
     "qrAlt": "Scan the QR code to download Nuktah",
+    "qrCaption": "Scan the code to get the app",
+    "closingTitle": "Your gradebook, in your pocket.",
+    "closingLead": "Get Nuktah and start with your first sheet — free.",
     "ctaPricing": "See pricing"
   },
   "support": {

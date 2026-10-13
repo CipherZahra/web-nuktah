@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { Check, Sparkles } from "lucide-react";
+import { Check, ChevronDown, Sparkles } from "lucide-react";
 
 import { PageHero } from "@/components/pages/page-hero";
 import { Button } from "@/components/ui/button";
@@ -169,16 +169,25 @@ export function PricingPage() {
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-10 text-center text-text-primary">
             {t("faqTitle")}
           </h2>
-          <div className="space-y-6">
-            {faqItems.map((item) => (
-              <div key={item.q}>
-                <h3 className="font-semibold text-text-primary mb-2">
-                  {item.q}
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed">
+          <div className="space-y-3">
+            {faqItems.map((item, idx) => (
+              <details
+                key={item.q}
+                name="pricing-faq"
+                open={idx === 0}
+                className="group rounded-2xl border border-border/60 bg-white hover:border-accent/20 transition-colors duration-300"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 [&::-webkit-details-marker]:hidden">
+                  <h3 className="font-semibold text-text-primary">{item.q}</h3>
+                  <ChevronDown
+                    size={16}
+                    className="shrink-0 text-text-muted transition-transform duration-300 group-open:rotate-180"
+                  />
+                </summary>
+                <p className="px-6 pb-5 text-sm text-text-secondary leading-relaxed">
                   {item.a}
                 </p>
-              </div>
+              </details>
             ))}
           </div>
         </div>

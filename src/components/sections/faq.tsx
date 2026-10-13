@@ -1,14 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const faqKeys = ["q1", "q2", "q3", "q4", "q5", "q6"];
 
 export function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const t = useTranslations("faq");
 
   return (
@@ -42,36 +40,25 @@ export function FAQ() {
               transition={{ duration: 0.3, delay: i * 0.05 }}
               className="rounded-2xl border border-border/60 bg-white overflow-hidden hover:border-accent/20 transition-all duration-300"
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 px-6 py-5 text-right"
+              <details
+                name="home-faq"
+                open={i === 0}
+                className="group"
               >
-                <span className="font-medium text-sm text-text-primary">
-                  {t(key)}
-                </span>
-                <ChevronDown
-                  className={`w-4 h-4 text-text-muted shrink-0 transition-transform duration-300 ${
-                    openIndex === i ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              <AnimatePresence>
-                {openIndex === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-6 pb-5 pt-0">
-                      <p className="text-sm text-text-secondary leading-relaxed">
-                        {t(`a${i + 1}`)}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 [&::-webkit-details-marker]:hidden">
+                  <span className="font-medium text-sm text-text-primary">
+                    {t(key)}
+                  </span>
+                  <ChevronDown
+                    className="w-4 h-4 text-text-muted shrink-0 transition-transform duration-300 group-open:rotate-180"
+                  />
+                </summary>
+                <div className="px-6 pb-5 pt-0">
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {t(`a${i + 1}`)}
+                  </p>
+                </div>
+              </details>
             </motion.div>
           ))}
         </div>

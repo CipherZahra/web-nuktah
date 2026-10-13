@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Mail } from "lucide-react";
+import { ChevronDown, Mail } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
 
 type FaqItem = { cat: string; q: string; a: string };
@@ -20,7 +20,7 @@ export function FaqPage() {
 
       <section className="py-16 md:py-24">
         <div className="container-main max-w-3xl mx-auto">
-          {topicOrder.map((topic) => {
+          {topicOrder.map((topic, topicIdx) => {
             const topicItems = items.filter((item) => item.cat === topic);
             if (topicItems.length === 0) return null;
             return (
@@ -29,15 +29,27 @@ export function FaqPage() {
                   <span className="w-1.5 h-6 rounded-full bg-accent shrink-0" />
                   {topics[topic]}
                 </h2>
-                <div className="space-y-6">
-                  {topicItems.map((item) => (
-                    <div
+                <div className="space-y-3">
+                  {topicItems.map((item, itemIdx) => (
+                    <details
                       key={item.q}
-                      className="rounded-2xl border border-border/60 bg-white p-6 hover:border-accent/20 transition-colors duration-300"
+                      name="faq-page"
+                      open={topicIdx === 0 && itemIdx === 0}
+                      className="group rounded-2xl border border-border/60 bg-white hover:border-accent/20 transition-colors duration-300"
                     >
-                      <h3 className="font-semibold text-text-primary mb-2">{item.q}</h3>
-                      <p className="text-sm text-text-secondary leading-relaxed">{item.a}</p>
-                    </div>
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 [&::-webkit-details-marker]:hidden">
+                        <h3 className="font-semibold text-text-primary">
+                          {item.q}
+                        </h3>
+                        <ChevronDown
+                          size={16}
+                          className="shrink-0 text-text-muted transition-transform duration-300 group-open:rotate-180"
+                        />
+                      </summary>
+                      <p className="px-6 pb-5 text-sm text-text-secondary leading-relaxed">
+                        {item.a}
+                      </p>
+                    </details>
                   ))}
                 </div>
               </div>
