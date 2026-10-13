@@ -50,9 +50,11 @@ export function Hero() {
             </div>
 
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center shadow-glow">
-                <span className="text-white font-bold text-3xl">ن</span>
-              </div>
+              <img
+                src="/logo.png"
+                alt=""
+                className="w-16 h-16 rounded-2xl shadow-glow"
+              />
               <div>
                 <p className="text-4xl font-bold text-text-primary font-display">نقطة</p>
                 <p className="text-sm text-text-secondary">Nuktah</p>

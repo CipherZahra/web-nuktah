@@ -6,6 +6,7 @@
     "pricing": "Pricing",
     "faq": "FAQ",
     "support": "Support",
+    "about": "About us",
     "guides": "Guides",
     "download": "Get the app",
     "contact": "Contact",
@@ -140,6 +141,7 @@
     "developedBy": "The Nuktah app is developed by",
     "bayan": "Bayan",
     "linksHeading": "Links",
+    "about": "About us",
     "followHeading": "Follow us",
     "home": "Home",
     "features": "Features",
@@ -361,6 +363,24 @@
     "closingTitle": "Your gradebook, in your pocket.",
     "closingLead": "Get Nuktah and start with your first sheet — free.",
     "ctaPricing": "See pricing"
+  },
+  "about": {
+    "title": "About us",
+    "h1": "Our story: a simple question.",
+    "lead": "Nuktah began with a simple question: why do we write every grade twice?",
+    "p1": "Once in ink on paper, once by fingers on a screen. Between the two: hours of late nights, eyes chasing numbers, and a quiet fear that a grade might land in the wrong place.",
+    "p2": "We knew teachers don't need a new program to learn — they need a tool that understands their gradebook as it is: three grade components (continuous, test, exam), the ministry file in its familiar format, and classes of students with registration numbers.",
+    "builtTitle": "So we built Nuktah on that foundation:",
+    "builtItems": [
+      "You photograph the sheet, and it reads your handwriting.",
+      "Every grade is matched by registration number — names can look alike, numbers cannot.",
+      "You review every line before saving; the final call is always yours.",
+      "You export your class report as a PDF with your school's header, while the ministry file stays exactly as it was."
+    ],
+    "missionTitle": "We never wanted to replace the teacher",
+    "missionBody": "We wanted to give teachers their time back — an evening with family, a morning with students, not with numbers.",
+    "closingTitle": "Every mark in its place; the rest is on us.",
+    "closingLead": "Get Nuktah and start with your first sheet — free."
   },
   "support": {
     "title": "Support",

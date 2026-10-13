@@ -13,6 +13,7 @@ export function Footer() {
     { label: t("faq"), href: "/faq" },
     { label: t("guides"), href: "/guides" },
     { label: t("support"), href: "/support" },
+    { label: t("about"), href: "/about" },
     { label: t("download"), href: "/download" },
     { label: t("privacy"), href: "/privacy" },
     { label: t("terms"), href: "/terms" },
@@ -25,9 +26,11 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-3 group">
-              <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center shadow-glow transition-shadow duration-300">
-                <span className="text-white font-bold text-sm">ن</span>
-              </div>
+              <img
+                src="/logo.png"
+                alt=""
+                className="w-9 h-9 rounded-xl shadow-glow transition-shadow duration-300"
+              />
               <span className="font-bold text-xl tracking-tight text-text-primary font-display">نقطة</span>
             </Link>
             <p className="text-sm text-text-secondary leading-relaxed max-w-xs mb-4">

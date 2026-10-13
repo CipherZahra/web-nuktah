@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/pricing", key: "pricing" },
   { href: "/faq", key: "faq" },
   { href: "/support", key: "support" },
+  { href: "/about", key: "about" },
   { href: "/guides", key: "guides" },
 ];
 
@@ -63,9 +64,11 @@ export function Navbar() {
         )}
       >
         <Link href="/" className="flex items-center gap-3 shrink-0 group">
-          <div className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center shadow-glow transition-shadow duration-300">
-            <span className="text-white font-bold text-sm">ن</span>
-          </div>
+          <img
+            src="/logo.png"
+            alt=""
+            className="w-9 h-9 rounded-xl shadow-glow transition-shadow duration-300"
+          />
           <span className="font-bold text-xl tracking-tight text-text-primary font-display">نقطة</span>
         </Link>
 
