@@ -7,7 +7,7 @@
     "faq": "FAQ",
     "support": "Support",
     "about": "About us",
-    "guides": "Guides",
+    "guides": "How to use",
     "download": "Get the app",
     "contact": "Contact",
     "menuToggle": "Menu",
@@ -103,30 +103,8 @@
     "location2": "Oran",
     "location3": "Constantine"
   },
-  "faq": {
-    "label": "FAQ",
-    "title": "Questions teachers actually ask",
-    "subtitle": "We answer the most common questions about the Nuktah app.",
-    "q1": "Does the app work offline?",
-    "a1": "Yes, you can use most features without an internet connection. Cloud sync requires the internet.",
-    "q2": "How accurate is the OCR?",
-    "a2": "OCR accuracy reaches over 99% in suitable conditions. You can always review and correct the results manually.",
-    "q3": "Can I edit results after scanning?",
-    "a3": "Yes, you can edit any grade after scanning and before final saving. You can also go back and edit saved grades at any time.",
-    "q4": "Does the app support Excel files?",
-    "a4": "Yes, you can export grades and reports to Excel files compatible with all versions.",
-    "q5": "Is data saved automatically?",
-    "a5": "Yes, all data is saved automatically in the cloud with periodic backups so no information is lost.",
-    "q6": "Does the app support Arabic?",
-    "a6": "Yes, the app interface is fully in Arabic with complete right-to-left support."
-  },
   "download": {
-    "label": "Get the app",
-    "title": "Your gradebook, in your pocket.",
-    "subtitle": "Download the app now and start saving time and organizing your students' grades.",
-    "ctaPlay": "Join the beta on Google Play",
-    "betaNotice": "Closed testing — join from the testing link",
-    "moreInfo": "All download options"
+    "ctaPlay": "Join the beta on Google Play"
   },
   "contact": {
     "label": "Contact",
@@ -148,7 +126,7 @@
     "howItWorks": "How it works",
     "pricing": "Pricing",
     "faq": "FAQ",
-    "guides": "Guides",
+    "guides": "How to use",
     "download": "Get the app",
     "contact": "Contact",
     "support": "Support",
@@ -390,9 +368,9 @@
     "faqTitle": "FAQ",
     "faqText": "Short answers to what teachers ask most — imports, scanning, credits.",
     "faqCta": "Browse the FAQ",
-    "guidesTitle": "Teacher guides",
-    "guidesText": "Detailed step-by-step walkthroughs for real classroom tasks.",
-    "guidesCta": "Read the guides",
+    "guidesTitle": "How to use",
+    "guidesText": "Video walkthroughs showing how the app works, step by step.",
+    "guidesCta": "Watch the walkthroughs",
     "troublesTitle": "Quick fixes",
     "troublesHint": "The issues we see most — everything else is covered in the FAQ.",
     "troubles": [
@@ -431,13 +409,13 @@
     "linkPricing": "Pricing"
   },
   "guides": {
-    "title": "Teacher guides",
-    "h1": "Teacher guides",
-    "lead": "Step-by-step walkthroughs for real classroom tasks — longer and more detailed than the FAQ.",
-    "back": "All guides",
+    "title": "How to use",
+    "h1": "How to use",
+    "lead": "Video walkthroughs showing how the app works — from your first sheet to the final report.",
+    "back": "All walkthroughs",
     "updated": "Updated",
-    "read": "Read the guide",
-    "empty": "No guides yet — check back soon."
+    "read": "Watch the walkthrough",
+    "empty": "No videos yet — check back soon."
   },
   "legal": {
     "updated": "Last updated: September 28, 2026",

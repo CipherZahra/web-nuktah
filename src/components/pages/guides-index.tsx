@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { BookOpen } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
 import type { GuideSummary } from "@/lib/guides-md";
 import { Link } from "@/i18n";
@@ -33,7 +33,7 @@ export function GuidesList({
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-xl bg-accent-subtle flex items-center justify-center text-accent shrink-0 mt-0.5">
-                      <BookOpen size={18} />
+                      <PlayCircle size={18} />
                     </div>
                     <div className="flex-1">
                       <h2 className="font-bold text-lg text-text-primary mb-1 group-hover:text-accent-hover transition-colors duration-200">

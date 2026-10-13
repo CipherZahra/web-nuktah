@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Mail, LifeBuoy, BookOpen, Wrench } from "lucide-react";
+import { Mail, LifeBuoy, PlayCircle, Wrench } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
 import { Link } from "@/i18n";
 
@@ -33,7 +33,7 @@ export function SupportPage() {
             </div>
             <div className="rounded-2xl border border-border/60 bg-white p-6 hover:border-accent/20 transition-colors duration-300">
               <div className="w-10 h-10 rounded-xl bg-accent-subtle flex items-center justify-center text-accent mb-4">
-                <BookOpen size={20} />
+                <PlayCircle size={20} />
               </div>
               <h3 className="font-bold text-text-primary mb-2">{t("guidesTitle")}</h3>
               <p className="text-sm text-text-secondary leading-relaxed mb-4">{t("guidesText")}</p>
