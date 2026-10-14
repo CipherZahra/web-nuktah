@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { AccountMenu } from "@/components/shared/account-menu";
 import { LangSwitch } from "@/components/shared/lang-switch";
 import { Link } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -95,13 +96,24 @@ export function Navbar() {
 
         <div className="hidden md:flex items-center gap-2">
           <LangSwitch />
-          <Button size="sm" asChild>
-            <Link href="/download">{t("download")}</Link>
-          </Button>
+          <AccountMenu
+            fallback={
+              <Button size="sm" asChild>
+                <Link href="/download">{t("download")}</Link>
+              </Button>
+            }
+          />
         </div>
 
         <div className="flex md:hidden items-center gap-2">
           <LangSwitch />
+          <AccountMenu
+            fallback={
+              <Button size="sm" asChild>
+                <Link href="/download">{t("download")}</Link>
+              </Button>
+            }
+          />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="p-2.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-accent-subtle transition-all duration-200"

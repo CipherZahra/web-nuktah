@@ -129,6 +129,38 @@ export async function getValidSession(): Promise<WebSession | null> {
   }
 }
 
+export interface UserProfile {
+  id: string;
+  email: string;
+}
+
+/** Fetches the signed-in user's id + email from GoTrue. */
+export async function getUserProfile(): Promise<UserProfile | null> {
+  const session = await getValidSession();
+  if (!session) return null;
+  const res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  });
+  if (!res.ok) return null;
+  const data = (await res.json().catch(() => ({}))) as {
+    id?: unknown;
+    email?: unknown;
+  };
+  if (typeof data.id !== "string" || typeof data.email !== "string") return null;
+  return { id: data.id, email: data.email };
+}
+
+/**
+ * Clears the local session. Purely client-side — works even when the network
+ * is down (web.dev sign-out guidance): the tokens are discarded either way.
+ */
+export function signOut(): void {
+  saveSession(null);
+}
+
 /**
  * Creates a Chargily checkout session for the package (server resolves the
  * price from its own catalog) and redirects the browser to the hosted page.
