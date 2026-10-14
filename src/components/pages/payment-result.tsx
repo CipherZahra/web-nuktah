@@ -38,11 +38,17 @@ export function PaymentResult({ kind }: { kind: "success" | "failure" }) {
           {descEn}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            href="/account"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-accent text-white text-sm font-medium shadow-md hover:bg-accent-hover hover:shadow-glow transition-all duration-200"
+          >
+            حسابي · Account
+          </Link>
           <a
             href={PLAY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-accent text-white text-sm font-medium shadow-md hover:bg-accent-hover hover:shadow-glow transition-all duration-200"
+            className="inline-flex items-center justify-center h-12 px-6 rounded-xl border border-border/60 text-text-primary text-sm font-medium hover:bg-card-bg hover:border-accent/50 transition-all duration-200"
           >
             افتح التطبيق · Open the app
           </a>
