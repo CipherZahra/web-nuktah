@@ -31,19 +31,19 @@ export function Hero() {
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="max-w-3xl mx-auto text-center flex flex-col items-center"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-subtle border border-accent/15 text-accent-hover text-xs font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-subtle border border-accent/15 text-accent-hover text-xs font-medium mb-6">
             {t("badge")}
           </div>
 
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex flex-col items-center gap-3 mb-8">
             <img
               src="/logo.png"
-              alt=""
-              className="w-16 h-16 rounded-2xl shadow-glow"
+              alt="نقطة"
+              className="w-20 h-20 rounded-[1.4rem] shadow-glow"
             />
-            <div className="text-start">
-              <p className="text-4xl font-bold text-text-primary font-display">نقطة</p>
-              <p className="text-sm text-text-secondary">Nuktah</p>
+            <div className="text-center leading-tight">
+              <span className="block text-2xl font-bold text-text-primary font-display">نقطة</span>
+              <span className="block text-sm font-medium text-text-secondary">Nuktah</span>
             </div>
           </div>
 
