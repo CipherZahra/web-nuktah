@@ -95,11 +95,12 @@ export async function signInWithPassword(
   password: string,
   captchaToken: string,
 ): Promise<void> {
+  // GoTrue reads the Turnstile token from gotrue_meta_security.captcha_token
+  // (the wrapper supabase-js adds) — a top-level field is silently ignored.
   const data = await authPost("/token?grant_type=password", {
     email,
     password,
-    captcha_token: captchaToken,
-    "g-recaptcha-response": captchaToken,
+    gotrue_meta_security: { captcha_token: captchaToken },
   });
   const session = toSession(data);
   if (!session) throw new Error("session");
