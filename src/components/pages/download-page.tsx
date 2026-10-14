@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { Check, Play } from "lucide-react";
+import { Check } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n";
@@ -10,7 +10,6 @@ const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
 export function DownloadPage() {
   const t = useTranslations("downloadPage");
-  const tDl = useTranslations("download");
   const locale = useLocale();
   const badge = locale === "ar" ? "/badges/play-ar.png" : "/badges/play-en.png";
 
@@ -64,24 +63,6 @@ export function DownloadPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="bg-accent">
-        <div className="container-main max-w-3xl mx-auto py-16 md:py-20 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-white">
-            {t("closingTitle")}
-          </h2>
-          <p className="text-white/85 mb-8">{t("closingLead")}</p>
-          <a
-            href={PLAY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 h-12 px-6 rounded-xl bg-white text-accent-hover font-medium text-sm shadow-md hover:bg-white/90 transition-colors duration-200"
-          >
-            <Play className="h-5 w-5" />
-            {tDl("ctaPlay")}
-          </a>
         </div>
       </section>
     </>
