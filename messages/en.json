@@ -190,7 +190,7 @@
     },
     "err": {
       "captchaMissing": "Tick the verify box first.",
-      "captchaRejected": "Verification failed — please try again.",
+      "captchaRejected": "Verification is unavailable right now — please try again in a moment.",
       "badCreds": "Incorrect email or password.",
       "rate": "Too many attempts — wait a moment and try again.",
       "confirm": "Confirm your email address in the Nuktah app first.",
