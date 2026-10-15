@@ -376,6 +376,7 @@
     "tabUsage": "Usage",
     "noUsage": "No usage yet.",
     "noUsageHint": "Scans, imports, and exports will appear here.",
+    "freeLabel": "Free",
     "colDate": "Date",
     "colType": "Type",
     "colCredits": "Credits",

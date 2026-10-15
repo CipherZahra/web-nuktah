@@ -100,6 +100,30 @@ function purchaseAmountDzd(
   return null;
 }
 
+/** Catalog display name for a purchase's package_id ("starter" → "Starter pack"). */
+function purchasePlanName(
+  entry: LedgerEntry,
+  plans: { name: string }[],
+): string | null {
+  if (entry.type !== "PURCHASE") return null;
+  const pkg = entry.metadata?.package_id;
+  if (typeof pkg !== "string") return null;
+  const idx = PACKAGE_IDS.indexOf(pkg);
+  return idx >= 0 ? (plans[idx]?.name ?? null) : null;
+}
+
+/** Localized DZD amount with thousands grouping, no decimals. */
+function formatDzd(amount: number, locale: string): string {
+  return (
+    new Intl.NumberFormat(locale === "ar" ? "ar-DZ" : "en-DZ", {
+      style: "currency",
+      currency: "DZD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  );
+}
+
 type AuthState = "loading" | "signedOut" | "signedIn";
 type DataState = "loading" | "ready" | "error";
 
@@ -501,6 +525,7 @@ export function AccountPage() {
                         <div className="divide-y divide-border-subtle border-t border-border-subtle">
                           {purchaseEntries.map((entry) => {
                             const zd = purchaseAmountDzd(entry, plans);
+                            const planName = purchasePlanName(entry, plans);
                             const signed = entry.amount;
                             const positive = signed > 0;
                             return (
@@ -512,9 +537,8 @@ export function AccountPage() {
                                   {formatDate(entry.createdAt, locale)}
                                 </span>
                                 <span className="text-text-primary font-medium order-3 sm:order-2">
-                                  {t(
-                                    TYPE_KEY[entry.type] ?? "typeAdjustment",
-                                  )}
+                                  {planName ??
+                                    t(TYPE_KEY[entry.type] ?? "typeAdjustment")}
                                 </span>
                                 <span
                                   className={cn(
@@ -528,7 +552,7 @@ export function AccountPage() {
                                   {signed}
                                 </span>
                                 <span className="text-text-secondary tabular-nums order-5 sm:order-4 text-end">
-                                  {zd !== null ? `${zd} ${t("unit")}` : "—"}
+                                  {zd !== null ? formatDzd(zd, locale) : "—"}
                                 </span>
                               </div>
                             );
@@ -569,8 +593,17 @@ export function AccountPage() {
                               {t(TYPE_KEY[group.type] ?? "typeAdjustment")}
                               {group.count > 1 ? ` ×${group.count}` : ""}
                             </span>
-                            <span className="font-semibold tabular-nums order-4 sm:order-3 text-end text-text-secondary">
-                              {group.credits}
+                            <span
+                              className={cn(
+                                "font-semibold tabular-nums order-4 sm:order-3 text-end",
+                                group.credits === 0
+                                  ? "text-accent-hover font-medium"
+                                  : "text-text-secondary",
+                              )}
+                            >
+                              {group.credits === 0
+                                ? t("freeLabel")
+                                : group.credits}
                             </span>
                           </div>
                         ))}
