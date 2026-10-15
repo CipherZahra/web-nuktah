@@ -12,6 +12,7 @@ import {
 
 import { startCheckout } from "@/lib/checkout";
 import { cn } from "@/lib/utils";
+import { Link } from "@/i18n";
 
 type PaymentMethod = "edahabia" | "cib";
 
@@ -48,6 +49,7 @@ export function TopUpModal({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [method, setMethod] = useState<PaymentMethod>("edahabia");
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<"" | "name" | "phone" | "pay">("");
   const dialogRef = useRef<HTMLDivElement | null>(null);
@@ -89,7 +91,7 @@ export function TopUpModal({
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (busy) return;
+    if (busy || !agreeTerms) return;
     const trimmedName = name.trim();
     const trimmedPhone = phone.trim();
     if (trimmedName.length < 2) {
@@ -258,6 +260,29 @@ export function TopUpModal({
               )}
             </div>
           </div>
+          <label
+            htmlFor="topup-terms"
+            className="flex items-start gap-2.5 cursor-pointer pt-1"
+          >
+            <input
+              id="topup-terms"
+              type="checkbox"
+              checked={agreeTerms}
+              onChange={(e) => setAgreeTerms(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 accent-accent cursor-pointer"
+            />
+            <span className="text-xs leading-relaxed text-text-secondary">
+              {t("checkout.agreeTerms")}{" "}
+              <Link
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent underline underline-offset-2"
+              >
+                {t("checkout.terms")}
+              </Link>
+            </span>
+          </label>
           <p role="alert" className="text-sm text-red-600">
             {error === "name"
               ? t("checkout.errName")
@@ -269,7 +294,7 @@ export function TopUpModal({
           </p>
           <button
             type="submit"
-            disabled={busy}
+            disabled={busy || !agreeTerms}
             className="w-full rounded-xl px-4 py-3 text-sm font-bold bg-accent text-white transition-colors disabled:opacity-55 disabled:cursor-not-allowed cursor-pointer"
           >
             {busy ? t("checkout.working") : t("checkout.submit")}
