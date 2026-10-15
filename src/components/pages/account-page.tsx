@@ -124,6 +124,58 @@ function formatDzd(amount: number, locale: string): string {
   );
 }
 
+/** One display row in the Purchases tab; same-day ad rewards collapse here. */
+type PurchaseRow = {
+  key: string;
+  dateLabel: string;
+  type: string;
+  planName: string | null;
+  credits: number;
+  zd: number | null;
+  count: number;
+};
+
+function buildPurchaseRows(
+  entries: LedgerEntry[],
+  plans: { name: string; credits: string; price: string }[],
+  locale: string,
+): PurchaseRow[] {
+  const rows: PurchaseRow[] = [];
+  const rewardIdx = new Map<string, number>();
+  for (const e of entries) {
+    if (e.type === "REWARDED") {
+      const dateLabel = formatDate(e.createdAt, locale);
+      const idx = rewardIdx.get(dateLabel);
+      if (idx !== undefined) {
+        rows[idx].credits += e.amount;
+        rows[idx].count += 1;
+        continue;
+      }
+      rewardIdx.set(dateLabel, rows.length);
+      rows.push({
+        key: `reward-${dateLabel}`,
+        dateLabel,
+        type: e.type,
+        planName: null,
+        credits: e.amount,
+        zd: null,
+        count: 1,
+      });
+      continue;
+    }
+    rows.push({
+      key: e.id,
+      dateLabel: formatDate(e.createdAt, locale),
+      type: e.type,
+      planName: purchasePlanName(e, plans),
+      credits: e.amount,
+      zd: purchaseAmountDzd(e, plans),
+      count: 1,
+    });
+  }
+  return rows;
+}
+
 type AuthState = "loading" | "signedOut" | "signedIn";
 type DataState = "loading" | "ready" | "error";
 
@@ -237,6 +289,8 @@ export function AccountPage() {
   // Ledger amounts are already signed server-side (purchases positive,
   // spend rows 0 or -1) — never flip the sign here.
   const purchaseEntries = history.filter((e) => !USAGE_TYPES.has(e.type));
+  // Same-day ad rewards collapse into one "×N" row; everything else is 1:1.
+  const purchaseRows = buildPurchaseRows(purchaseEntries, plans, locale);
   const usageGroups = aggregateUsage(history, locale);
 
   const sidebarItem = (
@@ -523,22 +577,21 @@ export function AccountPage() {
                           <span className="text-end">{t("colAmount")}</span>
                         </div>
                         <div className="divide-y divide-border-subtle border-t border-border-subtle">
-                          {purchaseEntries.map((entry) => {
-                            const zd = purchaseAmountDzd(entry, plans);
-                            const planName = purchasePlanName(entry, plans);
-                            const signed = entry.amount;
+                          {purchaseRows.map((row) => {
+                            const signed = row.credits;
                             const positive = signed > 0;
                             return (
                               <div
-                                key={entry.id}
+                                key={row.key}
                                 className="grid grid-cols-2 sm:grid-cols-[1.3fr_1.2fr_0.7fr_0.9fr] gap-x-4 gap-y-1 px-3 py-3 text-sm"
                               >
                                 <span className="text-text-secondary order-1">
-                                  {formatDate(entry.createdAt, locale)}
+                                  {row.dateLabel}
                                 </span>
                                 <span className="text-text-primary font-medium order-3 sm:order-2">
-                                  {planName ??
-                                    t(TYPE_KEY[entry.type] ?? "typeAdjustment")}
+                                  {row.planName ??
+                                    t(TYPE_KEY[row.type] ?? "typeAdjustment")}
+                                  {row.count > 1 ? ` ×${row.count}` : ""}
                                 </span>
                                 <span
                                   className={cn(
@@ -552,7 +605,9 @@ export function AccountPage() {
                                   {signed}
                                 </span>
                                 <span className="text-text-secondary tabular-nums order-5 sm:order-4 text-end">
-                                  {zd !== null ? formatDzd(zd, locale) : "—"}
+                                  {row.zd !== null
+                                    ? formatDzd(row.zd, locale)
+                                    : "—"}
                                 </span>
                               </div>
                             );
