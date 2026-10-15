@@ -8,7 +8,8 @@ import { PageHero } from "@/components/pages/page-hero";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n";
 import { LoginModal } from "@/components/pages/login-modal";
-import { getValidSession, startCheckout } from "@/lib/checkout";
+import { TopUpModal } from "@/components/pages/topup-modal";
+import { getValidSession, getUserProfile } from "@/lib/checkout";
 
 type Plan = {
   name: string;
@@ -33,35 +34,36 @@ export function PricingPage() {
 
   const [busyIdx, setBusyIdx] = useState<number | null>(null);
   const [modalIdx, setModalIdx] = useState<number | null>(null);
+  const [checkoutIdx, setCheckoutIdx] = useState<number | null>(null);
+  const [payEmail, setPayEmail] = useState("");
   const [payError, setPayError] = useState(false);
 
-  const runCheckout = async (idx: number) => {
+  /**
+   * Opens the shared TopUpModal (same as the account page) so the Chargily
+   * hosted page always receives the payer prefill — a bare checkout opens
+   * empty. Briefly busy while the session + email are resolved.
+   */
+  const openCheckout = async (idx: number) => {
     setPayError(false);
     setBusyIdx(idx);
     try {
-      // Redirects the browser to the Chargily hosted page; on success the
-      // navigation never returns, so busy state persists until then.
-      await startCheckout(PACKAGE_IDS[idx], locale);
+      const session = await getValidSession();
+      if (!session) {
+        setBusyIdx(null);
+        setModalIdx(idx);
+        return;
+      }
+      const profile = await getUserProfile();
+      setPayEmail(profile?.email ?? "");
       setBusyIdx(null);
+      setCheckoutIdx(idx);
     } catch {
       setBusyIdx(null);
       setPayError(true);
     }
   };
 
-  const handleBuy = async (idx: number) => {
-    setPayError(false);
-    try {
-      const session = await getValidSession();
-      if (!session) {
-        setModalIdx(idx);
-        return;
-      }
-      await runCheckout(idx);
-    } catch {
-      setPayError(true);
-    }
-  };
+  const handleBuy = (idx: number) => void openCheckout(idx);
 
   const pendingPlan = modalIdx !== null ? plans[modalIdx] : null;
 
@@ -206,9 +208,21 @@ export function PricingPage() {
         onSuccess={() => {
           const idx = modalIdx;
           setModalIdx(null);
-          if (idx !== null) void runCheckout(idx);
+          if (idx !== null) void openCheckout(idx);
         }}
       />
+      {checkoutIdx !== null && (
+        <TopUpModal
+          key={`topup-${checkoutIdx}`}
+          open
+          packageId={PACKAGE_IDS[checkoutIdx]}
+          packName={plans[checkoutIdx]?.name ?? ""}
+          packMeta={`${plans[checkoutIdx]?.credits} ${plans[checkoutIdx]?.creditsUnit} · ${plans[checkoutIdx]?.price} ${plans[checkoutIdx]?.priceUnit}`}
+          locale={locale}
+          email={payEmail}
+          onClose={() => setCheckoutIdx(null)}
+        />
+      )}
     </>
   );
 }
