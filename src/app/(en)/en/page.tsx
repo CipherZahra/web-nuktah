@@ -6,6 +6,7 @@ import { HowItWorks } from "@/components/sections/how-it-works";
 import { WhyNuktah } from "@/components/sections/why-nuktah";
 import { Screenshots } from "@/components/sections/screenshots";
 import { Testimonials } from "@/components/sections/testimonials";
+import { ClosingCta } from "@/components/sections/closing-cta";
 import enMessages from "../../../../messages/en.json";
 import type { Metadata } from "next";
 
@@ -23,6 +24,7 @@ export default function Home() {
       <WhyNuktah />
       <Screenshots />
       <Testimonials />
+      <ClosingCta />
     </>
   );
 }

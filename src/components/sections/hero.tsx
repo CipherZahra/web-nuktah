@@ -8,6 +8,9 @@ import { Link } from "@/i18n";
 
 const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
+/** Drop the demo-video URL here later — the placeholder swaps automatically. */
+const HERO_VIDEO_SRC = "";
+
 export function Hero() {
   const t = useTranslations("hero");
   const locale = useLocale();
@@ -83,6 +86,29 @@ export function Hero() {
               <ShieldCheck size={15} className="text-accent" />
               {t("trustSecure")}
             </span>
+          </div>
+
+          <div className="mt-12 w-full max-w-2xl mx-auto">
+            {HERO_VIDEO_SRC ? (
+              <video
+                src={HERO_VIDEO_SRC}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full rounded-3xl border border-border/60 shadow-lg"
+              />
+            ) : (
+              <div className="relative aspect-video rounded-3xl border border-border/60 bg-white/70 backdrop-blur shadow-lg grid place-items-center overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/5 pointer-events-none" />
+                <div className="relative flex flex-col items-center gap-3 px-6 text-center">
+                  <div className="grid h-16 w-16 place-items-center rounded-full bg-accent text-white shadow-glow">
+                    <Play size={26} />
+                  </div>
+                  <p className="text-sm text-text-muted">{t("videoCaption")}</p>
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

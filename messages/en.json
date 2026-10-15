@@ -21,7 +21,8 @@
     "ctaSecondary": "Pricing",
     "trustFree": "Free to start",
     "trustNoCard": "No credit card",
-    "trustSecure": "Secure payment via Chargily"
+    "trustSecure": "Secure payment via Chargily",
+    "videoCaption": "Demo video coming soon"
   },
   "features": {
     "label": "Features",
@@ -345,6 +346,12 @@
     "missionBody": "We wanted to give teachers their time back — an evening with family, a morning with students, not with numbers.",
     "closingTitle": "Every mark in its place; the rest is on us.",
     "closingLead": "Get Nuktah and start with your first sheet — free."
+  },
+  "closingCta": {
+    "title": "Ready to transform how you grade?",
+    "lead": "Download Nuktah free and scan your first sheet in minutes.",
+    "ctaPlay": "Get the app free",
+    "ctaPricing": "See pricing"
   },
   "account": {
     "title": "Account",

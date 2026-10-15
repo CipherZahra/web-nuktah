@@ -1,10 +1,39 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, XCircle } from "lucide-react";
+
+import { getValidSession } from "@/lib/checkout";
+import { fetchSubscriptionStatus } from "@/lib/subscription";
 
 const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
 export function PaymentResult({ kind }: { kind: "success" | "failure" }) {
   const success = kind === "success";
+  const [balance, setBalance] = useState<{ scans: number; imports: number } | null>(
+    null,
+  );
+
+  // On success, show the actual wallet instead of promising it's "on the way".
+  // Degrades silently to the generic copy when the fetch fails.
+  useEffect(() => {
+    if (!success) return;
+    let cancelled = false;
+    void getValidSession().then((session) => {
+      if (!session || cancelled) return;
+      void fetchSubscriptionStatus().then((status) => {
+        if (cancelled || !status) return;
+        setBalance({
+          scans: status.scanCreditsRemaining,
+          imports: status.importsRemaining,
+        });
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [success]);
 
   const titleAr = success ? "تم استلام الدفع" : "لم يكتمل الدفع";
   const titleEn = success ? "Payment received" : "Payment not completed";
@@ -31,12 +60,25 @@ export function PaymentResult({ kind }: { kind: "success" | "failure" }) {
         <p className="text-lg font-semibold text-text-secondary mb-4" dir="ltr">
           {titleEn}
         </p>
-        <p className="text-sm text-text-secondary leading-relaxed mb-3" dir="rtl">
-          {descAr}
-        </p>
-        <p className="text-sm text-text-secondary leading-relaxed mb-8" dir="ltr">
-          {descEn}
-        </p>
+        {success && balance ? (
+          <div className="mb-6 rounded-2xl border border-accent/25 bg-accent-subtle px-5 py-4">
+            <p className="text-lg font-bold text-accent-hover mb-1" dir="rtl">
+              رصيدك الآن: {balance.scans} مسحة · {balance.imports} استيراد
+            </p>
+            <p className="text-sm font-semibold text-text-secondary" dir="ltr">
+              Your balance now: {balance.scans} scans · {balance.imports} imports
+            </p>
+          </div>
+        ) : (
+          <>
+            <p className="text-sm text-text-secondary leading-relaxed mb-3" dir="rtl">
+              {descAr}
+            </p>
+            <p className="text-sm text-text-secondary leading-relaxed mb-8" dir="ltr">
+              {descEn}
+            </p>
+          </>
+        )}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/account"
