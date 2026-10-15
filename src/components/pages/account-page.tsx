@@ -39,6 +39,40 @@ const TYPE_KEY: Record<string, string> = {
   EXPORT: "typeExport",
 };
 
+const USAGE_TYPES = new Set(["SCAN", "IMPORT", "EXPORT"]);
+
+/** One aggregated usage row: same calendar day + same action. */
+type UsageGroup = {
+  key: string;
+  dateLabel: string;
+  type: string;
+  count: number;
+  credits: number;
+};
+
+function aggregateUsage(entries: LedgerEntry[], locale: string): UsageGroup[] {
+  const map = new Map<string, UsageGroup>();
+  for (const e of entries) {
+    if (!USAGE_TYPES.has(e.type)) continue;
+    const dateLabel = formatDate(e.createdAt, locale);
+    const key = `${dateLabel}|${e.type}`;
+    const g = map.get(key);
+    if (g) {
+      g.count += 1;
+      g.credits += e.amount;
+    } else {
+      map.set(key, {
+        key,
+        dateLabel,
+        type: e.type,
+        count: 1,
+        credits: e.amount,
+      });
+    }
+  }
+  return [...map.values()];
+}
+
 function formatDate(iso: string, locale: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "—";
@@ -92,6 +126,9 @@ export function AccountPage() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [topUpOpen, setTopUpOpen] = useState(false);
   const [checkoutIdx, setCheckoutIdx] = useState<number | null>(null);
+  const [historyTab, setHistoryTab] = useState<"purchases" | "usage">(
+    "purchases",
+  );
 
   // Initial load + retry (via reloadKey). setState only runs inside promise
   // callbacks — react-hooks/set-state-in-effect forbids synchronous setState
@@ -173,7 +210,10 @@ export function AccountPage() {
   const balance = status?.scanCreditsRemaining ?? 0;
   const freeImport = status?.importsRemaining ?? 0;
   const showLowBalance = balance <= 1;
-  const entries = history;
+  // Ledger amounts are already signed server-side (purchases positive,
+  // spend rows 0 or -1) — never flip the sign here.
+  const purchaseEntries = history.filter((e) => !USAGE_TYPES.has(e.type));
+  const usageGroups = aggregateUsage(history, locale);
 
   const sidebarItem = (
     active: boolean,
@@ -387,7 +427,7 @@ export function AccountPage() {
                   </div>
                 )}
 
-                {/* Purchases / wallet history */}
+                {/* Purchases / usage history */}
                 <div
                   id="purchases"
                   className="rounded-2xl border border-border/60 bg-white p-6 mb-6 scroll-mt-28"
@@ -395,84 +435,145 @@ export function AccountPage() {
                   <h2 className="text-lg font-bold text-text-primary">
                     {t("purchasesTitle")}
                   </h2>
-                  <p className="text-sm text-text-muted mb-5">
+                  <p className="text-sm text-text-muted mb-4">
                     {t("purchasesLead")}
                   </p>
 
-                  {entries.length === 0 ? (
+                  {/* Segmented toggle: Purchases vs Usage */}
+                  <div
+                    role="tablist"
+                    aria-label={t("purchasesTitle")}
+                    className="inline-flex rounded-xl border border-border-subtle bg-card-bg p-1 mb-5"
+                  >
+                    {(["purchases", "usage"] as const).map((tab) => (
+                      <button
+                        key={tab}
+                        type="button"
+                        role="tab"
+                        aria-selected={historyTab === tab}
+                        onClick={() => setHistoryTab(tab)}
+                        className={cn(
+                          "rounded-lg px-4 py-1.5 text-sm font-semibold transition-colors",
+                          historyTab === tab
+                            ? "bg-white text-text-primary shadow-sm"
+                            : "text-text-secondary hover:text-text-primary",
+                        )}
+                      >
+                        {t(tab === "purchases" ? "tabPurchases" : "tabUsage")}
+                      </button>
+                    ))}
+                  </div>
+
+                  {historyTab === "purchases" ? (
+                    purchaseEntries.length === 0 ? (
+                      <div className="py-10 text-center">
+                        <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-card-bg text-text-muted border border-border-subtle">
+                          <ShoppingBag size={22} />
+                        </div>
+                        <p className="font-semibold text-text-primary mb-1">
+                          {t("noPurchases")}
+                        </p>
+                        <p className="text-sm text-text-muted mb-5">
+                          {t("noPurchasesHint")}
+                        </p>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setTopUpOpen(true);
+                            document
+                              .getElementById("top-up")
+                              ?.scrollIntoView({ behavior: "smooth" });
+                          }}
+                        >
+                          {t("topUp")}
+                        </Button>
+                      </div>
+                    ) : (
+                      <div>
+                        {/* Table header (sm+) */}
+                        <div className="hidden sm:grid grid-cols-[1.3fr_1.2fr_0.7fr_0.9fr] gap-4 px-3 pb-2 text-xs font-semibold text-text-muted">
+                          <span>{t("colDate")}</span>
+                          <span>{t("colType")}</span>
+                          <span className="text-end">{t("colCredits")}</span>
+                          <span className="text-end">{t("colAmount")}</span>
+                        </div>
+                        <div className="divide-y divide-border-subtle border-t border-border-subtle">
+                          {purchaseEntries.map((entry) => {
+                            const zd = purchaseAmountDzd(entry, plans);
+                            const signed = entry.amount;
+                            const positive = signed > 0;
+                            return (
+                              <div
+                                key={entry.id}
+                                className="grid grid-cols-2 sm:grid-cols-[1.3fr_1.2fr_0.7fr_0.9fr] gap-x-4 gap-y-1 px-3 py-3 text-sm"
+                              >
+                                <span className="text-text-secondary order-1">
+                                  {formatDate(entry.createdAt, locale)}
+                                </span>
+                                <span className="text-text-primary font-medium order-3 sm:order-2">
+                                  {t(
+                                    TYPE_KEY[entry.type] ?? "typeAdjustment",
+                                  )}
+                                </span>
+                                <span
+                                  className={cn(
+                                    "font-semibold tabular-nums order-4 sm:order-3 text-end",
+                                    positive
+                                      ? "text-accent-hover"
+                                      : "text-text-secondary",
+                                  )}
+                                >
+                                  {positive ? "+" : ""}
+                                  {signed}
+                                </span>
+                                <span className="text-text-secondary tabular-nums order-5 sm:order-4 text-end">
+                                  {zd !== null ? `${zd} ${t("unit")}` : "—"}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )
+                  ) : usageGroups.length === 0 ? (
                     <div className="py-10 text-center">
                       <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-card-bg text-text-muted border border-border-subtle">
-                        <ShoppingBag size={22} />
+                        <ScanLine size={22} />
                       </div>
                       <p className="font-semibold text-text-primary mb-1">
-                        {t("noPurchases")}
+                        {t("noUsage")}
                       </p>
-                      <p className="text-sm text-text-muted mb-5">
-                        {t("noPurchasesHint")}
+                      <p className="text-sm text-text-muted">
+                        {t("noUsageHint")}
                       </p>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          setTopUpOpen(true);
-                          document
-                            .getElementById("top-up")
-                            ?.scrollIntoView({ behavior: "smooth" });
-                        }}
-                      >
-                        {t("topUp")}
-                      </Button>
                     </div>
                   ) : (
                     <div>
                       {/* Table header (sm+) */}
-                      <div className="hidden sm:grid grid-cols-[1.3fr_1.2fr_0.7fr_0.9fr] gap-4 px-3 pb-2 text-xs font-semibold text-text-muted">
+                      <div className="hidden sm:grid grid-cols-[1.3fr_1.2fr_0.7fr] gap-4 px-3 pb-2 text-xs font-semibold text-text-muted">
                         <span>{t("colDate")}</span>
                         <span>{t("colType")}</span>
                         <span className="text-end">{t("colCredits")}</span>
-                        <span className="text-end">{t("colAmount")}</span>
                       </div>
                       <div className="divide-y divide-border-subtle border-t border-border-subtle">
-                        {entries.map((entry) => {
-                          const zd = purchaseAmountDzd(entry, plans);
-                          // Spend rows store a positive amount in the ledger;
-                          // surface them as consumption (negative).
-                          const spend =
-                            entry.type === "SCAN" ||
-                            entry.type === "IMPORT" ||
-                            entry.type === "EXPORT";
-                          const signed = spend ? -entry.amount : entry.amount;
-                          const positive = signed > 0;
-                          return (
-                            <div
-                              key={entry.id}
-                              className="grid grid-cols-2 sm:grid-cols-[1.3fr_1.2fr_0.7fr_0.9fr] gap-x-4 gap-y-1 px-3 py-3 text-sm"
-                            >
-                              <span className="text-text-secondary order-1">
-                                {formatDate(entry.createdAt, locale)}
-                              </span>
-                              <span className="text-text-primary font-medium order-3 sm:order-2">
-                                {t(
-                                  TYPE_KEY[entry.type] ?? "typeAdjustment",
-                                )}
-                              </span>
-                              <span
-                                className={cn(
-                                  "font-semibold tabular-nums order-4 sm:order-3 text-end",
-                                  positive
-                                    ? "text-accent-hover"
-                                    : "text-text-secondary",
-                                )}
-                              >
-                                {positive ? "+" : ""}
-                                {signed}
-                              </span>
-                              <span className="text-text-secondary tabular-nums order-5 sm:order-4 text-end">
-                                {zd !== null ? `${zd} ${t("unit")}` : "—"}
-                              </span>
-                            </div>
-                          );
-                        })}
+                        {usageGroups.map((group) => (
+                          <div
+                            key={group.key}
+                            className="grid grid-cols-2 sm:grid-cols-[1.3fr_1.2fr_0.7fr] gap-x-4 gap-y-1 px-3 py-3 text-sm"
+                          >
+                            <span className="text-text-secondary order-1">
+                              {group.dateLabel}
+                            </span>
+                            <span className="text-text-primary font-medium order-3 sm:order-2">
+                              {t(TYPE_KEY[group.type] ?? "typeAdjustment")}
+                              {group.count > 1 ? ` ×${group.count}` : ""}
+                            </span>
+                            <span className="font-semibold tabular-nums order-4 sm:order-3 text-end text-text-secondary">
+                              {group.credits}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
