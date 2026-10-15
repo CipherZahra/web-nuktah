@@ -18,7 +18,10 @@
     "title": "One mark on the sheet — and the late nights are over.",
     "subtitle": "Nuktah reads your handwriting, returns every grade to its student by matricule, and leaves the final call to you.",
     "ctaPrimary": "Join the beta on Google Play",
-    "ctaSecondary": "Pricing"
+    "ctaSecondary": "Pricing",
+    "trustFree": "Free to start",
+    "trustNoCard": "No credit card",
+    "trustSecure": "Secure payment via Chargily"
   },
   "features": {
     "label": "Features",

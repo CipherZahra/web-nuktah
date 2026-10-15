@@ -2,8 +2,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
+import { Analytics } from "@/components/shared/analytics";
 import { amiri, plex } from "@/fonts";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import enMessages from "../../../messages/en.json";
 
 const BUILD_TIME = new Date();
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   creator: "Bayan",
   publisher: "Nuktah",
   metadataBase: new URL("https://nuktah.app"),
+  manifest: "/site.webmanifest",
   icons: {
     icon: [
       { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
@@ -47,6 +49,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#059669",
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {
@@ -78,6 +84,7 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
             <Footer />
           </MotionConfig>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );

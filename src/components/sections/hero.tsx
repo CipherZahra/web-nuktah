@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, CreditCard, Play, ShieldCheck, Sparkles } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n";
@@ -68,6 +68,21 @@ export function Hero() {
                 <Arrow className="h-5 w-5" />
               </Link>
             </Button>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-muted">
+            <span className="inline-flex items-center gap-1.5">
+              <Sparkles size={15} className="text-accent" />
+              {t("trustFree")}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CreditCard size={15} className="text-accent" />
+              {t("trustNoCard")}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck size={15} className="text-accent" />
+              {t("trustSecure")}
+            </span>
           </div>
         </motion.div>
       </div>
