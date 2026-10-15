@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   AlertTriangle,
-  Download,
+  Coins,
   LayoutGrid,
   LogOut,
   ReceiptText,
@@ -27,15 +27,6 @@ import { cn } from "@/lib/utils";
 /** Server catalog order in supabase/functions/_shared/packages.ts. */
 const PACKAGE_IDS = ["starter", "standard", "plus", "teacher"];
 
-/** Ledger types worth showing on a billing page (spend rows are noise). */
-const HISTORY_TYPES = new Set([
-  "PURCHASE",
-  "FREE_GRANT",
-  "REWARDED",
-  "REFUND",
-  "ADJUSTMENT",
-]);
-
 const TYPE_KEY: Record<string, string> = {
   PURCHASE: "typePurchase",
   FREE_GRANT: "typeFreeGrant",
@@ -57,10 +48,21 @@ function formatDate(iso: string, locale: string): string {
   }).format(d);
 }
 
-function purchaseAmountDzd(entry: LedgerEntry): number | null {
+function purchaseAmountDzd(
+  entry: LedgerEntry,
+  plans: { credits: string; price: string }[],
+): number | null {
   if (entry.type !== "PURCHASE") return null;
   const centimes = entry.metadata?.amount_centimes;
-  return typeof centimes === "number" ? centimes / 100 : null;
+  if (typeof centimes === "number") return centimes / 100;
+  // Older ledger rows predate amount_centimes — recover the price from the
+  // catalog by matching the granted credits count.
+  const credits = entry.metadata?.credits;
+  if (typeof credits === "number") {
+    const plan = plans.find((p) => Number(p.credits) === credits);
+    if (plan) return Number(plan.price);
+  }
+  return null;
 }
 
 type AuthState = "loading" | "signedOut" | "signedIn";
@@ -180,11 +182,10 @@ export function AccountPage() {
   }
 
   const tierPro = status?.tier === "pro";
-  const scans = status?.scanCreditsRemaining ?? 0;
-  const imports = status?.importsRemaining ?? 0;
-  const showLowScans = scans <= 1;
-  const showNoImports = imports <= 0;
-  const entries = history.filter((h) => HISTORY_TYPES.has(h.type));
+  const balance = status?.scanCreditsRemaining ?? 0;
+  const freeImport = status?.importsRemaining ?? 0;
+  const showLowBalance = balance <= 1;
+  const entries = history;
 
   const sidebarItem = (
     active: boolean,
@@ -231,22 +232,19 @@ export function AccountPage() {
   const kpiCard = (
     icon: React.ReactNode,
     label: string,
-    value: number,
-    muted: boolean,
+    value: React.ReactNode,
+    valueClass: string,
+    footer?: React.ReactNode,
   ) => (
     <div className="rounded-2xl border border-border/60 bg-white p-6">
       <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-accent-subtle text-accent">
         {icon}
       </div>
       <p className="text-sm text-text-muted mb-1">{label}</p>
-      <p
-        className={cn(
-          "text-5xl font-extrabold tracking-tight",
-          muted ? "text-text-muted" : "text-text-primary",
-        )}
-      >
+      <p className={cn("text-5xl font-extrabold tracking-tight", valueClass)}>
         {value}
       </p>
+      {footer}
     </div>
   );
 
@@ -340,26 +338,38 @@ export function AccountPage() {
                 {/* KPI cards */}
                 <div className="grid sm:grid-cols-2 gap-6 mb-6">
                   {kpiCard(
-                    <ScanLine size={22} />,
-                    t("scans"),
-                    scans,
-                    scans <= 1,
+                    <Coins size={22} />,
+                    t("balance"),
+                    balance,
+                    balance === 0
+                      ? "text-red-600"
+                      : showLowBalance
+                        ? "text-text-muted"
+                        : "text-text-primary",
+                    freeImport > 0 ? (
+                      <p className="mt-2 text-xs text-text-muted">
+                        {t("freeImportHint")}
+                      </p>
+                    ) : undefined,
                   )}
                   {kpiCard(
-                    <Download size={22} />,
-                    t("imports"),
-                    imports,
-                    imports <= 0,
+                    <LayoutGrid size={22} />,
+                    t("plan"),
+                    tierBadge("md"),
+                    "",
+                    <p className="mt-2 text-xs text-text-muted">
+                      {tierPro ? t("planProDesc") : t("planFreeDesc")}
+                    </p>,
                   )}
                 </div>
 
                 {/* Low-balance banner */}
-                {(showLowScans || showNoImports) && (
+                {showLowBalance && (
                   <div
                     role="status"
                     className={cn(
                       "mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-5 py-4",
-                      scans === 0
+                      balance === 0
                         ? "border-red-200 bg-red-50"
                         : "border-amber-200 bg-amber-50",
                     )}
@@ -368,15 +378,11 @@ export function AccountPage() {
                       <AlertTriangle
                         size={18}
                         className={
-                          scans === 0 ? "text-red-600" : "text-amber-600"
+                          balance === 0 ? "text-red-600" : "text-amber-600"
                         }
                       />
                       <p className="text-sm font-medium text-text-primary">
-                        {scans === 0
-                          ? t("noScans")
-                          : showLowScans
-                            ? t("lowScans")
-                            : t("noImports")}
+                        {balance === 0 ? t("noBalance") : t("lowBalance")}
                       </p>
                     </div>
                     <Button
@@ -440,8 +446,15 @@ export function AccountPage() {
                       </div>
                       <div className="divide-y divide-border-subtle border-t border-border-subtle">
                         {entries.map((entry) => {
-                          const zd = purchaseAmountDzd(entry);
-                          const positive = entry.amount > 0;
+                          const zd = purchaseAmountDzd(entry, plans);
+                          // Spend rows store a positive amount in the ledger;
+                          // surface them as consumption (negative).
+                          const spend =
+                            entry.type === "SCAN" ||
+                            entry.type === "IMPORT" ||
+                            entry.type === "EXPORT";
+                          const signed = spend ? -entry.amount : entry.amount;
+                          const positive = signed > 0;
                           return (
                             <div
                               key={entry.id}
@@ -464,7 +477,7 @@ export function AccountPage() {
                                 )}
                               >
                                 {positive ? "+" : ""}
-                                {entry.amount}
+                                {signed}
                               </span>
                               <span className="text-text-secondary tabular-nums order-5 sm:order-4 text-end">
                                 {zd !== null ? `${zd} ${t("unit")}` : "—"}
