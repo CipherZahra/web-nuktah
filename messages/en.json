@@ -399,7 +399,26 @@
     "planFreeDesc": "Welcome credits — topping up adds more.",
     "planProDesc": "Open plan — unlimited scans and imports.",
     "lowBalance": "Your balance is running low — top up to restore full access.",
-    "noBalance": "No credits left — every scan, import, and export spends one credit."
+    "noBalance": "No credits left — every scan, import, and export spends one credit.",
+    "close": "Close",
+    "checkout": {
+      "title": "Payment details",
+      "hint": "Enter your details once — they appear pre-filled on the secure payment page.",
+      "name": "Full name",
+      "namePlaceholder": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "phonePlaceholder": "+213 …",
+      "method": "Payment method",
+      "methodEdahabia": "Edahabia card",
+      "methodEdahabiaHint": "Algérie Poste card (EDAHABIA)",
+      "methodCib": "CIB card",
+      "methodCibHint": "Bank card via SATIM",
+      "errName": "Enter a valid name (at least 2 characters).",
+      "errPhone": "Invalid phone number — format: +213… or digits only.",
+      "working": "Redirecting…",
+      "submit": "Continue to payment"
+    }
   },
   "support": {
     "title": "Support",

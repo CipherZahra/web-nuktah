@@ -161,6 +161,23 @@ export function signOut(): void {
   saveSession(null);
 }
 
+export interface CheckoutCustomer {
+  name: string;
+  email?: string;
+  phone?: string;
+}
+
+export interface CheckoutOptions {
+  /**
+   * Payer details collected by the website's prefill modal. Sent to
+   * payment-create, which attaches them as a Chargily Customer so the
+   * hosted page loads read-only prefilled.
+   */
+  customer?: CheckoutCustomer;
+  /** Pre-selects the method on the Chargily page (user can still switch). */
+  paymentMethod?: "edahabia" | "cib";
+}
+
 /**
  * Creates a Chargily checkout session for the package (server resolves the
  * price from its own catalog) and redirects the browser to the hosted page.
@@ -170,6 +187,7 @@ export function signOut(): void {
 export async function startCheckout(
   packageId: string,
   locale: string,
+  options?: CheckoutOptions,
 ): Promise<void> {
   const session = await getValidSession();
   if (!session) throw new Error("unauthorized");
@@ -181,7 +199,15 @@ export async function startCheckout(
       apikey: SUPABASE_ANON_KEY,
       Authorization: `Bearer ${session.accessToken}`,
     },
-    body: JSON.stringify({ packageId, locale, channel: "web" }),
+    body: JSON.stringify({
+      packageId,
+      locale,
+      channel: "web",
+      ...(options?.customer ? { customer: options.customer } : {}),
+      ...(options?.paymentMethod
+        ? { paymentMethod: options.paymentMethod }
+        : {}),
+    }),
   });
   const body = (await res.json().catch(() => ({}))) as {
     checkoutUrl?: unknown;

@@ -12,7 +12,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
-import { getValidSession, getUserProfile, signOut, startCheckout } from "@/lib/checkout";
+import { getValidSession, getUserProfile, signOut } from "@/lib/checkout";
 import {
   fetchBillingHistory,
   fetchSubscriptionStatus,
@@ -20,6 +20,7 @@ import {
   type SubscriptionStatus,
 } from "@/lib/subscription";
 import { LoginModal } from "@/components/pages/login-modal";
+import { TopUpModal } from "@/components/pages/topup-modal";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -90,8 +91,7 @@ export function AccountPage() {
   const [reloadKey, setReloadKey] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
   const [topUpOpen, setTopUpOpen] = useState(false);
-  const [busyIdx, setBusyIdx] = useState<number | null>(null);
-  const [payError, setPayError] = useState(false);
+  const [checkoutIdx, setCheckoutIdx] = useState<number | null>(null);
 
   // Initial load + retry (via reloadKey). setState only runs inside promise
   // callbacks — react-hooks/set-state-in-effect forbids synchronous setState
@@ -129,18 +129,6 @@ export function AccountPage() {
   const retry = () => {
     setDataState("loading");
     setReloadKey((k) => k + 1);
-  };
-
-  const handleBuy = async (idx: number) => {
-    setPayError(false);
-    setBusyIdx(idx);
-    try {
-      await startCheckout(PACKAGE_IDS[idx], locale);
-      setBusyIdx(null);
-    } catch {
-      setBusyIdx(null);
-      setPayError(true);
-    }
   };
 
   const handleSignOut = () => {
@@ -537,28 +525,33 @@ export function AccountPage() {
                               size="sm"
                               className="w-full"
                               variant="outline"
-                              disabled={busyIdx !== null}
-                              onClick={() => void handleBuy(i)}
+                              onClick={() => setCheckoutIdx(i)}
                             >
-                              {busyIdx === i ? t("working") : t("buy")}
+                              {t("buy")}
                             </Button>
                           </div>
                         </div>
                       ))}
                     </div>
                   )}
-                  <p
-                    role="alert"
-                    className="text-sm text-red-600 mt-3"
-                  >
-                    {payError ? t("err.payFail") : ""}
-                  </p>
                 </div>
               </>
             )}
           </div>
         </div>
       </div>
+      {checkoutIdx !== null && (
+        <TopUpModal
+          key={`topup-${checkoutIdx}`}
+          open
+          packageId={PACKAGE_IDS[checkoutIdx]}
+          packName={plans[checkoutIdx]?.name ?? ""}
+          packMeta={`${plans[checkoutIdx]?.credits} ${plans[checkoutIdx]?.creditsUnit} · ${plans[checkoutIdx]?.price} ${plans[checkoutIdx]?.priceUnit}`}
+          locale={locale}
+          email={email ?? ""}
+          onClose={() => setCheckoutIdx(null)}
+        />
+      )}
     </section>
   );
 }
