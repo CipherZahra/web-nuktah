@@ -10,11 +10,19 @@ import {
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 
-import { startCheckout } from "@/lib/checkout";
+import {
+  CUSTOM_MAX_CREDITS,
+  CUSTOM_MIN_CREDITS,
+  CUSTOM_RATE_DZD,
+  startCheckout,
+} from "@/lib/checkout";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n";
 
 type PaymentMethod = "edahabia" | "cib";
+
+/** Quick-select credit counts for the custom offer. */
+const CUSTOM_CHIPS = [5, 10, 20, 50];
 
 interface TopUpModalProps {
   open: boolean;
@@ -46,14 +54,39 @@ export function TopUpModal({
   onClose,
 }: TopUpModalProps) {
   const t = useTranslations("account");
+  const isCustom = packageId === "custom";
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [method, setMethod] = useState<PaymentMethod>("edahabia");
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<"" | "name" | "phone" | "pay">("");
+  const [credits, setCredits] = useState<number>(CUSTOM_MIN_CREDITS);
+  const [creditsDraft, setCreditsDraft] = useState<string>(
+    String(CUSTOM_MIN_CREDITS),
+  );
+  const [error, setError] = useState<"" | "name" | "phone" | "credits" | "pay">(
+    "",
+  );
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const nameRef = useRef<HTMLInputElement | null>(null);
+
+  const creditsValid =
+    !isCustom ||
+    (/^\d+$/.test(creditsDraft.trim()) &&
+      Number(creditsDraft) >= CUSTOM_MIN_CREDITS &&
+      Number(creditsDraft) <= CUSTOM_MAX_CREDITS);
+
+  const applyCredits = (value: string) => {
+    setCreditsDraft(value);
+    const n = Number(value);
+    if (
+      /^\d+$/.test(value.trim()) &&
+      n >= CUSTOM_MIN_CREDITS &&
+      n <= CUSTOM_MAX_CREDITS
+    ) {
+      setCredits(n);
+    }
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -92,6 +125,10 @@ export function TopUpModal({
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (busy || !agreeTerms) return;
+    if (isCustom && !creditsValid) {
+      setError("credits");
+      return;
+    }
     const trimmedName = name.trim();
     const trimmedPhone = phone.trim();
     if (trimmedName.length < 2) {
@@ -113,6 +150,7 @@ export function TopUpModal({
           ...(trimmedPhone ? { phone: trimmedPhone } : {}),
         },
         paymentMethod: method,
+        ...(isCustom ? { credits } : {}),
       });
       // Navigation away — keep the spinner.
     } catch {
@@ -173,7 +211,15 @@ export function TopUpModal({
 
         <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3 rounded-xl border border-accent/35 bg-accent-subtle px-4 py-3">
           <span className="font-bold text-text-primary">{packName}</span>
-          <span className="text-sm text-text-secondary">{packMeta}</span>
+          <span className="text-sm text-text-secondary">
+            {isCustom
+              ? t("checkout.customPriceLine", {
+                  credits,
+                  rate: CUSTOM_RATE_DZD,
+                  total: credits * CUSTOM_RATE_DZD,
+                })
+              : packMeta}
+          </span>
         </div>
 
         <h3
@@ -187,6 +233,46 @@ export function TopUpModal({
         </p>
 
         <form onSubmit={submit} noValidate className="space-y-3">
+          {isCustom && (
+            <fieldset className="rounded-xl border border-border bg-card-bg/50 p-3">
+              <legend className="px-1 text-xs font-semibold text-text-muted">
+                {t("checkout.customTitle")}
+              </legend>
+              <div className="flex flex-wrap gap-2 mb-2.5">
+                {CUSTOM_CHIPS.map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => applyCredits(String(c))}
+                    aria-pressed={credits === c && creditsDraft === String(c)}
+                    className={cn(
+                      "rounded-lg border px-3 py-1.5 text-sm font-semibold transition-colors cursor-pointer",
+                      credits === c && creditsDraft === String(c)
+                        ? "border-accent bg-accent text-white"
+                        : "border-border bg-white text-text-secondary hover:border-accent/40",
+                    )}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
+              <input
+                id="topup-credits"
+                type="number"
+                inputMode="numeric"
+                min={CUSTOM_MIN_CREDITS}
+                max={CUSTOM_MAX_CREDITS}
+                step={1}
+                value={creditsDraft}
+                onChange={(e) => applyCredits(e.target.value)}
+                aria-invalid={isCustom && !creditsValid}
+                className={inputCls}
+              />
+              <p className="mt-1.5 text-xs text-text-muted">
+                {t("checkout.customMin", { min: CUSTOM_MIN_CREDITS })}
+              </p>
+            </fieldset>
+          )}
           <div>
             <label
               htmlFor="topup-name"
@@ -288,13 +374,18 @@ export function TopUpModal({
               ? t("checkout.errName")
               : error === "phone"
                 ? t("checkout.errPhone")
-                : error === "pay"
-                  ? t("err.payFail")
-                  : ""}
+                : error === "credits"
+                  ? t("checkout.errCredits", {
+                      min: CUSTOM_MIN_CREDITS,
+                      max: CUSTOM_MAX_CREDITS,
+                    })
+                  : error === "pay"
+                    ? t("err.payFail")
+                    : ""}
           </p>
           <button
             type="submit"
-            disabled={busy || !agreeTerms}
+            disabled={busy || !agreeTerms || (isCustom && !creditsValid)}
             className="w-full rounded-xl px-4 py-3 text-sm font-bold bg-accent text-white transition-colors disabled:opacity-55 disabled:cursor-not-allowed cursor-pointer"
           >
             {busy ? t("checkout.working") : t("checkout.submit")}

@@ -173,12 +173,12 @@
         "tag": "Heavy use across a full term"
       },
       {
-        "name": "Full Year",
-        "credits": "75",
+        "name": "Custom",
+        "credits": "5–200",
         "creditsUnit": "credits",
-        "price": "3600",
-        "priceUnit": "DZD",
-        "tag": "Every class, all year long"
+        "price": "50",
+        "priceUnit": "per credit",
+        "tag": "Pick exactly the credit count you need"
       }
     ],
     "featuredBadge": "Most chosen",
@@ -424,7 +424,11 @@
       "agreeTerms": "I agree to the",
       "terms": "Terms of Use",
       "working": "Redirecting…",
-      "submit": "Continue to payment"
+      "submit": "Continue to payment",
+      "customTitle": "How many credits?",
+      "customPriceLine": "{credits} credits × {rate} DA = {total} DA",
+      "customMin": "Minimum {min} credits",
+      "errCredits": "Choose between {min} and {max} credits."
     }
   },
   "support": {

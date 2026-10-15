@@ -173,12 +173,12 @@
         "tag": "استعمال مكثّف خلال فصل كامل"
       },
       {
-        "name": "العام",
-        "credits": "75",
+        "name": "مخصص",
+        "credits": "5–200",
         "creditsUnit": "نقطة",
-        "price": "3600",
-        "priceUnit": "د.ج",
-        "tag": "كل صفوفك طوال السنة"
+        "price": "50",
+        "priceUnit": "لكل نقطة",
+        "tag": "اختر عدد النقاط الذي تحتاجه بالضبط"
       }
     ],
     "featuredBadge": "الأكثر اختيارًا",
@@ -424,7 +424,11 @@
       "agreeTerms": "أوافق على",
       "terms": "شروط الاستخدام",
       "working": "جارٍ التحويل…",
-      "submit": "المتابعة للدفع"
+      "submit": "المتابعة للدفع",
+      "customTitle": "كم نقطة تريد؟",
+      "customPriceLine": "{credits} نقطة × {rate} دج = {total} دج",
+      "customMin": "الحد الأدنى {min} نقطة",
+      "errCredits": "اختر بين {min} و {max} نقطة."
     }
   },
   "support": {

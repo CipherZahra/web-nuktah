@@ -176,7 +176,15 @@ export interface CheckoutOptions {
   customer?: CheckoutCustomer;
   /** Pre-selects the method on the Chargily page (user can still switch). */
   paymentMethod?: "edahabia" | "cib";
+  /** Credit count for the 'custom' package — price is derived server-side. */
+  credits?: number;
 }
+
+// Custom offer — mirrors the server's bounds (supabase/functions/_shared/
+// packages.ts). The client only ever sends the credit count.
+export const CUSTOM_RATE_DZD = 50;
+export const CUSTOM_MIN_CREDITS = 5;
+export const CUSTOM_MAX_CREDITS = 200;
 
 /**
  * Creates a Chargily checkout session for the package (server resolves the
@@ -203,6 +211,7 @@ export async function startCheckout(
       packageId,
       locale,
       channel: "web",
+      ...(options?.credits !== undefined ? { credits: options.credits } : {}),
       ...(options?.customer ? { customer: options.customer } : {}),
       ...(options?.paymentMethod
         ? { paymentMethod: options.paymentMethod }

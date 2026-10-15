@@ -23,7 +23,7 @@ type Plan = {
 type FaqItem = { q: string; a: string };
 
 /** Server catalog order in supabase/functions/_shared/packages.ts. */
-const PACKAGE_IDS = ["starter", "standard", "plus", "teacher"];
+const PACKAGE_IDS = ["starter", "standard", "plus", "custom"];
 
 export function PricingPage() {
   const t = useTranslations("pricing");
