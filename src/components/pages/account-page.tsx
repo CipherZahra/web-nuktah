@@ -10,6 +10,7 @@ import {
   ReceiptText,
   ScanLine,
   ShoppingBag,
+  SlidersHorizontal,
 } from "lucide-react";
 
 import { getValidSession, getUserProfile, signOut } from "@/lib/checkout";
@@ -192,6 +193,17 @@ export function AccountPage() {
     priceUnit: string;
     tag: string;
   }[];
+
+  /** Card meta line; the custom pack omits the price (it is set in the modal). */
+  const packMetaOf = (idx: number | null) => {
+    if (idx === null) return "";
+    const plan = plans[idx];
+    if (!plan) return "";
+    const base = `${plan.credits} ${plan.creditsUnit}`;
+    return PACKAGE_IDS[idx] === "custom"
+      ? base
+      : `${base} · ${plan.price} ${plan.priceUnit}`;
+  };
 
   const [authState, setAuthState] = useState<AuthState>("loading");
   const [dataState, setDataState] = useState<DataState>("loading");
@@ -687,40 +699,55 @@ export function AccountPage() {
 
                   {topUpOpen && (
                     <div className="mt-5 grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                      {plans.map((plan, i) => (
-                        <div
-                          key={plan.name}
-                          className="rounded-2xl border border-border/60 bg-white p-5 flex flex-col"
-                        >
-                          <p className="font-bold text-text-primary mb-0.5">
-                            {plan.name}
-                          </p>
-                          <p className="text-xs text-text-muted mb-3">
-                            {plan.tag}
-                          </p>
-                          <div className="flex items-baseline gap-1.5 mb-1">
-                            <span className="text-3xl font-extrabold text-text-primary">
-                              {plan.price}
-                            </span>
-                            <span className="text-sm text-text-secondary">
-                              {plan.priceUnit}
-                            </span>
+                      {plans.map((plan, i) => {
+                        const isCustom = PACKAGE_IDS[i] === "custom";
+                        return (
+                          <div
+                            key={plan.name}
+                            className="rounded-2xl border border-border/60 bg-white p-5 flex flex-col"
+                          >
+                            <p className="font-bold text-text-primary mb-0.5">
+                              {plan.name}
+                            </p>
+                            <p className="text-xs text-text-muted mb-3">
+                              {plan.tag}
+                            </p>
+                            {isCustom ? (
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <SlidersHorizontal
+                                  size={22}
+                                  className="text-accent shrink-0"
+                                />
+                                <span className="text-2xl font-extrabold text-accent">
+                                  {tp("youChoose")}
+                                </span>
+                              </div>
+                            ) : (
+                              <div className="flex items-baseline gap-1.5 mb-1">
+                                <span className="text-3xl font-extrabold text-text-primary">
+                                  {plan.price}
+                                </span>
+                                <span className="text-sm text-text-secondary">
+                                  {plan.priceUnit}
+                                </span>
+                              </div>
+                            )}
+                            <p className="text-sm text-text-secondary mb-4">
+                              {plan.credits} {plan.creditsUnit}
+                            </p>
+                            <div className="mt-auto">
+                              <Button
+                                size="sm"
+                                className="w-full"
+                                variant="outline"
+                                onClick={() => setCheckoutIdx(i)}
+                              >
+                                {isCustom ? tp("chooseCredits") : t("buy")}
+                              </Button>
+                            </div>
                           </div>
-                          <p className="text-sm text-text-secondary mb-4">
-                            {plan.credits} {plan.creditsUnit}
-                          </p>
-                          <div className="mt-auto">
-                            <Button
-                              size="sm"
-                              className="w-full"
-                              variant="outline"
-                              onClick={() => setCheckoutIdx(i)}
-                            >
-                              {t("buy")}
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -735,7 +762,7 @@ export function AccountPage() {
           open
           packageId={PACKAGE_IDS[checkoutIdx]}
           packName={plans[checkoutIdx]?.name ?? ""}
-          packMeta={`${plans[checkoutIdx]?.credits} ${plans[checkoutIdx]?.creditsUnit} · ${plans[checkoutIdx]?.price} ${plans[checkoutIdx]?.priceUnit}`}
+          packMeta={packMetaOf(checkoutIdx)}
           locale={locale}
           email={email ?? ""}
           onClose={() => setCheckoutIdx(null)}

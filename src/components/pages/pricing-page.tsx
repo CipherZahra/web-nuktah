@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { Check, ChevronDown, Sparkles } from "lucide-react";
+import { Check, ChevronDown, SlidersHorizontal, Sparkles } from "lucide-react";
 
 import { PageHero } from "@/components/pages/page-hero";
 import { Button } from "@/components/ui/button";
@@ -67,6 +67,17 @@ export function PricingPage() {
 
   const pendingPlan = modalIdx !== null ? plans[modalIdx] : null;
 
+  /** Card meta line; the custom pack omits the price (it is set in the modal). */
+  const packMetaOf = (idx: number | null) => {
+    if (idx === null) return undefined;
+    const plan = plans[idx];
+    if (!plan) return undefined;
+    const base = `${plan.credits} ${plan.creditsUnit}`;
+    return PACKAGE_IDS[idx] === "custom"
+      ? base
+      : `${base} · ${plan.price} ${plan.priceUnit}`;
+  };
+
   return (
     <>
       <PageHero ns="pricing" />
@@ -93,6 +104,7 @@ export function PricingPage() {
             {plans.map((plan, i) => {
               const featured = i === 1;
               const busy = busyIdx === i;
+              const isCustom = PACKAGE_IDS[i] === "custom";
               return (
                 <div
                   key={plan.name}
@@ -112,14 +124,26 @@ export function PricingPage() {
                     {plan.name}
                   </h3>
                   <p className="text-sm text-text-muted mb-4">{plan.tag}</p>
-                  <div className="flex items-baseline gap-1.5 mb-1">
-                    <span className="text-4xl font-extrabold text-text-primary">
-                      {plan.price}
-                    </span>
-                    <span className="text-sm text-text-secondary">
-                      {plan.priceUnit}
-                    </span>
-                  </div>
+                  {isCustom ? (
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <SlidersHorizontal
+                        size={26}
+                        className="text-accent shrink-0"
+                      />
+                      <span className="text-3xl font-extrabold text-accent">
+                        {t("youChoose")}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-baseline gap-1.5 mb-1">
+                      <span className="text-4xl font-extrabold text-text-primary">
+                        {plan.price}
+                      </span>
+                      <span className="text-sm text-text-secondary">
+                        {plan.priceUnit}
+                      </span>
+                    </div>
+                  )}
                   <p className="text-sm text-text-secondary mb-6">
                     {plan.credits} {plan.creditsUnit}
                   </p>
@@ -130,7 +154,11 @@ export function PricingPage() {
                       disabled={busyIdx !== null}
                       onClick={() => void handleBuy(i)}
                     >
-                      {busy ? t("login.working") : t("buy")}
+                      {busy
+                        ? t("login.working")
+                        : isCustom
+                          ? t("chooseCredits")
+                          : t("buy")}
                     </Button>
                   </div>
                 </div>
@@ -199,11 +227,7 @@ export function PricingPage() {
         key={modalIdx ?? "closed"}
         open={modalIdx !== null}
         packName={pendingPlan?.name}
-        packMeta={
-          pendingPlan
-            ? `${pendingPlan.credits} ${pendingPlan.creditsUnit} · ${pendingPlan.price} ${pendingPlan.priceUnit}`
-            : undefined
-        }
+        packMeta={packMetaOf(modalIdx)}
         onClose={() => setModalIdx(null)}
         onSuccess={() => {
           const idx = modalIdx;
@@ -217,7 +241,7 @@ export function PricingPage() {
           open
           packageId={PACKAGE_IDS[checkoutIdx]}
           packName={plans[checkoutIdx]?.name ?? ""}
-          packMeta={`${plans[checkoutIdx]?.credits} ${plans[checkoutIdx]?.creditsUnit} · ${plans[checkoutIdx]?.price} ${plans[checkoutIdx]?.priceUnit}`}
+          packMeta={packMetaOf(checkoutIdx) ?? ""}
           locale={locale}
           email={payEmail}
           onClose={() => setCheckoutIdx(null)}
