@@ -9,7 +9,6 @@
     "about": "About us",
     "guides": "How to use",
     "download": "Get the app",
-    "contact": "Contact",
     "menuToggle": "Menu",
     "skipToContent": "Skip to content"
   },
@@ -116,7 +115,6 @@
     "faq": "FAQ",
     "guides": "How to use",
     "download": "Get the app",
-    "contact": "Contact",
     "support": "Support",
     "privacy": "Privacy policy",
     "terms": "Terms of use",
@@ -177,7 +175,6 @@
     "buy": "Buy now",
     "youChoose": "You choose",
     "chooseCredits": "Choose credits",
-    "perCredit": "DZD / credit",
     "close": "Close",
     "login": {
       "title": "Log in",
@@ -360,7 +357,6 @@
     "topUp": "Top up",
     "topUpTitle": "Choose a credit pack",
     "buy": "Buy",
-    "working": "Redirecting…",
     "err": {
       "payFail": "Couldn't start checkout — please try again."
     },
@@ -391,7 +387,6 @@
     "signInTitle": "Sign in to your account",
     "signInHint": "Use the same email as in the app to see your balance and purchases.",
     "signInCta": "Sign in",
-    "unit": "DA",
     "balance": "Your credit balance",
     "freeImportHint": "1 free import remaining",
     "plan": "Plan",
@@ -478,7 +473,6 @@
     "lead": "Video walkthroughs showing how the app works — from your first sheet to the final report.",
     "back": "All walkthroughs",
     "updated": "Updated",
-    "read": "Watch the walkthrough",
     "empty": "No videos yet — check back soon."
   },
   "legal": {
@@ -494,8 +488,6 @@
     "successTitle": "Payment received",
     "successDesc": "Your Nuktah payment was received and your credits are on the way. They appear in the app automatically within a few minutes.",
     "failureTitle": "Payment not completed",
-    "failureDesc": "The payment was not completed. You have not been charged — you can try again from the app.",
-    "openApp": "Open the app",
-    "backHome": "Back to home"
+    "failureDesc": "The payment was not completed. You have not been charged — you can try again from the app."
   }
 }
