@@ -18,22 +18,16 @@
     "title": "One mark on the sheet — and the late nights are over.",
     "subtitle": "Nuktah reads your handwriting, returns every grade to its student by matricule, and leaves the final call to you.",
     "ctaPrimary": "Join the beta on Google Play",
-    "ctaSecondary": "Pricing",
-    "trustFree": "Free to start",
-    "trustNoCard": "No credit card",
-    "trustSecure": "Secure payment via Chargily",
-    "videoCaption": "Demo video coming soon"
+    "ctaSecondary": "Pricing"
   },
   "features": {
     "label": "Features",
     "title": "Everything you need in one app",
-    "subtitle": "Designed specifically for Algerian teachers to simplify grading and attendance.",
+    "subtitle": "Designed specifically for Algerian teachers to simplify grading.",
     "ocr": "Scan grade sheets",
     "ocrDesc": "Scan paper grade sheets with AI and get the results in seconds.",
     "manual": "Manual grade entry",
     "manualDesc": "Enter grades easily through a simple, flexible interface that fits every need.",
-    "attendance": "Attendance tracking",
-    "attendanceDesc": "Track student attendance day by day, neatly and consistently.",
     "reports": "Professional reports",
     "reportsDesc": "Build detailed performance reports for students and classes.",
     "analytics": "Performance analytics",
@@ -41,9 +35,7 @@
     "sync": "Data sync",
     "syncDesc": "Automatic syncing of your data across all your devices, securely.",
     "export": "Excel & PDF export",
-    "exportDesc": "Export grades and reports to Excel and PDF with one tap.",
-    "backup": "Automatic backup",
-    "backupDesc": "Automatic cloud backups of all your data."
+    "exportDesc": "Export grades and reports to Excel and PDF with one tap."
   },
   "howItWorks": {
     "label": "How it works",
@@ -133,7 +125,7 @@
   },
   "seo": {
     "title": "Nuktah — student grade management app for teachers in Algeria",
-    "description": "Nuktah is a smart app that helps teachers in Algeria scan grade sheets, enter marks, track attendance, and build reports — quickly and accurately.",
+    "description": "Nuktah is a smart app that helps teachers in Algeria scan grade sheets, enter marks, and build reports — quickly and accurately.",
     "ogTitle": "Nuktah — student grade management made easier",
     "ogDescription": "A smart app for scanning and managing student grades for teachers in Algeria."
   },

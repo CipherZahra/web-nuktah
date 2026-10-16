@@ -5,23 +5,19 @@ import { useTranslations } from "next-intl";
 import {
   Scan,
   PenLine,
-  Users,
   BarChart3,
   TrendingUp,
   RefreshCw,
   FileDown,
-  Cloud,
 } from "lucide-react";
 
 const features = [
   { icon: Scan, key: "ocr" },
   { icon: PenLine, key: "manual" },
-  { icon: Users, key: "attendance" },
   { icon: BarChart3, key: "reports" },
   { icon: TrendingUp, key: "analytics" },
   { icon: RefreshCw, key: "sync" },
   { icon: FileDown, key: "export" },
-  { icon: Cloud, key: "backup" },
 ];
 
 export function Features() {
@@ -48,7 +44,7 @@ export function Features() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((feature, i) => {
             const Icon = feature.icon;
             return (
