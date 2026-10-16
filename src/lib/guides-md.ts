@@ -20,12 +20,30 @@ export function formatGuideDate(iso: string, lang: GuideLang): string {
 }
 
 function escapeHtml(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Only these href shapes are allowed — anything else (javascript:, data:, vbscript:) is dropped. */
+function safeHref(raw: string): string | null {
+  const url = raw.trim();
+  if (/^https?:\/\//i.test(url) || /^mailto:/i.test(url)) return url;
+  if (url.startsWith("/") || url.startsWith("#")) return url;
+  return null;
 }
 
 function inline(s: string): string {
   return escapeHtml(s)
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, text: string, href: string) => {
+      const safe = safeHref(href);
+      if (!safe) return text;
+      const external = /^https?:\/\//i.test(safe);
+      return `<a href="${safe}"${external ? ' rel="noopener noreferrer"' : ""}>${text}</a>`;
+    })
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/`([^`]+)`/g, "<code>$1</code>");
 }

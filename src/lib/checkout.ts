@@ -52,6 +52,15 @@ function saveSession(session: WebSession | null): void {
   }
 }
 
+/** Carries the HTTP status so callers can tell auth rejections from network failures. */
+class AuthHttpError extends Error {
+  readonly status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 async function authPost(
   path: string,
   body: Record<string, unknown>,
@@ -67,8 +76,9 @@ async function authPost(
   });
   const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
   if (!res.ok) {
-    throw new Error(
+    throw new AuthHttpError(
       String(data.error_description ?? data.msg ?? data.message ?? "error"),
+      res.status,
     );
   }
   return data;
@@ -110,23 +120,37 @@ export async function signInWithPassword(
 /**
  * Returns the persisted session, transparently refreshing it when close to
  * expiry, or null when there is none (or the refresh fails — signed out).
+ * Concurrent callers share one in-flight refresh (single-flight) so rotated
+ * refresh tokens are never spent twice.
  */
+let refreshInFlight: Promise<WebSession | null> | null = null;
+
 export async function getValidSession(): Promise<WebSession | null> {
   const session = loadSession();
   if (!session) return null;
   if (session.expiresAt > Math.floor(Date.now() / 1000) + 30) return session;
-  try {
-    const data = await authPost("/token?grant_type=refresh_token", {
-      refresh_token: session.refreshToken,
-    });
-    const next = toSession(data);
-    if (!next) throw new Error("session");
-    saveSession(next);
-    return next;
-  } catch {
-    saveSession(null);
-    return null;
-  }
+  if (refreshInFlight) return refreshInFlight;
+  refreshInFlight = (async () => {
+    try {
+      const data = await authPost("/token?grant_type=refresh_token", {
+        refresh_token: session.refreshToken,
+      });
+      const next = toSession(data);
+      if (!next) throw new AuthHttpError("session", 400);
+      saveSession(next);
+      return next;
+    } catch (e) {
+      // Only an auth rejection (4xx) burns the session — network failures and
+      // server errors keep it, the refresh token may still be perfectly valid.
+      if (e instanceof AuthHttpError && e.status >= 400 && e.status < 500) {
+        saveSession(null);
+      }
+      return null;
+    } finally {
+      refreshInFlight = null;
+    }
+  })();
+  return refreshInFlight;
 }
 
 export interface UserProfile {
@@ -186,6 +210,17 @@ export const CUSTOM_RATE_DZD = 50;
 export const CUSTOM_MIN_CREDITS = 5;
 export const CUSTOM_MAX_CREDITS = 200;
 
+/** Chargily-hosted pages only — blocks a compromised/misconfigured function from redirecting elsewhere. */
+function isAllowedCheckoutUrl(raw: string): boolean {
+  try {
+    const url = new URL(raw);
+    if (url.protocol !== "https:") return false;
+    return /(^|\.)chargily\.[a-z]{2,}$/i.test(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Creates a Chargily checkout session for the package (server resolves the
  * price from its own catalog) and redirects the browser to the hosted page.
@@ -200,6 +235,13 @@ export async function startCheckout(
   const session = await getValidSession();
   if (!session) throw new Error("unauthorized");
 
+  const customer = options?.customer
+    ? {
+        ...options.customer,
+        ...(options.customer.email ? {} : { email: undefined }),
+      }
+    : undefined;
+
   const res = await fetch(`${SUPABASE_URL}/functions/v1/payment-create`, {
     method: "POST",
     headers: {
@@ -212,7 +254,7 @@ export async function startCheckout(
       locale,
       channel: "web",
       ...(options?.credits !== undefined ? { credits: options.credits } : {}),
-      ...(options?.customer ? { customer: options.customer } : {}),
+      ...(customer ? { customer } : {}),
       ...(options?.paymentMethod
         ? { paymentMethod: options.paymentMethod }
         : {}),
@@ -224,6 +266,7 @@ export async function startCheckout(
   const checkoutUrl =
     typeof body.checkoutUrl === "string" ? body.checkoutUrl : null;
   if (!res.ok || !checkoutUrl) throw new Error("checkout");
+  if (!isAllowedCheckoutUrl(checkoutUrl)) throw new Error("checkout_url");
 
   window.location.assign(checkoutUrl);
 }
