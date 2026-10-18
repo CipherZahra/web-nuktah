@@ -86,7 +86,6 @@ export function Footer() {
                 {t("bayan")}
               </a>
             </p>
-            <p className="text-xs text-text-muted mt-3">{t("securePayment")}</p>
           </div>
 
           <div className="md:col-span-1">

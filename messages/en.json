@@ -86,7 +86,6 @@
     "label": "Teacher reviews",
     "title": "Loved by teachers",
     "subtitle": "We're collecting real reviews from teachers using Nuktah.",
-    "demoBadge": "Sample reviews — real ones coming soon",
     "quote1": "This app completely changed how I teach. I now finish grading in half the time.",
     "quote2": "A simple, easy interface. I love the scanning feature that saves me from typing grades by hand.",
     "quote3": "The reports and analytics helped me understand my students' performance better than ever.",
@@ -118,8 +117,7 @@
     "support": "Support",
     "privacy": "Privacy policy",
     "terms": "Terms of use",
-    "copyright": "© 2026 Nuktah. All rights reserved.",
-    "securePayment": "Secure payments via Chargily"
+    "copyright": "© 2026 Nuktah. All rights reserved."
   },
   "seo": {
     "title": "Nuktah — student grade management app for teachers in Algeria",

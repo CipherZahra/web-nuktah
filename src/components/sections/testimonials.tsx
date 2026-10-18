@@ -32,10 +32,6 @@ export function Testimonials() {
           <p className="text-text-secondary text-lg max-w-xl mx-auto">
             {t("subtitle")}
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200/60 text-amber-600 text-xs mt-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-            {t("demoBadge")}
-          </div>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
