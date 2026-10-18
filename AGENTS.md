@@ -1,36 +1,43 @@
 # AGENTS.md
 
-Marketing/landing site for **Nuktah / نقطة** (`nuktah.app`): a single-page, Arabic-only (RTL) Next.js 16 App Router app with next-intl and Tailwind v4. No tests, no CI, no README.
+Marketing/product site for **Nuktah / نقطة** (`nuktah.app`): bilingual Next.js 16 App Router app (Arabic root `/`, English under `/en/*`), next-intl, Tailwind v4, framer-motion. Static export (`output: "export"`) deployed to Cloudflare Pages. No tests, no CI.
 
 ## Commands
 
-- `npm run dev` / `npm run build` / `npm start` — `next build` runs Turbopack compile **and** the TypeScript check; it is the most reliable verification.
-- Typecheck: `npx tsc --noEmit` (no `typecheck` script exists). If `.next/` is missing/stale, run `npx next typegen` first so route types exist.
-- **Lint is currently broken — do not treat it as a gate:**
-  - `npm run lint` runs `next lint`, which Next 16 removed; the CLI treats `lint` as a directory and errors.
-  - `npx eslint .` crashes with `TypeError: Converting circular structure to JSON` because `eslint.config.mjs` uses `FlatCompat` to extend `next/core-web-vitals` under ESLint 9 / eslint-config-next 16.
-  - Verify changes with `npx tsc --noEmit` + `npm run build`. If asked to fix lint, migrate `eslint.config.mjs` to eslint-config-next's native flat config (drop `FlatCompat`).
+- `npm run dev` — dev server (restart after editing `messages/*.json`; dev server does not hot-reload them).
+- `npm run typecheck` — `tsc --noEmit`. If route types look stale, run `npx next typegen` first.
+- `npm run lint` — `eslint .` (flat config, `eslint-config-next/core-web-vitals`). **Baseline: 0 errors, 5 `@next/next/no-img-element` warnings** — keep ≤ 50; don't "fix" the `<img>` warnings (they're accepted).
+- `npm run build` — static export to `out/`. Runs the TS check too; most reliable single gate.
+- `npm run deploy` — build + `wrangler pages deploy out --project-name=nuktah-website`. From this repo only. If wrangler reports "auth token has expired / server could not be reached", retry (or `npx wrangler whoami` first).
+- **No prettier in this repo** — do not add format gates or mass-reformat.
 
-## Architecture (non-obvious wiring)
+Gate before commit: `npm run typecheck && npm run lint && npm run build`.
 
-- Single route: `src/app/[locale]/page.tsx` is a **client component** that composes sections from `src/components/sections/*`. Navigation is in-page anchors (`<a href="#hero">`), not routes.
-- Root `src/app/layout.tsx` deliberately returns `children` **without `<html>/<body>`** — those tags live in `src/app/[locale]/layout.tsx` (`lang="ar" dir="rtl"`, Tajawal font, `NextIntlClientProvider`). Never add a second `<html>/<body>`.
-- SEO lives in `generateMetadata` inside `src/app/[locale]/layout.tsx` (the page is client-side and cannot export metadata). `metadataBase`/canonical is hardcoded to `https://nuktah.app`.
-- Locale config exists in **four places**; change them together: `src/i18n/routing.ts` (locales, default, prefix, `createNavigation` exports), `src/i18n/request.ts`, `src/app/[locale]/layout.tsx` (`generateStaticParams` + `notFound()` guard), and `messages/`. Only `ar` exists (an `en` locale was removed to stop middleware redirects); `layout.tsx` still has a harmless `locale === "en"` remnant in `generateMetadata` — don't "clean it up" in isolation.
-- Middleware is `src/proxy.ts` (Next 16's rename of `middleware.ts`) — next-intl matcher. Don't create `src/middleware.ts`.
-- `next.config.ts` must stay wrapped in `withNextIntl = createNextIntlPlugin()` or next-intl messages stop loading.
+## Architecture
+
+- **Route groups, three of them:** `(ar)` = root-locale pages (`/`, `/pricing`, `/faq`, `/guides`, `/support`, `/about`, `/download`, `/privacy`, `/terms`, `/account`); `(en)` = same pages mirrored under `/en/...`; `(misc)` = `/payment/success` + `/payment/failure` (Chargily redirect landings) — these live **outside** the locale layouts and get their real `<html>` document from `src/app/(misc)/layout.tsx`. Never add `<html>/<body>` to `src/app/layout.tsx` (root layout returns `children` only — that's intentional).
+- SEO: `export const metadata` in each locale group's `layout.tsx` (`metadataBase` hardcoded `https://nuktah.app`); static pages can import `messages/*.json` directly for titles. Dynamic guide pages use `generateMetadata` + `generateStaticParams`.
+- No middleware/proxy.
+- **Session:** localStorage key `nuktah:web-session` (camelCase), managed by `src/lib/checkout.ts` — `getValidSession()` single-flights token refresh and only clears the session on 4xx (network/5xx keep it); `isAllowedCheckoutUrl()` must gate any `window.location.assign` (https + `chargily.<tld>` host only).
+- **Shared constants:** `src/lib/config.ts` — `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `PLAY_URL`, `PACKAGE_IDS` (order must match the pricing plans array; `"custom"` is the last pack). Never re-declare these locally.
+- Static export: no server runtime — all data access is client-side `fetch` to Supabase Edge Functions with explicit CORS.
 
 ## Conventions
 
-- **i18n:** all UI copy is in `messages/ar.json`, namespaced per section (`hero.*`, `faq.*`, `seo.*`, ...), read via `useTranslations("<ns>")`. New user-facing text = new key there; no hardcoded strings in components. Only `messages/ar.json` exists — adding a locale means adding its JSON file plus the four config spots above.
-- **Tailwind v4** with no `tailwind.config` — design tokens are `@theme` variables in `src/app/globals.css`. Use them (`bg-accent`, `text-text-primary/muted`, `border-border-subtle`, `rounded-*`, `shadow-*`) instead of raw hex colors. Custom utilities: `container-main`, `text-gradient`.
-- Path alias: `@/*` → `src/*`.
-- RTL-only layout: prefer logical properties / flex gaps; watch hardcoded `left`/`right` positioning.
-- `framer-motion` for entrance animations, `lucide-react` for icons.
-- `next-themes` is in dependencies but unused — don't wire it up unless asked.
+- **i18n:** `messages/en.json` + `messages/ar.json`, namespaced (`hero.*`, `pricing.*`, `account.*`, `seo.*`, ...), read via `useTranslations("<ns>")`. Arrays via `t.raw(...)`. New user-facing text = new key in **both** files. Arabic-first RTL; avoid hardcoded `left`/`right`.
+- **Tailwind v4**, no `tailwind.config` — tokens are `@theme` variables in `src/app/globals.css` (`bg-accent`, `text-text-primary/muted`, `border-border-subtle`, `rounded-*`, `shadow-*`). Custom utilities: `container-main`, `text-gradient`.
+- Accent vs primary: `accent` (emerald) = interactive/CTA; `primary` (navy) = decorative/emphasis.
+- Path alias: `@/*` → `src/*`. Use it; no relative crossing.
+- Icons: `lucide-react`. Motion: `framer-motion` (respect `prefers-reduced-motion` via `MotionConfig`).
+
+## Pricing / checkout notes
+
+- Four packs: `starter`, `standard`, `plus`, `custom` (`PACKAGE_IDS`). Custom = user-picked 5–200 credits, price computed server-side at 50 DA/credit — the card must show "You choose"/"أنت تحدد" styling (`packMetaOf()` helpers), never a price; live price only inside the TopUpModal.
+- `pricing.plans.N.price`/`priceUnit` values exist only for the serialized plan blob + `purchaseAmountDzd` fallback — they're not rendered directly.
+- Payment pages are bilingual hardcoded strings inside `payment-result.tsx` (metadata uses `payment.successTitle`/`failureTitle`).
 
 ## Verification
 
 ```sh
-npx tsc --noEmit && npm run build
+npm run typecheck && npm run lint && npm run build
 ```

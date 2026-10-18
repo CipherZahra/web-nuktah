@@ -3,8 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Camera, ScanLine, Check, FileText, Play } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
-
-const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
+import { PLAY_URL } from "@/lib/config";
 const BUILT_ICONS = [Camera, ScanLine, Check, FileText];
 
 export function AboutPage() {

@@ -4,9 +4,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { PageHero } from "@/components/pages/page-hero";
 import { Button } from "@/components/ui/button";
+import { PLAY_URL } from "@/lib/config";
 import { Link } from "@/i18n";
-
-const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
 export function DownloadPage() {
   const t = useTranslations("downloadPage");

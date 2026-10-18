@@ -10,6 +10,7 @@ import { Link } from "@/i18n";
 import { LoginModal } from "@/components/pages/login-modal";
 import { TopUpModal } from "@/components/pages/topup-modal";
 import { getValidSession, getUserProfile } from "@/lib/checkout";
+import { PACKAGE_IDS } from "@/lib/config";
 
 type Plan = {
   name: string;
@@ -23,8 +24,6 @@ type Plan = {
 type FaqItem = { q: string; a: string };
 
 /** Server catalog order in supabase/functions/_shared/packages.ts. */
-const PACKAGE_IDS = ["starter", "standard", "plus", "custom"];
-
 export function PricingPage() {
   const t = useTranslations("pricing");
   const locale = useLocale();

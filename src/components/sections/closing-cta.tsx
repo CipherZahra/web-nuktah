@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { PLAY_URL } from "@/lib/config";
 import { Link } from "@/i18n";
-
-const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
 
 export function ClosingCta() {
   const t = useTranslations("closingCta");

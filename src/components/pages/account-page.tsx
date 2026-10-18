@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 
 import { getValidSession, getUserProfile, signOut } from "@/lib/checkout";
+import { PACKAGE_IDS } from "@/lib/config";
 import {
   fetchBillingHistory,
   fetchSubscriptionStatus,
@@ -27,8 +28,6 @@ import { useRouter } from "@/i18n";
 import { cn } from "@/lib/utils";
 
 /** Server catalog order in supabase/functions/_shared/packages.ts. */
-const PACKAGE_IDS = ["starter", "standard", "plus", "custom"];
-
 const TYPE_KEY: Record<string, string> = {
   PURCHASE: "typePurchase",
   FREE_GRANT: "typeFreeGrant",

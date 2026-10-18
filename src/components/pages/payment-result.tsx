@@ -6,8 +6,7 @@ import { CheckCircle2, XCircle } from "lucide-react";
 
 import { getValidSession } from "@/lib/checkout";
 import { fetchSubscriptionStatus } from "@/lib/subscription";
-
-const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
+import { PLAY_URL } from "@/lib/config";
 
 export function PaymentResult({ kind }: { kind: "success" | "failure" }) {
   const success = kind === "success";
