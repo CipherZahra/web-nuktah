@@ -2,13 +2,7 @@
 
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import {
-  useEffect,
-  useRef,
-  useState,
-  type FormEvent,
-  type KeyboardEvent as ReactKeyboardEvent,
-} from "react";
+import { useRef, useState, type FormEvent } from "react";
 
 import {
   CUSTOM_MAX_CREDITS,
@@ -16,6 +10,7 @@ import {
   CUSTOM_RATE_DZD,
   startCheckout,
 } from "@/lib/checkout";
+import { useModalDialog } from "@/lib/use-modal-dialog";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n";
 
@@ -67,8 +62,8 @@ export function TopUpModal({
   const [error, setError] = useState<"" | "name" | "phone" | "credits" | "pay">(
     "",
   );
-  const dialogRef = useRef<HTMLDivElement | null>(null);
   const nameRef = useRef<HTMLInputElement | null>(null);
+  const { dialogRef, trapFocus } = useModalDialog(open, onClose, nameRef);
 
   const creditsValid =
     !isCustom ||
@@ -85,40 +80,6 @@ export function TopUpModal({
       n <= CUSTOM_MAX_CREDITS
     ) {
       setCredits(n);
-    }
-  };
-
-  useEffect(() => {
-    if (!open) return;
-    nameRef.current?.focus();
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open, onClose]);
-
-  const trapFocus = (e: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (e.key !== "Tab" || !dialogRef.current) return;
-    const focusables = Array.from(
-      dialogRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      ),
-    ).filter((el) => el.offsetParent !== null);
-    if (focusables.length === 0) return;
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
     }
   };
 

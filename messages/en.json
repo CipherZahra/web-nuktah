@@ -80,21 +80,6 @@
     "next": "Next",
     "goTo": "Go to slide"
   },
-  "testimonials": {
-    "label": "Teacher reviews",
-    "title": "Loved by teachers",
-    "subtitle": "We're collecting real reviews from teachers using Nuktah.",
-    "quote1": "This app completely changed how I teach. I now finish grading in half the time.",
-    "quote2": "A simple, easy interface. I love the scanning feature that saves me from typing grades by hand.",
-    "quote3": "The reports and analytics helped me understand my students' performance better than ever.",
-    "name": "Teacher's name",
-    "role1": "Primary school teacher",
-    "role2": "Maths teacher, secondary school",
-    "role3": "Middle school teacher",
-    "location1": "Algiers",
-    "location2": "Oran",
-    "location3": "Constantine"
-  },
   "download": {
     "ctaPlay": "Join the beta on Google Play"
   },
@@ -173,6 +158,7 @@
     "login": {
       "title": "Log in",
       "hint": "Don't have an account? Create it in the Nuktah app first, then log in here.",
+      "resetHint": "Forgot your password? You can reset it from the Nuktah app.",
       "email": "Email",
       "password": "Password",
       "submit": "Log in",

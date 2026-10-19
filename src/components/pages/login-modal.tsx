@@ -2,16 +2,10 @@
 
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type FormEvent,
-  type KeyboardEvent as ReactKeyboardEvent,
-} from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 
 import { signInWithPassword } from "@/lib/checkout";
+import { useModalDialog } from "@/lib/use-modal-dialog";
 
 const TURNSTILE_SITEKEY = "0x4AAAAAAFCsl8lNhObCk4Qw";
 
@@ -74,8 +68,8 @@ export function LoginModal({
   const tokenRef = useRef("");
   const widgetIdRef = useRef<string | null>(null);
   const twRef = useRef<HTMLDivElement | null>(null);
-  const dialogRef = useRef<HTMLDivElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
+  const { dialogRef, trapFocus } = useModalDialog(open, onClose, emailRef);
 
   // Load the Turnstile script once (shared with the delete wizard's pattern).
   useEffect(() => {
@@ -124,28 +118,13 @@ export function LoginModal({
     });
   }, [destroyWidget]);
 
-  // While open: render (or re-render) the widget, focus the email field,
-  // lock page scroll, and wire Escape at the document level. State resets
-  // happen via remount (`key` on the parent), not here — no setState in
-  // effects. The widget is an external system, so DOM writes are fine.
+  // While open: (re-)render the Turnstile widget. Focus, scroll-lock and
+  // Escape live in useModalDialog. State resets happen via remount (`key`
+  // on the parent), not here — no setState in effects. The widget is an
+  // external system, so DOM writes are fine.
   useEffect(() => {
     if (!open) return;
     tokenRef.current = "";
-    emailRef.current?.focus();
-
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-
-    const cleanup = () => {
-      destroyWidget();
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prevOverflow;
-    };
 
     if (window.turnstile) {
       renderWidget();
@@ -158,30 +137,11 @@ export function LoginModal({
       }, 100);
       return () => {
         clearInterval(iv);
-        cleanup();
+        destroyWidget();
       };
     }
-    return cleanup;
-  }, [open, onClose, renderWidget, destroyWidget]);
-
-  const trapFocus = (e: ReactKeyboardEvent<HTMLDivElement>) => {
-    if (e.key !== "Tab" || !dialogRef.current) return;
-    const focusables = Array.from(
-      dialogRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      ),
-    ).filter((el) => el.offsetParent !== null);
-    if (focusables.length === 0) return;
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  };
+    return destroyWidget;
+  }, [open, renderWidget, destroyWidget]);
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -307,6 +267,9 @@ export function LoginModal({
             {busy ? t("login.working") : t("login.submit")}
           </button>
         </form>
+        <p className="mt-4 text-xs text-text-muted">
+          {t("login.resetHint")}
+        </p>
       </div>
     </div>
   );

@@ -11,15 +11,7 @@ import { LoginModal } from "@/components/pages/login-modal";
 import { TopUpModal } from "@/components/pages/topup-modal";
 import { getValidSession, getUserProfile } from "@/lib/checkout";
 import { PACKAGE_IDS } from "@/lib/config";
-
-type Plan = {
-  name: string;
-  credits: string;
-  creditsUnit: string;
-  price: string;
-  priceUnit: string;
-  tag: string;
-};
+import { packMetaOf, type PricingPlan } from "@/lib/pricing-meta";
 
 type FaqItem = { q: string; a: string };
 
@@ -27,7 +19,7 @@ type FaqItem = { q: string; a: string };
 export function PricingPage() {
   const t = useTranslations("pricing");
   const locale = useLocale();
-  const plans = t.raw("plans") as Plan[];
+  const plans = t.raw("plans") as PricingPlan[];
   const chips = t.raw("chips") as string[];
   const faqItems = t.raw("faqItems") as FaqItem[];
 
@@ -65,17 +57,6 @@ export function PricingPage() {
   const handleBuy = (idx: number) => void openCheckout(idx);
 
   const pendingPlan = modalIdx !== null ? plans[modalIdx] : null;
-
-  /** Card meta line; the custom pack omits the price (it is set in the modal). */
-  const packMetaOf = (idx: number | null) => {
-    if (idx === null) return undefined;
-    const plan = plans[idx];
-    if (!plan) return undefined;
-    const base = `${plan.credits} ${plan.creditsUnit}`;
-    return PACKAGE_IDS[idx] === "custom"
-      ? base
-      : `${base} · ${plan.price} ${plan.priceUnit}`;
-  };
 
   return (
     <>
@@ -226,7 +207,7 @@ export function PricingPage() {
         key={modalIdx ?? "closed"}
         open={modalIdx !== null}
         packName={pendingPlan?.name}
-        packMeta={packMetaOf(modalIdx)}
+        packMeta={packMetaOf(plans, modalIdx)}
         onClose={() => setModalIdx(null)}
         onSuccess={() => {
           const idx = modalIdx;
@@ -240,7 +221,7 @@ export function PricingPage() {
           open
           packageId={PACKAGE_IDS[checkoutIdx]}
           packName={plans[checkoutIdx]?.name ?? ""}
-          packMeta={packMetaOf(checkoutIdx) ?? ""}
+          packMeta={packMetaOf(plans, checkoutIdx) ?? ""}
           locale={locale}
           email={payEmail}
           onClose={() => setCheckoutIdx(null)}

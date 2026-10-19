@@ -15,6 +15,7 @@ import {
 
 import { getValidSession, getUserProfile, signOut } from "@/lib/checkout";
 import { PACKAGE_IDS } from "@/lib/config";
+import { packMetaOf, type PricingPlan } from "@/lib/pricing-meta";
 import {
   fetchBillingHistory,
   fetchSubscriptionStatus,
@@ -184,25 +185,7 @@ export function AccountPage() {
   const tp = useTranslations("pricing");
   const locale = useLocale();
   const router = useRouter();
-  const plans = tp.raw("plans") as {
-    name: string;
-    credits: string;
-    creditsUnit: string;
-    price: string;
-    priceUnit: string;
-    tag: string;
-  }[];
-
-  /** Card meta line; the custom pack omits the price (it is set in the modal). */
-  const packMetaOf = (idx: number | null) => {
-    if (idx === null) return "";
-    const plan = plans[idx];
-    if (!plan) return "";
-    const base = `${plan.credits} ${plan.creditsUnit}`;
-    return PACKAGE_IDS[idx] === "custom"
-      ? base
-      : `${base} · ${plan.price} ${plan.priceUnit}`;
-  };
+  const plans = tp.raw("plans") as PricingPlan[];
 
   const [authState, setAuthState] = useState<AuthState>("loading");
   const [dataState, setDataState] = useState<DataState>("loading");
@@ -761,7 +744,7 @@ export function AccountPage() {
           open
           packageId={PACKAGE_IDS[checkoutIdx]}
           packName={plans[checkoutIdx]?.name ?? ""}
-          packMeta={packMetaOf(checkoutIdx)}
+          packMeta={packMetaOf(plans, checkoutIdx) ?? ""}
           locale={locale}
           email={email ?? ""}
           onClose={() => setCheckoutIdx(null)}
