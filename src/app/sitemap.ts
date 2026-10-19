@@ -23,9 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const prefix = lang === "ar" ? "" : "/en";
     for (const route of STATIC_ROUTES) {
       const path = route.path ? `/${route.path}/` : "/";
+      // No lastModified for static routes: a build-time stamp regenerates on
+      // every deploy and Google discounts lastmod that tracks builds, not
+      // content. Guide entries below carry their real content date.
       entries.push({
         url: `${BASE}${prefix}${path}`,
-        lastModified: new Date(),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
