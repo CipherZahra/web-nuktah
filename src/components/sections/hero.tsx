@@ -36,7 +36,7 @@ export function Hero() {
 
           <div className="flex flex-col items-center gap-3 mb-8">
             <img
-              src="/logo.png"
+              src="/logo-160.webp"
               alt="نقطة"
               className="w-20 h-20 rounded-[1.4rem] shadow-glow"
             />

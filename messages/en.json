@@ -1,8 +1,6 @@
 {
   "nav": {
     "home": "Home",
-    "features": "Features",
-    "howItWorks": "How it works",
     "pricing": "Pricing",
     "faq": "FAQ",
     "support": "Support",
@@ -108,8 +106,6 @@
     "about": "About us",
     "followHeading": "Follow us",
     "home": "Home",
-    "features": "Features",
-    "howItWorks": "How it works",
     "pricing": "Pricing",
     "faq": "FAQ",
     "guides": "How to use",

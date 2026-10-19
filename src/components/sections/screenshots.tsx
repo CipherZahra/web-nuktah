@@ -6,14 +6,14 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 
 const shots = [
-  { src: "/screens/phone_01.png", key: "home" },
-  { src: "/screens/phone_02.png", key: "import" },
-  { src: "/screens/phone_03.png", key: "scan" },
-  { src: "/screens/phone_04.png", key: "reading" },
-  { src: "/screens/phone_05.png", key: "manual" },
-  { src: "/screens/phone_06.png", key: "gradebook" },
-  { src: "/screens/phone_07.png", key: "analytics" },
-  { src: "/screens/phone_08.png", key: "sharing" },
+  { src: "/screens/phone_01.webp", key: "home" },
+  { src: "/screens/phone_02.webp", key: "import" },
+  { src: "/screens/phone_03.webp", key: "scan" },
+  { src: "/screens/phone_04.webp", key: "reading" },
+  { src: "/screens/phone_05.webp", key: "manual" },
+  { src: "/screens/phone_06.webp", key: "gradebook" },
+  { src: "/screens/phone_07.webp", key: "analytics" },
+  { src: "/screens/phone_08.webp", key: "sharing" },
 ];
 
 export function Screenshots() {

@@ -7,7 +7,7 @@ import type { Viewport } from "next";
  * Bilingual by design — Arabic-first with per-element dir switches.
  */
 export const viewport: Viewport = {
-  themeColor: "#059669",
+  themeColor: "#047857",
 };
 
 export default function MiscLayout({

@@ -66,7 +66,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-3 group">
               <img
-                src="/logo.png"
+                src="/logo-160.webp"
                 alt=""
                 className="w-9 h-9 rounded-xl shadow-glow transition-shadow duration-300"
               />

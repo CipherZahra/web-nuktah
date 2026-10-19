@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
 const steps = [
@@ -14,6 +14,7 @@ const steps = [
 
 export function HowItWorks() {
   const t = useTranslations("howItWorks");
+  const isRTL = useLocale() === "ar";
 
   return (
     <section id="how-it-works" className="py-24 md:py-32 bg-white">
@@ -40,7 +41,7 @@ export function HowItWorks() {
           {steps.map((step, i) => (
             <motion.div
               key={step.key}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}

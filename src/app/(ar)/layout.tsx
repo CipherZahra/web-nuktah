@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#059669",
+  themeColor: "#047857",
 };
 
 export default function ArLayout({ children }: { children: React.ReactNode }) {
