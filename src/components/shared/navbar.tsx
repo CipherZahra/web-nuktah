@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -47,12 +46,9 @@ export function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "nav-drop fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
           ? "bg-white/80 backdrop-blur-xl border-b border-border-subtle"
           : "bg-white/60 backdrop-blur-md"
@@ -124,41 +120,33 @@ export function Navbar() {
         </div>
       </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="md:hidden bg-white/95 backdrop-blur-xl border-b border-border-subtle overflow-hidden"
-          >
-            <div className="container-main py-6 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  aria-current={isActive(link.href) ? "page" : undefined}
-                  className={cn(
-                    "px-4 py-3 rounded-lg transition-all duration-200",
-                    isActive(link.href)
-                      ? "text-text-primary font-semibold bg-accent-subtle"
-                      : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
-                  )}
-                >
-                  {t(link.key)}
-                </Link>
-              ))}
-              <Button className="mt-2" asChild>
-                <Link href="/download" onClick={() => setMobileOpen(false)}>
-                  {t("download")}
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+      {mobileOpen && (
+        <div className="mobile-menu md:hidden bg-white/95 backdrop-blur-xl border-b border-border-subtle overflow-hidden">
+          <div className="container-main py-6 flex flex-col gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={cn(
+                  "px-4 py-3 rounded-lg transition-all duration-200",
+                  isActive(link.href)
+                    ? "text-text-primary font-semibold bg-accent-subtle"
+                    : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
+                )}
+              >
+                {t(link.key)}
+              </Link>
+            ))}
+            <Button className="mt-2" asChild>
+              <Link href="/download" onClick={() => setMobileOpen(false)}>
+                {t("download")}
+              </Link>
+            </Button>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

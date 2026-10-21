@@ -17,12 +17,12 @@ export default function Home() {
   return (
     <>
       <JsonLd data={websiteJsonLd("ar", arMessages.seo.description)} />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <WhyNuktah />
+      <Hero locale="ar" />
+      <Features locale="ar" />
+      <HowItWorks locale="ar" />
+      <WhyNuktah locale="ar" />
       <Screenshots />
-      <ClosingCta />
+      <ClosingCta locale="ar" />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from "next-intl";
-import { MotionConfig } from "framer-motion";
 import { Navbar } from "@/components/shared/navbar";
+import { RevealController } from "@/components/shared/reveal-controller";
 import { Footer } from "@/components/shared/footer";
 import { Analytics } from "@/components/shared/analytics";
 import { amiri, plex } from "@/fonts";
@@ -65,6 +65,10 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
       suppressHydrationWarning
     >
       <body className="font-sans antialiased">
+        {/* Without JS nothing reveals — show everything (SEO crawlers, no-JS). */}
+        <noscript>
+          <style>{"[data-reveal],[data-reveal-group]> *{opacity:1!important}"}</style>
+        </noscript>
         <NextIntlClientProvider
           locale="en"
           messages={enMessages}
@@ -72,17 +76,16 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
           formats={{}}
           now={BUILD_TIME}
         >
-          <MotionConfig reducedMotion="user">
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
-            >
-              {enMessages.nav.skipToContent}
-            </a>
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <Footer />
-          </MotionConfig>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
+          >
+            {enMessages.nav.skipToContent}
+          </a>
+          <Navbar />
+          <RevealController />
+          <main id="main-content">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
         <Analytics />
       </body>

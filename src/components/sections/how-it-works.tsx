@@ -1,8 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useTranslations, useLocale } from "next-intl";
-import { ChevronDown } from "lucide-react";
+import { getMessages, type Locale } from "@/lib/messages";
 
 const steps = [
   { key: "step1", icon: "01" },
@@ -12,58 +8,45 @@ const steps = [
   { key: "step5", icon: "05" },
 ];
 
-export function HowItWorks() {
-  const t = useTranslations("howItWorks");
-  const isRTL = useLocale() === "ar";
-
+/** "How it works" step list. Server component — locale is resolved by the page. */
+export function HowItWorks({ locale }: { locale: Locale }) {
+  const copy = getMessages(locale).howItWorks;
+  const isRTL = locale === "ar";
   return (
     <section id="how-it-works" className="py-24 md:py-32 bg-white">
       <div className="container-main">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div data-reveal="up" className="text-center mb-16">
           <span className="text-xs font-semibold text-text-muted tracking-wider mb-4 block">
-            {t("label")}
+            {copy.label}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-text-primary">
-            {t("title")}
+            {copy.title}
           </h2>
-          <p className="text-text-secondary text-lg max-w-xl mx-auto">
-            {t("subtitle")}
-          </p>
-        </motion.div>
+          <p className="text-text-secondary text-lg max-w-xl mx-auto">{copy.subtitle}</p>
+        </div>
 
-        <div className="max-w-3xl mx-auto">
+        <div
+          className="max-w-3xl mx-auto"
+          style={{ ["--reveal-x" as string]: isRTL ? "20px" : "-20px" }}
+        >
           {steps.map((step, i) => (
-            <motion.div
+            <div
               key={step.key}
-              initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              data-reveal="side"
+              style={{ animationDelay: `${i * 0.1}s` }}
               className="relative flex items-start gap-6 pb-8 last:pb-0"
             >
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center shadow-glow shrink-0">
                   <span className="text-white font-bold text-sm">{step.icon}</span>
                 </div>
-                {i < steps.length - 1 && (
-                  <div className="flex-1 w-px bg-border my-2" />
-                )}
+                {i < steps.length - 1 && <div className="flex-1 w-px bg-border my-2" />}
               </div>
               <div className="pt-2.5">
-                <h3 className="font-bold text-lg mb-1 text-text-primary">
-                  {t(`${step.key}`)}
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  {t(`${step.key}Desc`)}
-                </p>
+                <h3 className="font-bold text-lg mb-1 text-text-primary">{copy[step.key]}</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">{copy[`${step.key}Desc`]}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

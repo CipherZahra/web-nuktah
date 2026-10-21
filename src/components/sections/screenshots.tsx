@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 
@@ -30,13 +29,7 @@ export function Screenshots() {
   return (
     <section className="py-24 md:py-32">
       <div className="container-main">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div data-reveal="up" className="text-center mb-16">
           <span className="text-xs font-semibold text-text-muted tracking-wider mb-4 block">
             {t("label")}
           </span>
@@ -46,22 +39,20 @@ export function Screenshots() {
           <p className="text-text-secondary text-lg max-w-xl mx-auto">
             {t("subtitle")}
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative max-w-sm mx-auto">
-          <div className="relative rounded-3xl overflow-hidden bg-white border border-border/60 shadow-xl aspect-[9/16]">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={current}
-                src={shots[current].src}
-                alt={`${t("label")} — ${t(shots[current].key)}`}
-                initial={{ opacity: 0, x: isRTL ? -40 : 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: isRTL ? 40 : -40 }}
-                transition={{ duration: 0.25 }}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </AnimatePresence>
+          <div
+            className="relative rounded-3xl overflow-hidden bg-white border border-border/60 shadow-xl aspect-[9/16]"
+            style={{ ["--shot-x" as string]: isRTL ? "-40px" : "40px" }}
+          >
+            {/* key remounts the img so the CSS slide-fade replays per shot. */}
+            <img
+              key={current}
+              src={shots[current].src}
+              alt={`${t("label")} — ${t(shots[current].key)}`}
+              className="shot-enter absolute inset-0 w-full h-full object-cover"
+            />
           </div>
 
           <div className="flex items-center justify-center gap-4 mt-8">
@@ -79,7 +70,9 @@ export function Screenshots() {
                   key={s.key}
                   onClick={() => setCurrent(i)}
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    i === current ? "bg-accent w-6" : "bg-border hover:bg-text-muted w-2"
+                    i === current
+                      ? "bg-accent w-6"
+                      : "bg-border hover:bg-text-muted w-2"
                   }`}
                   aria-label={`${t("goTo")} ${i + 1}`}
                 />

@@ -87,6 +87,130 @@
   padding-right: 2rem;
 }
 
+/* --- Scroll-reveal (replaces framer-motion's whileInView/initial) ---
+   Static sections are server components; this is the only interactivity
+   they need. Markup carries data-reveal="up"|"side"|"fade" (or
+   data-reveal-group for a staggered grid); RevealController observes
+   them and adds .is-revealed on first intersection. Nothing is hidden in
+   the base CSS, so with JS off the content is simply visible — the
+   animation is a progressive enhancement, and the reduced-motion block
+   below collapses it to instant. */
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-side {
+  from {
+    opacity: 0;
+    transform: translateX(var(--reveal-x, 20px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Base state: hidden until revealed — mirrors framer-motion's SSR
+   `opacity:0`, so content fades in exactly once (no visible-then-blink).
+   Overrides: <noscript> in the layouts (no-JS crawlers/users) and the
+   reduced-motion block below (animation-free, immediately visible). */
+[data-reveal] {
+  opacity: 0;
+}
+[data-reveal-group] > * {
+  opacity: 0;
+}
+
+/* Applied by the observer once the element enters the viewport. The
+   prefers-reduced-motion block below collapses these to instant. */
+[data-reveal].is-revealed {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation-fill-mode: both;
+}
+[data-reveal="up"].is-revealed {
+  animation-name: reveal-up;
+}
+[data-reveal="side"].is-revealed {
+  animation-name: reveal-side;
+}
+[data-reveal="fade"].is-revealed {
+  animation-name: reveal-fade;
+}
+
+/* Stagger children of a revealed group (grid cards, step lists). The
+   delay index is assigned by RevealController via --reveal-i. */
+[data-reveal-group].is-revealed > * {
+  animation: reveal-up 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation-delay: calc(var(--reveal-i, 0) * 60ms);
+}
+
+/* Screenshot carousel: replays on each remount (key change). The slide
+   direction (--shot-x) is set inline by the component per locale. */
+@keyframes shot-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--shot-x, 40px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.shot-enter {
+  animation: shot-enter 0.25s ease-out both;
+}
+
+/* Navbar: drop-in on first paint, matching the old framer-motion entrance. */
+@keyframes nav-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.nav-drop {
+  animation: nav-drop 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+/* Mobile menu: expand on open via max-height (height: auto isn't animatable).
+   The element only mounts while open, so this plays on open; closing is
+   instant — the old exit anim bought nothing for a full-viewport menu. */
+.mobile-menu {
+  overflow: hidden;
+  animation: mobile-menu 0.3s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+@keyframes mobile-menu {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 100dvh;
+  }
+}
+
 @layer utilities {
   /* .text-gradient removed — no usages (it also had sub-AA light stops). */
 }
@@ -153,5 +277,13 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Reveal targets never animate (the controller bails out too) — make
+     sure they are visible rather than stuck at the base opacity:0. */
+  [data-reveal],
+  [data-reveal-group] > * {
+    opacity: 1 !important;
+    animation: none !important;
   }
 }

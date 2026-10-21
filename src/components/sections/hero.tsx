@@ -1,18 +1,10 @@
-"use client";
+import { HeroCtaPair } from "@/components/sections/hero-cta-pair";
+import { getMessages, type Locale } from "@/lib/messages";
 
-import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Play } from "lucide-react";
-import { useTranslations, useLocale } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { PLAY_URL } from "@/lib/config";
-import { Link } from "@/i18n";
-
-export function Hero() {
-  const t = useTranslations("hero");
-  const locale = useLocale();
+/** Marketing hero. Server component — reads its own locale's copy directly. */
+export function Hero({ locale }: { locale: Locale }) {
+  const copy = getMessages(locale).hero;
   const isRTL = locale === "ar";
-  const Arrow = isRTL ? ArrowLeft : ArrowRight;
-
   return (
     <section
       id="hero"
@@ -24,14 +16,12 @@ export function Hero() {
       </div>
 
       <div className="container-main relative z-10 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        <div
+          data-reveal="up"
           className="max-w-3xl mx-auto text-center flex flex-col items-center"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-subtle border border-accent/15 text-accent-hover text-xs font-medium mb-6">
-            {t("badge")}
+            {copy.badge}
           </div>
 
           <div className="flex flex-col items-center gap-3 mb-8">
@@ -41,34 +31,30 @@ export function Hero() {
               className="w-20 h-20 rounded-[1.4rem] shadow-glow"
             />
             <div className="text-center leading-tight">
-              <span className="block text-2xl font-bold text-text-primary font-display">نقطة</span>
-              <span className="block text-sm font-medium text-text-secondary">Nuktah</span>
+              <span className="block text-2xl font-bold text-text-primary font-display">
+                نقطة
+              </span>
+              <span className="block text-sm font-medium text-text-secondary">
+                Nuktah
+              </span>
             </div>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] mb-6 text-text-primary text-balance">
-            {t("title")}
+            {copy.title}
           </h1>
 
           <p className="text-lg md:text-xl text-text-secondary leading-relaxed mb-10 max-w-xl">
-            {t("subtitle")}
+            {copy.subtitle}
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button size="xl" asChild>
-              <a href={PLAY_URL} target="_blank" rel="noopener noreferrer">
-                <Play className="h-5 w-5" />
-                {t("ctaPrimary")}
-              </a>
-            </Button>
-            <Button size="xl" variant="outline" asChild>
-              <Link href="/pricing">
-                {t("ctaSecondary")}
-                <Arrow className="h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </motion.div>
+          <HeroCtaPair
+            primaryLabel={copy.ctaPrimary}
+            secondaryLabel={copy.ctaSecondary}
+            isRTL={isRTL}
+            pricingHref={locale === "en" ? "/en/pricing" : "/pricing"}
+          />
+        </div>
       </div>
     </section>
   );
