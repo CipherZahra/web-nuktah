@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Marketing/product site for **Nuktah / نقطة** (`nuktah.app`): bilingual Next.js 16 App Router app (Arabic root `/`, English under `/en/*`), next-intl, Tailwind v4, framer-motion. Static export (`output: "export"`) deployed to Cloudflare Pages. No tests, no CI.
+Marketing/product site for **Nuktah / نقطة** (`nuktah.app`): bilingual Next.js 16 App Router app (Arabic root `/`, English under `/en/*`), next-intl, Tailwind v4. Static export (`output: "export"`) deployed to Cloudflare Pages. No tests, no CI.
 
 ## Commands
 
@@ -25,10 +25,11 @@ Gate before commit: `npm run typecheck && npm run lint && npm run build`.
 ## Conventions
 
 - **i18n:** `messages/en.json` + `messages/ar.json`, namespaced (`hero.*`, `pricing.*`, `account.*`, `seo.*`, ...), read via `useTranslations("<ns>")`. Arrays via `t.raw(...)`. New user-facing text = new key in **both** files. Arabic-first RTL; avoid hardcoded `left`/`right`.
-- **Tailwind v4**, no `tailwind.config` — tokens are `@theme` variables in `src/app/globals.css` (`bg-accent`, `text-text-primary/muted`, `border-border-subtle`, `rounded-*`, `shadow-*`). Custom utilities: `container-main`, `text-gradient`.
+- **Tailwind v4**, no `tailwind.config` — tokens are `@theme` variables in `src/app/globals.css` (`bg-accent`, `text-text-primary/muted`, `border-border-subtle`, `rounded-*`, `shadow-*`). Custom utility: `container-main`.
 - Accent vs primary: `accent` (emerald) = interactive/CTA; `primary` (navy) = decorative/emphasis.
 - Path alias: `@/*` → `src/*`. Use it; no relative crossing.
-- Icons: `lucide-react`. Motion: `framer-motion` (respect `prefers-reduced-motion` via `MotionConfig`).
+- Icons: `lucide-react`. **No framer-motion** (removed batch-E, ~136KB saved). Motion = CSS: scroll-reveal via `data-reveal="up"|"side"|"fade"` / `data-reveal-group` + `RevealController` (both layouts; base `opacity:0` with `noscript` + reduced-motion overrides in `globals.css`); navbar/menu/carousel keyframes live in `globals.css`.
+- **next-intl `Link` hazard:** it reads the request locale (`headers()`), which forces `dynamic` and breaks `output:"export"` builds. Safe in client components and layouts (which already render it); **never render it from a server component in a page tree** — pass a locale-resolved plain `<a href>` instead (see `HeroCtaPair`).
 
 ## Pricing / checkout notes
 
