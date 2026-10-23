@@ -17,6 +17,10 @@
     "ctaPrimary": "انضم للتجربة على Google Play",
     "ctaSecondary": "الأسعار"
   },
+  "closedTestNotice": {
+    "text": "نقطة الآن في اختبار مغلق على Google Play.",
+    "link": "اعرف شروط الانضمام والخطوات"
+  },
   "features": {
     "label": "المميزات",
     "title": "كل ما تحتاجه في تطبيق واحد",

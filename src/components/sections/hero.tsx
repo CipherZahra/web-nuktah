@@ -3,7 +3,9 @@ import { getMessages, type Locale } from "@/lib/messages";
 
 /** Marketing hero. Server component — reads its own locale's copy directly. */
 export function Hero({ locale }: { locale: Locale }) {
-  const copy = getMessages(locale).hero;
+  const messages = getMessages(locale);
+  const copy = messages.hero;
+  const notice = messages.closedTestNotice;
   const isRTL = locale === "ar";
   return (
     <section
@@ -54,6 +56,16 @@ export function Hero({ locale }: { locale: Locale }) {
             isRTL={isRTL}
             pricingHref={locale === "en" ? "/en/pricing" : "/pricing"}
           />
+
+          <p className="mt-6 text-xs text-text-secondary">
+            {notice.text}{" "}
+            <a
+              href={locale === "en" ? "/en/download" : "/download"}
+              className="text-accent-hover font-medium underline underline-offset-2"
+            >
+              {notice.link}
+            </a>
+          </p>
         </div>
       </div>
     </section>

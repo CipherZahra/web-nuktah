@@ -17,6 +17,10 @@
     "ctaPrimary": "Join the beta on Google Play",
     "ctaSecondary": "Pricing"
   },
+  "closedTestNotice": {
+    "text": "Nuktah is currently in a closed Google Play test.",
+    "link": "See how to join"
+  },
   "features": {
     "label": "Features",
     "title": "Everything you need in one app",
