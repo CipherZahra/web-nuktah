@@ -48,17 +48,35 @@ npm run typecheck && npm run lint && npm run build
 Full recipe lives on the backup USB `NUKTAH-BAK` (mounts at `/run/media/$USER/NUKTAH-BAK`):
 `nuktah-backup/machine-config.txt`. Do these in order:
 
-1. `nvm install 24.22.1` — node version this project was built and verified on.
-2. Dependencies, pick one:
+1. Get the code — either restore the repo folder from the USB (`nuktah-backup/Bayan_website/`),
+   or clone fresh:
+   `git clone https://github.com/CipherZahra/web-nuktah.git ~/Documents/Bayan_website`
+   (auth prompt → GitHub → Settings → Developer settings → new PAT with `repo` scope —
+   never commit or paste it anywhere permanent).
+   A fresh clone is missing the gitignored secrets — copy them from the USB:
+   `cp "/run/media/$USER/NUKTAH-BAK/nuktah-backup/Bayan_website/.env.local" ~/Documents/Bayan_website/`
+2. `nvm install 24.22.1` — node version this project was built and verified on.
+3. Dependencies, pick one:
    - Offline (USB): `tar -xzf "/run/media/$USER/NUKTAH-BAK/nuktah-backup/node_modules-backup/Bayan_website-node_modules.tar.gz" -C ~/Documents/Bayan_website`
    - Online: `npm ci` — `package-lock.json` pins every dep to an exact version.
-3. `.env.local` is already inside this repo copy (from the backup) — nothing to recreate.
 4. Git: `git config --global user.name "Zahra-GTF"`, `user.email "gtfzahra0@gmial.com"`
    (typo matches existing history — do not "fix" it), `git config --global --add safe.directory ~/Documents/Bayan_website`.
-   GitHub auth needs a **new PAT** (the old one was intentionally never backed up).
 5. Deploys: `npx wrangler login`, then
    `npx wrangler pages deploy out --project-name=nuktah-website --commit-dirty=true`.
 6. Verify: `npm run typecheck && npm run lint && npm run build`.
 
-Browsers/Desktop/Downloads restore: USB `home-backup/README.txt` (Brave passwords need the
-same username + login password as before — restore `keyrings/` first).
+### Browser data (Brave/Firefox) + Desktop/Downloads — from USB `home-backup/`
+
+Restore BEFORE first browser launch (exact order in `home-backup/README.txt`): `keyrings/`
+first, then profiles — requires the SAME username + same login password as the old machine.
+
+- **Firefox** → `~/snap/firefox/common/.mozilla/firefox/j69s9x2e.default/`
+  (passwords: `logins.json` + `key4.db`; history/bookmarks: `places.sqlite`).
+  GUI: Firefox → Settings → Passwords / History menu. Direct history read:
+  `sqlite3 places.sqlite "select url,title,visit_count from moz_places order by visit_count desc limit 50"`
+- **Brave** → `~/.config/BraveSoftware/Brave-Browser/`
+  (passwords: `Default/Login Data` — AES key unwrapped via gnome-keyring, hence the
+  same-login-password rule; history: `Default/History`).
+  GUI: `brave://password-manager` / History menu. `Default/History` is plain sqlite and
+  readable directly; password rows only decrypt inside Brave with the keyring unlocked.
+- **Desktop/Downloads**: `home-backup/Desktop/*` → `~/Desktop/`, `home-backup/Downloads/*` → `~/Downloads/`.
