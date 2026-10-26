@@ -42,3 +42,23 @@ Gate before commit: `npm run typecheck && npm run lint && npm run build`.
 ```sh
 npm run typecheck && npm run lint && npm run build
 ```
+
+## Fresh machine bootstrap (after Ubuntu reinstall)
+
+Full recipe lives on the backup USB `NUKTAH-BAK` (mounts at `/run/media/$USER/NUKTAH-BAK`):
+`nuktah-backup/machine-config.txt`. Do these in order:
+
+1. `nvm install 24.22.1` — node version this project was built and verified on.
+2. Dependencies, pick one:
+   - Offline (USB): `tar -xzf "/run/media/$USER/NUKTAH-BAK/nuktah-backup/node_modules-backup/Bayan_website-node_modules.tar.gz" -C ~/Documents/Bayan_website`
+   - Online: `npm ci` — `package-lock.json` pins every dep to an exact version.
+3. `.env.local` is already inside this repo copy (from the backup) — nothing to recreate.
+4. Git: `git config --global user.name "Zahra-GTF"`, `user.email "gtfzahra0@gmial.com"`
+   (typo matches existing history — do not "fix" it), `git config --global --add safe.directory ~/Documents/Bayan_website`.
+   GitHub auth needs a **new PAT** (the old one was intentionally never backed up).
+5. Deploys: `npx wrangler login`, then
+   `npx wrangler pages deploy out --project-name=nuktah-website --commit-dirty=true`.
+6. Verify: `npm run typecheck && npm run lint && npm run build`.
+
+Browsers/Desktop/Downloads restore: USB `home-backup/README.txt` (Brave passwords need the
+same username + login password as before — restore `keyrings/` first).
