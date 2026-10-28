@@ -1,4 +1,5 @@
 import { getMessages, type Locale } from "@/lib/messages";
+import { VideoPlayer } from "@/components/shared/video-player";
 
 const steps = [
   { key: "step1", icon: "01" },
@@ -8,10 +9,13 @@ const steps = [
   { key: "step5", icon: "05" },
 ];
 
-/** "How it works" step list. Server component — locale is resolved by the page. */
+/**
+ * "How it works": numbered step cards (the last one spans two columns so
+ * the grid closes evenly) followed by the click-to-play video grid.
+ * Server component — the videos are client children.
+ */
 export function HowItWorks({ locale }: { locale: Locale }) {
   const copy = getMessages(locale).howItWorks;
-  const isRTL = locale === "ar";
   return (
     <section id="how-it-works" className="py-24 md:py-32 bg-white">
       <div className="container-main">
@@ -26,28 +30,49 @@ export function HowItWorks({ locale }: { locale: Locale }) {
         </div>
 
         <div
-          className="max-w-3xl mx-auto"
-          style={{ ["--reveal-x" as string]: isRTL ? "20px" : "-20px" }}
+          data-reveal-group
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
         >
-          {steps.map((step, i) => (
+          {steps.map((step) => (
             <div
               key={step.key}
-              data-reveal="side"
-              style={{ animationDelay: `${i * 0.1}s` }}
-              className="relative flex items-start gap-6 pb-8 last:pb-0"
+              className="rounded-2xl bg-primary-bg border border-border/60 p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 last:lg:col-span-2"
             >
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center shadow-glow shrink-0">
-                  <span className="text-white font-bold text-sm">{step.icon}</span>
-                </div>
-                {i < steps.length - 1 && <div className="flex-1 w-px bg-border my-2" />}
+              <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-glow mb-4">
+                <span className="text-white font-bold text-sm">{step.icon}</span>
               </div>
-              <div className="pt-2.5">
-                <h3 className="font-bold text-lg mb-1 text-text-primary">{copy[step.key]}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{copy[`${step.key}Desc`]}</p>
-              </div>
+              <h3 className="font-bold text-base mb-1 text-text-primary">{copy[step.key]}</h3>
+              <p className="text-sm text-text-secondary leading-relaxed">
+                {copy[`${step.key}Desc`]}
+              </p>
             </div>
           ))}
+        </div>
+
+        {/* Click-to-play video grid (facade — no third-party JS until a click). */}
+        <div className="mt-20 max-w-6xl mx-auto">
+          <div data-reveal="up" className="text-center mb-10">
+            <span className="text-xs font-semibold text-text-muted tracking-wider mb-4 block">
+              {copy.videosLabel}
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-text-primary">
+              {copy.videosTitle}
+            </h3>
+          </div>
+
+          <div data-reveal-group className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {copy.videos.map(
+              (video: { id: string; title: string; desc: string }) => (
+                <VideoPlayer
+                  key={video.id}
+                  videoId={video.id}
+                  title={video.title}
+                  desc={video.desc}
+                  playLabel={copy.play}
+                />
+              )
+            )}
+          </div>
         </div>
       </div>
     </section>

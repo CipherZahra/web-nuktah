@@ -46,21 +46,17 @@ export function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <header
-      className={cn(
-        "nav-drop fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-white/80 backdrop-blur-xl border-b border-border-subtle"
-          : "bg-white/60 backdrop-blur-md"
-      )}
-    >
-      <nav
-        className={cn(
-          "container-main flex items-center justify-between transition-all duration-300",
-          scrolled ? "h-16" : "h-24"
-        )}
-      >
-        <Link href="/" className="flex items-center gap-3 shrink-0 group">
+    <header className="nav-drop fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-all duration-300 md:px-6 md:pt-4">
+      <div className="mx-auto max-w-6xl">
+        <nav
+          className={cn(
+            "flex items-center justify-between gap-2 rounded-full border px-4 transition-all duration-300 md:px-5",
+            scrolled
+              ? "h-14 bg-white/90 backdrop-blur-xl border-border-subtle shadow-md"
+              : "h-16 bg-white/50 backdrop-blur-md border-white/40"
+          )}
+        >
+        <Link href="/" className="flex items-center gap-3 shrink-0 min-w-0 group">
           <img
             src="/logo-160.webp"
             alt=""
@@ -76,16 +72,13 @@ export function Navbar() {
               href={link.href}
               aria-current={isActive(link.href) ? "page" : undefined}
               className={cn(
-                "relative px-4 py-2 text-sm rounded-lg transition-all duration-200",
+                "px-4 py-2 text-sm rounded-full whitespace-nowrap transition-all duration-200",
                 isActive(link.href)
-                  ? "text-text-primary font-semibold"
+                  ? "text-text-primary font-semibold bg-accent-subtle"
                   : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
               )}
             >
               {t(link.key)}
-              {isActive(link.href) && (
-                <span className="absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full bg-accent" />
-              )}
             </Link>
           ))}
         </div>
@@ -120,33 +113,34 @@ export function Navbar() {
         </div>
       </nav>
 
-      {mobileOpen && (
-        <div className="mobile-menu md:hidden bg-white/95 backdrop-blur-xl border-b border-border-subtle overflow-hidden">
-          <div className="container-main py-6 flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                className={cn(
-                  "px-4 py-3 rounded-lg transition-all duration-200",
-                  isActive(link.href)
-                    ? "text-text-primary font-semibold bg-accent-subtle"
-                    : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
-                )}
-              >
-                {t(link.key)}
-              </Link>
-            ))}
-            <Button className="mt-2" asChild>
-              <Link href="/download" onClick={() => setMobileOpen(false)}>
-                {t("download")}
-              </Link>
-            </Button>
+        {mobileOpen && (
+          <div className="mobile-menu md:hidden mt-2 overflow-hidden rounded-3xl border border-border-subtle bg-white/95 shadow-lg backdrop-blur-xl">
+            <div className="flex flex-col gap-1 p-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={cn(
+                    "px-4 py-3 rounded-xl transition-all duration-200",
+                    isActive(link.href)
+                      ? "text-text-primary font-semibold bg-accent-subtle"
+                      : "text-text-secondary hover:text-text-primary hover:bg-accent-subtle"
+                  )}
+                >
+                  {t(link.key)}
+                </Link>
+              ))}
+              <Button className="mt-2" asChild>
+                <Link href="/download" onClick={() => setMobileOpen(false)}>
+                  {t("download")}
+                </Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 }

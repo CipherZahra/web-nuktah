@@ -60,8 +60,8 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-border-subtle bg-white">
-      <div className="container-main py-12 md:py-16">
+    <footer className="bg-transparent">
+      <div className="container-main rounded-t-3xl border border-b-0 border-border-subtle bg-white py-12 md:py-16">
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-3 group">
