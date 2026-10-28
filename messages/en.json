@@ -12,8 +12,7 @@
   },
   "hero": {
     "badge": "For teachers in Algeria",
-    "title": "One mark on the sheet —",
-    "titleAccent": "and the late nights are over.",
+    "title": "One mark on the sheet — and the late nights are over.",
     "subtitle": "Nuktah reads your handwriting, returns every grade to its student by matricule, and leaves the final call to you.",
     "ctaPrimary": "Join the beta on Google Play",
     "ctaSecondary": "Pricing"
@@ -52,17 +51,7 @@
     "step4": "Save the grades",
     "step4Desc": "Save the grades to the app's database, securely.",
     "step5": "Build reports",
-    "step5Desc": "Export the reports and analytics you need with one tap.",
-    "videosLabel": "Watch and learn",
-    "videosTitle": "See Nuktah at work",
-    "play": "Play video",
-    "videos": [
-      { "id": "LyrWWeMkhmA", "title": "Quick tour of Nuktah", "desc": "Eight steps that save you from writing by hand." },
-      { "id": "yN6Zq6fF_Bk", "title": "Scan a handwritten sheet", "desc": "Photograph the paper and let AI read it in seconds." },
-      { "id": "7DOq7OpttMk", "title": "Enter grades manually", "desc": "Manual entry in the official sheet, step by step." },
-      { "id": "u5TVxTOV1o0", "title": "Download & print PDF sheets", "desc": "Export blank grade sheets and print them ready to use." },
-      { "id": "xfNRKJln4Gc", "title": "How to buy credits", "desc": "A one-minute guide to buying credits via Chargily." }
-    ]
+    "step5Desc": "Export the reports and analytics you need with one tap."
   },
   "whyNuktah": {
     "label": "Why Nuktah",
@@ -166,7 +155,6 @@
       }
     ],
     "featuredBadge": "Most chosen",
-    "previewCta": "See all pricing",
     "buy": "Buy now",
     "youChoose": "You choose",
     "chooseCredits": "Choose credits",
@@ -339,9 +327,7 @@
     "title": "Ready to transform how you grade?",
     "lead": "Download Nuktah free and scan your first sheet in minutes.",
     "ctaPlay": "Get the app free",
-    "ctaPricing": "See pricing",
-    "qrCaption": "Scan to get the app",
-    "qrAlt": "Scan the QR code to download Nuktah"
+    "ctaPricing": "See pricing"
   },
   "account": {
     "title": "Account",
