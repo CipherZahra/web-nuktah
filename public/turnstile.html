@@ -10,82 +10,258 @@
         margin: 0;
         padding: 0;
         background: transparent;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
         font-family: system-ui, -apple-system, sans-serif;
       }
-      #status {
+      #widget:empty {
+        display: none;
+      }
+      /* Standalone Chrome A/B harness — stays hidden inside ReactNativeWebView
+       * so the in-app 300x72 surface contains ONLY #widget, matching the inline
+       * runner pixel-for-pixel. */
+      body.standalone {
+        padding: 24px 16px;
+        background: #0f172a;
+        color: #f8fafc;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      #panel {
+        max-width: 360px;
+        margin: 0 auto;
+      }
+      #panel h1 {
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      #panel p {
+        font-size: 13px;
+        color: #94a3b8;
+        margin: 0 0 16px;
+        line-height: 1.4;
+      }
+      #runBtn {
+        appearance: none;
+        border: 0;
+        border-radius: 8px;
+        background: #10b981;
+        color: #052e16;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 16px;
+        width: 100%;
+        cursor: pointer;
+        margin-bottom: 16px;
+      }
+      #runBtn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      #readout {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        background: #1e293b;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
         font-size: 12px;
-        color: #64748b;
-        padding: 8px;
+        line-height: 1.6;
+        white-space: pre-wrap;
       }
     </style>
   </head>
   <body>
+    <div id="panel" hidden>
+      <h1>Nuktah Turnstile — Chrome A/B control</h1>
+      <p>
+        Same widget config as the app (<code>appearance: interaction-only</code>,
+        <code>execution: execute</code>). Tap the button to run one verification.
+      </p>
+      <button id="runBtn" type="button" disabled>Loading Turnstile…</button>
+      <div id="widgetHost"></div>
+      <div id="readout">status: booting…</div>
+    </div>
     <div id="widget"></div>
-    <div id="status" hidden>Verification…</div>
     <script>
       (function () {
         var params = new URLSearchParams(location.search);
-        var sitekey = params.get('sitekey') || '';
-        var statusEl = document.getElementById('status');
+        var SITEKEY = params.get('sitekey') || '';
+        var inApp = !!(window.ReactNativeWebView && window.ReactNativeWebView.postMessage);
 
+        var widgetId = null;
+        var solved = false;
+        var queued = false;
+        var interactive = false;
+        var interactiveSeenThisRun = false;
+        var startedAt = 0;
+
+        var panel = document.getElementById('panel');
+        var runBtn = document.getElementById('runBtn');
+        var readout = document.getElementById('readout');
+        var widgetEl = document.getElementById('widget');
+
+        if (!inApp && panel && widgetEl) {
+          document.body.className = 'standalone';
+          panel.hidden = false;
+          var host = document.getElementById('widgetHost');
+          if (host) host.appendChild(widgetEl);
+        }
+
+        function setReadout(text) {
+          if (!inApp && readout) readout.textContent = text;
+        }
+
+        // Security: token values are passed to the app through the postMessage
+        // bridge ONLY — they are NEVER written to console or the DOM readout.
         function post(msg) {
-          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+          if (inApp) {
             window.ReactNativeWebView.postMessage(JSON.stringify(msg));
           }
         }
 
-        function render() {
-          var el = document.getElementById('widget');
-          el.innerHTML = '';
-          if (!sitekey) {
+        function setInteractive(next) {
+          if (next) interactiveSeenThisRun = true;
+          if (next !== interactive) {
+            interactive = next;
+            post({ interactive: next });
+            if (!inApp && next) {
+              setReadout('status: interactive challenge shown (tap the checkbox)');
+            }
+          }
+        }
+
+        function watchInteractive() {
+          if (!widgetEl) return;
+          function report() {
+            if (widgetEl.offsetHeight > 20) setInteractive(true);
+          }
+          if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(report).observe(widgetEl);
+          }
+        }
+
+        function doExecute() {
+          if (!window.turnstile || widgetId === null) {
+            queued = true;
+            return;
+          }
+          interactiveSeenThisRun = false;
+          startedAt = Date.now();
+          setReadout('status: executing…');
+          if (solved) {
+            window.turnstile.reset(widgetId);
+            solved = false;
+          }
+          window.turnstile.execute(widgetId);
+        }
+
+        window.__turnstileBoot = function () {
+          if (!SITEKEY) {
             post({ error: 'missing_sitekey' });
+            setReadout('error: missing ?sitekey= query parameter');
             return;
           }
           if (!window.turnstile) {
-            statusEl.hidden = false;
+            post({ error: 'script_missing' });
+            setReadout('error: script_missing');
             return;
           }
-          statusEl.hidden = true;
-          window.turnstile.render(el, {
-            sitekey: sitekey,
-            theme: 'auto',
-            size: 'normal',
+          widgetId = window.turnstile.render(widgetEl, {
+            sitekey: SITEKEY,
+            appearance: 'interaction-only',
+            execution: 'execute',
+            'response-field': false,
+            'before-interactive-callback': function () {
+              setInteractive(true);
+            },
+            'after-interactive-callback': function () {
+              setInteractive(false);
+            },
             callback: function (token) {
+              var ms = startedAt ? Date.now() - startedAt : 0;
+              var outcome = interactiveSeenThisRun ? 'interactive' : 'silent';
+              solved = true;
+              setInteractive(false);
               post({ token: token });
+              setReadout(
+                'outcome: ' +
+                  outcome +
+                  '\nduration: ' +
+                  ms +
+                  'ms\ntoken length: ' +
+                  (token ? token.length : 0) +
+                  ' (value hidden)',
+              );
+              if (runBtn) {
+                runBtn.disabled = false;
+                runBtn.textContent = 'Run again';
+              }
             },
             'expired-callback': function () {
+              solved = false;
               post({ expired: true });
+              setReadout('outcome: expired');
+              if (runBtn) runBtn.disabled = false;
             },
             'error-callback': function () {
               post({ error: 'widget_error' });
+              setReadout('outcome: failed (widget_error)');
+              if (runBtn) runBtn.disabled = false;
+              return true;
             },
           });
-        }
-
-        var s = document.createElement('script');
-        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-        s.async = true;
-        s.onload = render;
-        s.onerror = function () {
-          post({ error: 'script_failed' });
+          watchInteractive();
+          post({ ready: true });
+          if (runBtn) {
+            runBtn.disabled = false;
+            runBtn.textContent = 'Run verification';
+            runBtn.onclick = function () {
+              runBtn.disabled = true;
+              doExecute();
+            };
+          }
+          setReadout('status: ready (tap "Run verification")');
+          if (queued) {
+            queued = false;
+            doExecute();
+          }
         };
-        document.head.appendChild(s);
 
-        // The app can request a fresh token: ref.postMessage('{"type":"refresh"}')
-        window.addEventListener('message', function (e) {
+        window.__turnstileFail = function () {
+          post({ error: 'script_failed' });
+          setReadout('outcome: failed (script_failed)');
+        };
+
+        // Android posts on document, iOS on window — listen on both and dedupe.
+        function onExecuteMessage(e) {
+          if (e.__nuktahSeen) return;
+          e.__nuktahSeen = true;
           var data = e.data;
           try {
             data = typeof data === 'string' ? JSON.parse(data) : data;
           } catch (_) {
             return;
           }
-          if (data && data.type === 'refresh') render();
-        });
+          if (data && (data.type === 'execute' || data.type === 'refresh')) {
+            doExecute();
+          }
+        }
+        document.addEventListener('message', onExecuteMessage);
+        window.addEventListener('message', onExecuteMessage);
+
+        // 6s boot watchdog — matches turnstilePage.ts.
+        setTimeout(function () {
+          if (widgetId === null) {
+            post({ error: 'script_timeout' });
+            setReadout('outcome: failed (script_timeout after 6000ms)');
+          }
+        }, 6000);
       })();
     </script>
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+      async
+      defer
+      onload="window.__turnstileBoot()"
+      onerror="window.__turnstileFail()"
+    ></script>
   </body>
 </html>
