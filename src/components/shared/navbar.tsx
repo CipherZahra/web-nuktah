@@ -28,9 +28,16 @@ function useIsActive() {
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  // The route the menu was opened on: `mobileOpen` is *derived* from it, so a
+  // client-side navigation (including browser back) closes the menu — and the
+  // body scroll lock below — without resetting state inside an effect. The
+  // navbar outlives navigation, so its state would otherwise stick.
+  const [openedAt, setOpenedAt] = useState<string | null>(null);
   const t = useTranslations("nav");
   const isActive = useIsActive();
+  const pathname = usePathname();
+  const mobileOpen = openedAt === pathname;
+  const closeMenu = () => setOpenedAt(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -110,7 +117,7 @@ export function Navbar() {
             }
           />
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setOpenedAt(mobileOpen ? null : pathname)}
             className="md:hidden p-3 -m-1 rounded-lg text-text-secondary hover:text-text-primary hover:bg-accent-subtle transition-all duration-200"
             aria-label={t("menuToggle")}
             aria-expanded={mobileOpen}
@@ -127,7 +134,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={() => closeMenu()}
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className={cn(
                   "px-4 py-3 rounded-lg transition-all duration-200",
@@ -140,7 +147,7 @@ export function Navbar() {
               </Link>
             ))}
             <Button className="mt-2" asChild>
-              <Link href="/download" onClick={() => setMobileOpen(false)}>
+              <Link href="/download" onClick={() => closeMenu()}>
                 {t("join")}
               </Link>
             </Button>

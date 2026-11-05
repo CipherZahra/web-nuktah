@@ -1,14 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Reveal-on-scroll controller. Walks the document for `[data-reveal]`
  * elements, observes them, and adds `is-revealed` when they enter the
  * viewport. Replaces framer-motion's `whileInView` without shipping an
  * animation library to every page.
+ *
+ * Re-scans on every route change: this component lives in the locale layout,
+ * which App Router keeps mounted across client-side navigations, while the
+ * sections it must watch are new DOM each time. With `[]` deps it observed
+ * only the first page's nodes, so coming back to a page left every
+ * `[data-reveal]` block at `opacity: 0` — the page looked unloaded until a
+ * hard refresh remounted everything.
  */
 export function RevealController() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const els = Array.from(
       document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-group]"),
@@ -42,7 +52,7 @@ export function RevealController() {
 
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
