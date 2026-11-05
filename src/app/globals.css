@@ -297,9 +297,9 @@
    touching a single component.
 
    Notes / TODOs:
-   - No manual toggle yet: `:root[data-theme="dark"]` would need this whole
-     block duplicated verbatim. TODO(dark): add a switch + localStorage if a
-     place for it is agreed, then move these declarations to one place.
+   - Theme is OS-driven on purpose (decided 2026-11-05: no manual toggle).
+     If a switch is ever wanted: duplicate this whole block under
+     `:root[data-theme="dark"]` + a navbar control with localStorage.
    - The palette is derived from the light theme + brand green, not copied
      from the app. TODO(dark): confirm the exact dark colours against the app.
    - App screenshots in the gallery are light-themed and stay that way.

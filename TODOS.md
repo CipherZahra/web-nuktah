@@ -58,9 +58,11 @@ or a decision that hasn't been supplied. Nothing here was invented.
 12. **Fonts (§8)** — kept Amiri (headings) + IBM Plex Sans Arabic, now 400/700
     only (≤2 weights per family); `font-medium` maps to 400, `font-semibold`
     to 700. Two woff2 files are no longer downloaded.
-13. **Dark-mode toggle (§8)** — only `prefers-color-scheme` is implemented.
-    A manual switch needs the dark block duplicated under
-    `:root[data-theme="dark"]` plus a place to put the control.
+13. **Dark-mode toggle (§8)** — **decided: OS-driven only, no toggle.**
+    Only `prefers-color-scheme` is implemented; the site shows light when the
+    OS is light, dark when the OS is dark (confirmed 2026-11-05). If a manual
+    switch is ever wanted: duplicate the dark block under
+    `:root[data-theme="dark"]` plus a control in the navbar.
 
 ## Not built (optional §13)
 
