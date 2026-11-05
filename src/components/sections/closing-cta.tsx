@@ -15,11 +15,11 @@ export function ClosingCta({ locale }: { locale: Locale }) {
             {copy.title}
           </h2>
           <p className="text-text-secondary leading-relaxed mb-8">{copy.lead}</p>
+          {/* Primary CTA only — pricing lives in the nav. */}
           <HeroCtaPair
             primaryLabel={copy.ctaPlay}
-            secondaryLabel={copy.ctaPricing}
             isRTL={isRTL}
-            pricingHref={locale === "en" ? "/en/pricing" : "/pricing"}
+            event="cta_join_footer"
           />
           <p className="mt-6 text-xs text-text-secondary">
             {notice.text}{" "}

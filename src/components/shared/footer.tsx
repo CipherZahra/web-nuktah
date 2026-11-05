@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Link } from "@/i18n";
 
 function IconFacebook() {
@@ -41,10 +42,10 @@ export function Footer() {
   const t = useTranslations("footer");
 
   const socials = [
-    { label: "Facebook", href: "https://web.facebook.com/nuktah.apps", Icon: IconFacebook },
-    { label: "YouTube", href: "https://www.youtube.com/@Nuktah-app", Icon: IconYouTube },
-    { label: "TikTok", href: "https://www.tiktok.com/@nuktah.app", Icon: IconTikTok },
-    { label: "Instagram", href: "https://www.instagram.com/nuktah.app/", Icon: IconInstagram },
+    { key: "facebook", href: "https://web.facebook.com/nuktah.apps", Icon: IconFacebook },
+    { key: "youtube", href: "https://www.youtube.com/@Nuktah-app", Icon: IconYouTube },
+    { key: "tiktok", href: "https://www.tiktok.com/@nuktah.app", Icon: IconTikTok },
+    { key: "instagram", href: "https://www.instagram.com/nuktah.app/", Icon: IconInstagram },
   ];
 
   const links = [
@@ -65,9 +66,12 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-3 group">
-              <img
+              <Image
                 src="/logo-160.webp"
                 alt=""
+                width={160}
+                height={160}
+                loading="lazy"
                 className="w-9 h-9 rounded-xl shadow-glow transition-shadow duration-300"
               />
               <span className="font-bold text-xl tracking-tight text-text-primary font-display">نقطة</span>
@@ -89,9 +93,9 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-1">
-            <h4 className="text-xs font-semibold text-text-muted tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-text-muted tracking-wider mb-4">
               {t("linksHeading")}
-            </h4>
+            </h3>
             <div className="grid grid-cols-2 gap-2">
               {links.map((link) => (
                 <Link
@@ -106,18 +110,19 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-1">
-            <h4 className="text-xs font-semibold text-text-muted tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-text-muted tracking-wider mb-4">
               {t("followHeading")}
-            </h4>
+            </h3>
             <div className="flex items-center gap-3">
-              {socials.map(({ label, href, Icon }) => (
+              {socials.map(({ key, href, Icon }) => (
                 <a
-                  key={label}
+                  key={key}
                   href={href}
-                  aria-label={label}
+                  /* Localised label: فيسبوك / يوتيوب / تيك توك / إنستغرام on ar. */
+                  aria-label={t(key)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-accent-subtle border border-accent/10 flex items-center justify-center text-text-secondary hover:text-accent-hover hover:border-accent/30 hover:bg-accent/5 transition-all duration-200"
+                  className="w-11 h-11 rounded-xl bg-accent-subtle border border-accent/10 flex items-center justify-center text-text-secondary hover:text-accent-hover hover:border-accent/30 hover:bg-accent/5 transition-all duration-200"
                 >
                   <Icon />
                 </a>

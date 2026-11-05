@@ -12,7 +12,9 @@ const buttonVariants = cva(
       variant: {
         default:
           // bg-accent is #047857 (≥5:1 vs its text) — see --color-accent note.
-          "bg-accent text-primary-bg hover:bg-accent-hover shadow-md hover:shadow-glow active:scale-[0.97]",
+          // text-on-accent stays white in dark mode too (the accent is not
+          // lightened there), so the button never ends up dark-on-dark.
+          "bg-accent text-on-accent hover:bg-accent-hover shadow-md hover:shadow-glow active:scale-[0.97]",
         outline:
           "border border-border/60 text-text-primary bg-transparent hover:bg-card-bg hover:border-accent/50 active:scale-[0.97]",
         ghost:

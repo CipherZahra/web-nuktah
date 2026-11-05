@@ -12,16 +12,6 @@ const BUILD_TIME = new Date();
 export const metadata: Metadata = {
   title: arMessages.seo.title,
   description: arMessages.seo.description,
-  keywords: [
-    "نقطة",
-    "Nuktah",
-    "إدارة الدرجات",
-    "المعلمين الجزائريين",
-    "مسح كشوف النقاط",
-    "تطبيق تعليمي",
-    "OCR",
-    "الذكاء الاصطناعي في التعليم",
-  ],
   authors: [{ name: "نقطة" }],
   creator: "Bayan",
   publisher: "Nuktah",
@@ -54,7 +44,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#047857",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#047857" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B1220" },
+  ],
 };
 
 export default function ArLayout({ children }: { children: React.ReactNode }) {

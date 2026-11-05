@@ -12,14 +12,6 @@ const BUILD_TIME = new Date();
 export const metadata: Metadata = {
   title: enMessages.seo.title,
   description: enMessages.seo.description,
-  keywords: [
-    "Nuktah",
-    "grade management",
-    "teachers Algeria",
-    "grade sheet scanning",
-    "education app",
-    "OCR",
-  ],
   authors: [{ name: "Nuktah" }],
   creator: "Bayan",
   publisher: "Nuktah",
@@ -52,7 +44,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#047857",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#047857" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B1220" },
+  ],
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {

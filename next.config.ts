@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
+    // Only the lazy YouTube facade (video-slot) loads a remote image.
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
   },
 };
 

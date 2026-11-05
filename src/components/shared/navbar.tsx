@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ const navLinks = [
   { href: "/pricing", key: "pricing" },
   { href: "/faq", key: "faq" },
   { href: "/support", key: "support" },
-  { href: "/about", key: "about" },
   { href: "/guides", key: "guides" },
 ];
 
@@ -61,9 +61,14 @@ export function Navbar() {
         )}
       >
         <Link href="/" className="flex items-center gap-3 shrink-0 group">
-          <img
+          {/* The only above-the-fold raster asset: preload it once here so the
+              hero copy reuses the same cached file. */}
+          <Image
             src="/logo-160.webp"
             alt=""
+            width={160}
+            height={160}
+            priority
             className="w-9 h-9 rounded-xl shadow-glow transition-shadow duration-300"
           />
           <span className="font-bold text-xl tracking-tight text-text-primary font-display">نقطة</span>
@@ -90,30 +95,25 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-2">
+        {/* One LangSwitch + AccountMenu for the whole bar: the old desktop and
+            mobile copies both lived in the DOM, so the EN link was duplicated. */}
+        <div className="flex items-center gap-2">
           <LangSwitch />
           <AccountMenu
             fallback={
-              <Button size="sm" asChild>
-                <Link href="/download">{t("download")}</Link>
-              </Button>
-            }
-          />
-        </div>
-
-        <div className="flex md:hidden items-center gap-2">
-          <LangSwitch />
-          <AccountMenu
-            fallback={
-              <Button size="sm" asChild>
+              /* Compact label: the full primary string doesn't fit a 360px
+                 header. The full label (nav.join) is used in the mobile menu
+                 and everywhere in the page body. */
+              <Button size="sm" className="min-h-11" asChild>
                 <Link href="/download">{t("download")}</Link>
               </Button>
             }
           />
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-accent-subtle transition-all duration-200"
+            className="md:hidden p-3 -m-1 rounded-lg text-text-secondary hover:text-text-primary hover:bg-accent-subtle transition-all duration-200"
             aria-label={t("menuToggle")}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -141,7 +141,7 @@ export function Navbar() {
             ))}
             <Button className="mt-2" asChild>
               <Link href="/download" onClick={() => setMobileOpen(false)}>
-                {t("download")}
+                {t("join")}
               </Link>
             </Button>
           </div>

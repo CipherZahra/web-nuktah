@@ -15,10 +15,11 @@ export const amiri = localFont({
 });
 
 export const plex = localFont({
+  // Two weights only (spec: ≤2 per family). `font-medium` (500) resolves to
+  // the 400 face and `font-semibold` (600) to the 700 face via CSS matching,
+  // so the two dropped files are no longer downloaded on every visit.
   src: [
     { path: "./plex-arabic-regular.woff2", weight: "400", style: "normal" },
-    { path: "./plex-arabic-medium.woff2", weight: "500", style: "normal" },
-    { path: "./plex-arabic-semibold.woff2", weight: "600", style: "normal" },
     { path: "./plex-arabic-bold.woff2", weight: "700", style: "normal" },
   ],
   display: "swap",

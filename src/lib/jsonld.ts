@@ -20,7 +20,7 @@ export function canonical(path: string): {
     alternates: {
       canonical: `${BASE}${path}`,
       languages: {
-        ar: `${BASE}${arPath}`,
+        "ar-DZ": `${BASE}${arPath}`,
         en: `${BASE}${enPath}`,
         "x-default": `${BASE}${arPath}`,
       },
@@ -43,6 +43,19 @@ export function websiteJsonLd(lang: SiteLang, description: string) {
         url: homeUrl(lang),
         inLanguage: lang === "ar" ? "ar-DZ" : "en",
         description,
+      },
+      {
+        "@type": "Organization",
+        name,
+        url: homeUrl(lang),
+        logo: `${BASE}/logo-160.webp`,
+        email: "support@nuktah.app",
+        sameAs: [
+          "https://web.facebook.com/nuktah.apps",
+          "https://www.youtube.com/@Nuktah-app",
+          "https://www.tiktok.com/@nuktah.app",
+          "https://www.instagram.com/nuktah.app/",
+        ],
       },
       {
         "@type": "SoftwareApplication",

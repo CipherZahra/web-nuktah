@@ -40,7 +40,7 @@ export default function NotFound() {
           <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
             <Link
               href="/"
-              className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-accent text-primary-bg text-sm font-bold shadow-md hover:bg-accent-hover hover:shadow-glow transition-all duration-200"
+              className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-accent text-on-accent text-sm font-bold shadow-md hover:bg-accent-hover hover:shadow-glow transition-all duration-200"
             >
               العودة إلى الرئيسية
             </Link>

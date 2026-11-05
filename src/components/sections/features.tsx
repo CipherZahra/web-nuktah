@@ -20,10 +20,13 @@ export function Features({ locale }: { locale: Locale }) {
           <span className="text-xs font-semibold text-text-muted tracking-wider mb-4 block">
             {copy.label}
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-text-primary">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 text-text-primary">
             {copy.title}
           </h2>
-          <p className="text-text-secondary text-lg max-w-xl mx-auto">{copy.subtitle}</p>
+          {/* Merged-in "Why Nuktah" line: a small subheading, not a section. */}
+          <p className="text-sm md:text-base text-text-muted max-w-xl mx-auto">
+            {copy.subtitle}
+          </p>
         </div>
 
         <div data-reveal-group className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
