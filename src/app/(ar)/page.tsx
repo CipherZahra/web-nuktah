@@ -3,7 +3,6 @@ import { canonical, websiteJsonLd } from "@/lib/jsonld";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
 import { HowItWorks } from "@/components/sections/how-it-works";
-import { DataSafety } from "@/components/sections/data-safety";
 import { Screenshots } from "@/components/sections/screenshots";
 import { VideoSlot } from "@/components/sections/video-slot";
 import { ClosingCta } from "@/components/sections/closing-cta";
@@ -21,7 +20,6 @@ export default function Home() {
       <Hero locale="ar" />
       <Features locale="ar" />
       <HowItWorks locale="ar" />
-      <DataSafety locale="ar" />
       <Screenshots />
       <VideoSlot />
       <ClosingCta locale="ar" />

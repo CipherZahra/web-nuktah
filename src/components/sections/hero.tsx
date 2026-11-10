@@ -1,13 +1,11 @@
 import Image from "next/image";
 import { HeroCtaPair } from "@/components/sections/hero-cta-pair";
-import { HeroJoinGuide } from "@/components/sections/hero-join-guide";
 import { getMessages, type Locale } from "@/lib/messages";
 
 /** Marketing hero. Server component — reads its own locale's copy directly. */
 export function Hero({ locale }: { locale: Locale }) {
   const messages = getMessages(locale);
   const copy = messages.hero;
-  const notice = messages.closedTestNotice;
   const isRTL = locale === "ar";
   return (
     <section
@@ -65,23 +63,6 @@ export function Hero({ locale }: { locale: Locale }) {
             isRTL={isRTL}
             event="cta_join_hero"
           />
-
-          <p className="mt-6 text-xs sm:text-sm text-text-secondary">
-            {notice.text}{" "}
-            <a
-              href={locale === "en" ? "/en/download" : "/download"}
-              className="text-accent-hover font-medium underline underline-offset-2"
-            >
-              {notice.link}
-            </a>
-          </p>
-
-          {/* Single-line trust strip (wraps as a whole on small screens). */}
-          <p className="mt-3 text-xs sm:text-sm text-text-muted max-w-2xl">
-            {copy.trustStrip}
-          </p>
-
-          <HeroJoinGuide />
         </div>
       </div>
     </section>

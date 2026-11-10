@@ -5,27 +5,17 @@
     "faq": "FAQ",
     "support": "Support",
     "guides": "Guide",
-    "download": "Join the beta",
+    "download": "Download",
     "menuToggle": "Menu",
     "skipToContent": "Skip to content",
-    "join": "Join the free beta"
+    "join": "Start free"
   },
   "hero": {
     "badge": "For teachers in Algeria",
     "title": "Nuktah — no mark goes missing.",
     "subtitle": "An intelligent platform that scans paper grade sheets and enters marks automatically, matching each one to its student's matricule — reviewed before you approve it.",
-    "ctaPrimary": "Join the free beta",
-    "ctaSecondary": "See how it works",
-    "trustStrip": "Free during the beta · Student data protected · Every mark reviewed before saving",
-    "joinGuideTitle": "Join the test in three steps",
-    "joinGuideStep1": "Open the test link with your Google account",
-    "joinGuideStep2": "Press “Become a tester”",
-    "joinGuideStep3": "Install the app from Google Play",
-    "joinQrCaption": "Scan to join"
-  },
-  "closedTestNotice": {
-    "text": "The app is currently in a closed testing phase on Google Play.",
-    "link": "Steps to join"
+    "ctaPrimary": "Start free",
+    "ctaSecondary": "See how it works"
   },
   "features": {
     "label": "Features",
@@ -59,21 +49,6 @@
     "step5": "Build reports",
     "step5Desc": "Export the reports and analytics you need with one tap."
   },
-  "dataSafety": {
-    "label": "Student data",
-    "title": "Your data stays yours",
-    "lead": "You enter your students' names and matricules — here is what we commit to:",
-    "item1": "It stays on your phone",
-    "item1Desc": "Student names, matricules and grades are stored locally on your device and are not uploaded to Nuktah servers.",
-    "item2": "We never sell your data",
-    "item2Desc": "We do not sell personal data, and share only what is needed to run the service.",
-    "item3": "Sheet images aren't kept",
-    "item3Desc": "A sheet photo is sent to the reading service only after you approve it in-app, and is never stored on Nuktah servers.",
-    "item4": "Delete it any time",
-    "item4Desc": "In the app: Profile ← Delete account. Or email support@nuktah.app.",
-    "note": "Every connection is encrypted over HTTPS.",
-    "link": "Read the full privacy policy"
-  },
   "screenshots": {
     "label": "App screenshots",
     "title": "See Nuktah in action",
@@ -88,7 +63,7 @@
     "goTo": "Go to slide"
   },
   "download": {
-    "ctaPlay": "Join the free beta"
+    "ctaPlay": "Start free"
   },
   "footer": {
     "tagline": "A smart app for student grade management",
@@ -101,7 +76,7 @@
     "pricing": "Pricing",
     "faq": "FAQ",
     "guides": "Tutorials",
-    "download": "Join the free beta",
+    "download": "Start free",
     "support": "Support",
     "privacy": "Privacy policy",
     "terms": "Terms of use",
@@ -188,7 +163,7 @@
       "name": "Start for free",
       "desc": "A welcome gift — no card needed.",
       "cta": "Try your first sheet free",
-      "stateNote": "The app is available now via the testing link on Google Play."
+      "stateNote": "The app is now available on Google Play."
     },
     "note": "Payments are securely processed by Chargily — CIB or E-Dahabia card. No monthly subscription; credits never expire and are only used when you use them.",
     "faqTitle": "Frequently asked questions",
@@ -299,8 +274,7 @@
     "title": "Download",
     "h1": "Join Nuktah — start free.",
     "lead": "2 scans and 1 import free — no card, no subscription.",
-    "playButton": "Join the beta on Google Play",
-    "betaNotice": "Closed testing — join from the testing link",
+    "playButton": "Download the Nuktah app from Google Play",
     "needsTitle": "What you need",
     "needsItems": [
       "An Android phone (8.0 or later) with a camera.",
@@ -308,17 +282,17 @@
       "The original ministry file (.xlsx or .xls).",
       "An email address for a free account."
     ],
-    "qrAlt": "Scan the QR code to join the Nuktah app",
-    "qrCaption": "Scan the code to join the beta",
-    "joinTitle": "Three steps to join",
-    "joinStep1": "Open the testing link",
-    "joinStep1Desc": "Register your email for the closed test on Google Play.",
-    "joinStep2": "Accept the tester invite",
-    "joinStep2Desc": "We confirm your spot — it can take a few minutes or a full day.",
-    "joinStep3": "Install and scan your first sheet",
-    "joinStep3Desc": "Install the test build and try your first sheet — free.",
-    "joinHelpTitle": "Couldn't join?",
-    "joinHelpText": "Email us and we'll send you an alternative link, and answer any question:",
+    "qrAlt": "Scan the QR code to download the Nuktah app",
+    "qrCaption": "Scan the code to download",
+    "joinTitle": "Three steps to download",
+    "joinStep1": "Open the app's page on Google Play",
+    "joinStep1Desc": "From the Play button or the QR code above.",
+    "joinStep2": "Press “Install”",
+    "joinStep2Desc": "Free and lightweight — no card needed.",
+    "joinStep3": "Sign up with your email and start your first sheet",
+    "joinStep3Desc": "A free account with your email — every mark reviewed before saving.",
+    "joinHelpTitle": "Couldn't install?",
+    "joinHelpText": "Email us and we'll answer any question:",
     "joinHelpEmail": "support@nuktah.app",
     "ctaPricing": "See pricing"
   },
@@ -343,7 +317,7 @@
   "closingCta": {
     "title": "Stop retyping marks.",
     "lead": "Record your first sheet in minutes.",
-    "ctaPlay": "Join the free beta"
+    "ctaPlay": "Start free"
   },
   "account": {
     "title": "Account",

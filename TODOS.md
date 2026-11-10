@@ -21,26 +21,26 @@ or a decision that hasn't been supplied. Nothing here was invented.
 
 ## Needs your confirmation
 
-4. **Data-safety section (§6a)** — `بياناتك في أمان` states four things, all
-   lifted from `src/content/legal/privacy.ar.md`: data stays on the device,
-   no selling/sharing, sheet images are not stored on our servers, delete via
-   profile or `support@nuktah.app`, plus HTTPS. Sign off before deploy (or
-   tell me which to cut).
+4. ~~**Data-safety section (§6a)**~~ — **removed 2026-11-10 on request**,
+   together with the hero trust strip («مجاني للبدء · حماية لبيانات التلاميذ…»)
+   and the hero join guide (QR + three steps). The `/privacy` page is
+   untouched; only the home sections are gone. Recover from git history if you
+   want them back.
 5. **Feature cards (§3)** — dropped two claims pending confirmation:
    reports "قابلة للطباعة والمشاركة" and analytics "المعدلات". Re-add only if
    the app really does both; the cards currently say "نتائج مفصّلة لكل تلميذ
    ولكل قسم." and "مؤشرات تُظهر نقاط القوة والضعف في كل قسم.".
-6. **Join mini-guide (§6d)** — the 3 steps (open the link with a Google
-   account → press «أصبح مختبِرًا» → install from Play) are unverified against
-   the real closed-testing flow, including whether the invite is instant or
-   takes a day (the download page copy says "بضع دقائق أو يومًا كاملاً").
+6. ~~**Join mini-guide (§6d)**~~ — **resolved 2026-11-10: app publicly
+   released; the hero mini-guide (QR + three steps) was then removed from the
+   home page on request.** The download page keeps its three public-flow steps
+   (open the listing → «تثبيت» → sign up with your email); the tester invite
+   and approval wait are gone. Copy approved by you.
 7. **Dark-mode palette (§8)** — derived from the light theme + brand green,
    not copied from the app. Confirm the app's dark colours and I'll align.
-8. **Header CTA label (§1/§7)** — the header button uses the short
-   `انضم للتجربة`; the full `انضم للتجربة المجانية` does not fit a 360px bar
-   next to the logo, EN switch and hamburger. The full label is used in the
-   hero, closing band, mobile menu, footer link, about and download CTAs.
-   Decide: keep short, or drop the header CTA (the mobile menu has it).
+8. ~~**Header CTA label (§1/§7)**~~ — **resolved 2026-11-10:** the primary
+   label is `ابدأ مجانًا` / "Start free" everywhere — short enough for the
+   360px bar, so header and hero no longer differ. `nav.download` (nav + footer
+   link) is `التحميل` / "Download".
 
 ## Judgement calls, revisit if you disagree
 

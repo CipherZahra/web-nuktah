@@ -20,8 +20,8 @@ interface HeroCtaPairProps {
 
 /**
  * Play-store CTA pair shared by the hero and the closing band. The primary
- * label is the single honest string used across the page while the app is in
- * closed testing — never "حمّل مجانًا".
+ * label is the single honest string used across the page — the app is public
+ * now, so "ابدأ مجانًا" is simply true (free install, free tier).
  */
 export function HeroCtaPair({
   primaryLabel,

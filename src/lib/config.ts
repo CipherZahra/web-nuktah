@@ -18,7 +18,7 @@ export const SUPABASE_ANON_KEY =
   "";
 
 /** Google Play testing-track URL used across every "download" CTA. */
-export const PLAY_URL = "https://play.google.com/apps/testing/app.nuktah";
+export const PLAY_URL = "https://play.google.com/store/apps/details?id=app.nuktah";
 
 /** Canonical package id order — must match the pricing plans array order. */
 export const PACKAGE_IDS: string[] = ["starter", "standard", "plus", "custom"];
