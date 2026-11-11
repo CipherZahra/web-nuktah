@@ -203,14 +203,23 @@ export const CUSTOM_RATE_DZD = 50;
 export const CUSTOM_MIN_CREDITS = 5;
 export const CUSTOM_MAX_CREDITS = 200;
 
-/** Chargily-hosted pages only — blocks a compromised/misconfigured function from redirecting elsewhere. */
-function isAllowedCheckoutUrl(raw: string): boolean {
+/**
+ * Chargily-hosted pages only — blocks a compromised/misconfigured function
+ * from redirecting elsewhere. Chargily's API currently answers with
+ * `http://pay.chargily.dz/...` (which 301s to TLS on their side), so plain
+ * http is accepted on allowlisted hosts — but the returned URL is always
+ * upgraded to https, so the browser never opens the payment page over
+ * plaintext.
+ */
+function allowedCheckoutUrl(raw: string): string | null {
   try {
     const url = new URL(raw);
-    if (url.protocol !== "https:") return false;
-    return /(^|\.)chargily\.[a-z]{2,}$/i.test(url.hostname);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+    if (!/(^|\.)chargily\.[a-z]{2,}$/i.test(url.hostname)) return null;
+    url.protocol = "https:";
+    return url.toString();
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -259,7 +268,8 @@ export async function startCheckout(
   const checkoutUrl =
     typeof body.checkoutUrl === "string" ? body.checkoutUrl : null;
   if (!res.ok || !checkoutUrl) throw new Error("checkout");
-  if (!isAllowedCheckoutUrl(checkoutUrl)) throw new Error("checkout_url");
+  const target = allowedCheckoutUrl(checkoutUrl);
+  if (!target) throw new Error("checkout_url");
 
-  window.location.assign(checkoutUrl);
+  window.location.assign(target);
 }
