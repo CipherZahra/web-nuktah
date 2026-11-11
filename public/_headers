@@ -14,3 +14,6 @@
 
 /*.webp
   Cache-Control: public, max-age=86400
+
+/version.json
+  Cache-Control: public, max-age=60, must-revalidate
