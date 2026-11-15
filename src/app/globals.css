@@ -214,6 +214,42 @@
   }
 }
 
+/* Phone-story section: floating cards replay this on every step change
+   (element remounts via key), and the scan line sweeps the detection frame.
+   The prefers-reduced-motion block below collapses both to instant. */
+@keyframes story-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.story-pop {
+  animation: story-pop 0.3s ease-out both;
+}
+@keyframes scan-sweep {
+  0%,
+  100% {
+    top: 8%;
+  }
+  50% {
+    top: 88%;
+  }
+}
+.story-sweep {
+  position: absolute;
+  top: 8%; /* resting position (also what reduced-motion sees) */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
+  animation: scan-sweep 2.8s ease-in-out infinite;
+}
+
 @layer utilities {
   /* .text-gradient removed — no usages (it also had sub-AA light stops). */
 }

@@ -6,16 +6,18 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { trackEvent } from "@/lib/analytics";
 
-/** 5 of the 8 screens in /public/screens — the ones that tell the flow story.
+/** 7 of the screens in /public/screens — the ones that tell the flow story.
  *  TODO(gallery): phone_02 (import), phone_05 (manual entry) and phone_08
- *  (sharing) are still in /screens and can be re-added; a dark-mode screen
- *  does not exist yet and needs to be captured from the app. */
+ *  (sharing) are still in /screens and can be re-added; the two dark-mode
+ *  screens were added 2026-11-15 (captured from the app, TODOS #2). */
 const shots = [
   { src: "/screens/phone_01.webp", key: "home" },
   { src: "/screens/phone_03.webp", key: "scan" },
   { src: "/screens/phone_04.webp", key: "reading" },
   { src: "/screens/phone_06.webp", key: "gradebook" },
   { src: "/screens/phone_07.webp", key: "analytics" },
+  { src: "/screens/dark_home.webp", key: "homeDark" },
+  { src: "/screens/dark_analytics.webp", key: "analyticsDark" },
 ];
 
 /** Swipe distance (px) before a swipe counts as a navigation. */

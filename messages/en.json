@@ -34,30 +34,89 @@
     "export": "Approved export formats",
     "exportDesc": "Export marks and reports to Excel and PDF in one tap."
   },
-  "howItWorks": {
+  "story": {
     "label": "How it works",
-    "title": "From paper sheet to report, in five steps",
-    "subtitle": "We designed the app to be simple and fast, from start to finish.",
-    "step1": "Choose the class",
-    "step1Desc": "Pick the class whose grades you want to manage.",
-    "step2": "Upload a grade sheet photo",
-    "step2Desc": "Photograph the paper sheet or load it from your gallery.",
-    "step3": "Review the results",
-    "step3Desc": "Check the extracted marks and correct any error before approving.",
-    "step4": "Approve and save",
-    "step4Desc": "Marks are saved securely to the app database.",
-    "step5": "Build reports",
-    "step5Desc": "Export the reports and analytics you need with one tap."
+    "title": "Watch a handwritten sheet become a finished gradebook.",
+    "subtitle": "Scroll through the six steps every teacher goes through — without re-entering a single number.",
+    "cta": "Start free",
+    "railLabel": "Story steps",
+    "paperPreviewTitle": "Arabic Language · Evaluation Sheet",
+    "paperRows": [
+      { "mat": "10234", "name": "Ahmed B.", "g1": "16.5" },
+      { "mat": "10235", "name": "Sara M.", "g1": "18.0" },
+      { "mat": "10236", "name": "Yasmine K.", "g1": "14.5" },
+      { "mat": "10237", "name": "Youcef R.", "g1": "12.0" }
+    ],
+    "matchingLabel": "Matricule matching",
+    "reviewHint": "Tap any grade to adjust before saving",
+    "steps": [
+      {
+        "id": "paper",
+        "number": "01",
+        "label": "Paper",
+        "title": "It starts with a sheet.",
+        "description": "Your grades are already on paper. No need to type them all again.",
+        "detail": "Open Nuktah on your class screen and tap Scan Grades — or import your ministry Excel file first.",
+        "alt": "Nuktah home screen with Scan Grades and Import File actions"
+      },
+      {
+        "id": "scan",
+        "number": "02",
+        "label": "Scan",
+        "title": "Just take a picture.",
+        "description": "Frame the printed or handwritten evaluation sheet right from your desk.",
+        "detail": "Photograph the sheet where it is — the app takes it from there.",
+        "alt": "Nuktah camera screen framing a handwritten grade sheet"
+      },
+      {
+        "id": "extraction",
+        "number": "03",
+        "label": "Extraction",
+        "title": "Nuktah reads the handwriting.",
+        "description": "Handwritten marks — continuous, test and exam — are read and organized into a clean table.",
+        "detail": "Every row comes out structured: student, matricule, and each grade component.",
+        "alt": "Nuktah reading screen extracting handwritten grades"
+      },
+      {
+        "id": "matching",
+        "number": "04",
+        "label": "Matching",
+        "title": "Every student, matched.",
+        "description": "Students are matched automatically by matricule — not by guessing names.",
+        "detail": "Even if handwriting varies, the registration number keeps every score assigned to the right learner.",
+        "alt": "Nuktah grade list with green match confirmations"
+      },
+      {
+        "id": "review",
+        "number": "05",
+        "label": "Review",
+        "title": "You stay in control.",
+        "description": "Review every result before it becomes part of your grades.",
+        "detail": "Every cell is editable — fix anything in one tap, then confirm the save.",
+        "alt": "Nuktah review screen with editable grade boxes"
+      },
+      {
+        "id": "done",
+        "number": "06",
+        "label": "Done",
+        "title": "From paper to organized grades.",
+        "description": "Less typing. Less repetition. More time for teaching.",
+        "detail": "See every student's results in detail, and export your updated Excel workbook in one tap.",
+        "alt": "Nuktah statistics screen showing class results"
+      }
+    ]
   },
   "screenshots": {
     "label": "App screenshots",
     "title": "See Nuktah in action",
     "subtitle": "Screens from the app showing a clean, simple interface.",
     "home": "Home",
+    "homeDark": "Home (dark mode)",
     "scan": "Scanning",
     "reading": "Smart reading",
     "gradebook": "Gradebook",
     "analytics": "Analytics",
+    "analyticsDark": "Analytics (dark mode)",
     "prev": "Previous",
     "next": "Next",
     "goTo": "Go to slide"
@@ -465,8 +524,36 @@
     "failureDesc": "The payment was not completed. You have not been charged — you can try again from the app."
   },
   "video": {
-    "label": "Intro video",
-    "title": "Play the intro video (60 seconds)",
-    "caption": "A 60-second look at scanning sheets with Nuktah."
+    "label": "Manual grade entry · always free",
+    "title": "Prefer entering grades yourself? It's built right in.",
+    "caption": "Whether you are grading live in class or finishing a few sheets, manual entry takes you from attendance to saved class marks — using zero credits.",
+    "play": "Play walkthrough",
+    "pause": "Pause walkthrough",
+    "mute": "Mute audio",
+    "unmute": "Unmute audio",
+    "cta": "Try manual entry free",
+    "duration": "58 sec",
+    "chapters": [
+      {
+        "at": 3,
+        "title": "Open manual entry & pick your class",
+        "desc": "Tap Add Grades Manually from Home and select the class section."
+      },
+      {
+        "at": 10,
+        "title": "Record absences & type scores",
+        "desc": "Mark absent students in one tap, then enter grades with the numeric keypad."
+      },
+      {
+        "at": 27,
+        "title": "Review & update the gradebook",
+        "desc": "Verify missing scores before saving and confirm the class workbook update."
+      },
+      {
+        "at": 43,
+        "title": "Get the updated Excel file",
+        "desc": "Your ministry .xlsx file updates automatically and is ready to open in Excel."
+      }
+    ]
   }
 }

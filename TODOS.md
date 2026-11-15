@@ -5,12 +5,20 @@ or a decision that hasn't been supplied. Nothing here was invented.
 
 ## Needs an asset / URL
 
-1. **Demo video (§6c)** — `src/components/sections/video-slot.tsx` renders
-   `null` until `NEXT_PUBLIC_VIDEO_URL` is set (YouTube link). The lazy
-   facade, thumbnail (`i.ytimg.com` — allow-listed in `next.config.ts`),
-   `youtube-nocookie` embed and the `video_play` event are all wired.
-2. **Dark-mode app screenshot (§6b)** — no dark screen exists in
-   `public/screens`; capture one from the app and add it to the gallery.
+1. **Demo video (§6c)** — `src/components/sections/video-slot.tsx` still
+   renders `null` until `NEXT_PUBLIC_VIDEO_URL` is set, so production shows no
+   empty box. The section is now a **portrait player + 4-chapter timeline**
+   (ported 2026-11-15 from the AI-Studio folder): the YouTube IFrame API
+   loads lazily on scroll-in, falls back to a plain youtube-nocookie iframe
+   (chapter clicks swap `&start=`) if the API is blocked, and the CSP in
+   `public/_headers` now allows youtube.com / s.ytimg.com / youtube-nocookie.com.
+   **Waiting on you:** upload
+   `nuktah_add_grades_manually_tutorial_v4.mp4` (58.5s, 1080×1920) to YouTube
+   as *unlisted*, send me the URL → I set it in `.env.local` and rebuild.
+2. ~~**Dark-mode app screenshot (§6b)**~~ — **resolved 2026-11-15:**
+   `dark_home.webp` + `dark_analytics.webp` (real app captures from the
+   AI-Studio folder) were converted and appended to the gallery — it now runs
+   7 shots.
 3. **Analytics provider (§12)** — every event is called from the UI
    (`cta_join_hero`, `cta_join_footer`, `how_it_works_click`, `video_play`,
    `gallery_swipe`, `qr_click`, `download_visit`), but `src/lib/analytics.ts`
@@ -50,8 +58,10 @@ or a decision that hasn't been supplied. Nothing here was invented.
    «منصّة لمسح كشوف النقاط وإدخال العلامات تلقائيًا، ومطابقتها برقم التسجيل
    قبل الاعتماد.»
 10. **Gallery size (§6b)** — trimmed 8 → 5 screens (home, scan, reading,
-    gradebook, analytics). `phone_02` (import), `phone_05` (manual entry) and
-    `phone_08` (sharing) are still in `public/screens` and can be re-added.
+    gradebook, analytics), then **+2 dark screens 2026-11-15 = 7**.
+    `phone_02` (import), `phone_05` (manual entry — now used as the video
+    poster) and `phone_08` (sharing) are still in `public/screens` and can be
+    re-added.
 11. **Carousel dots (§9)** — dot hit area is 24×44px: AA (2.5.8) passes, but
     your 44px-wide target would need 5×44px + two 44px arrows > 360px.
     Arrows, dots and swipe all reach the same result.

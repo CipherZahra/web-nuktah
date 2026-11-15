@@ -2,7 +2,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { canonical, websiteJsonLd } from "@/lib/jsonld";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
-import { HowItWorks } from "@/components/sections/how-it-works";
+import { PhoneStory } from "@/components/sections/phone-story";
 import { Screenshots } from "@/components/sections/screenshots";
 import { VideoSlot } from "@/components/sections/video-slot";
 import { ClosingCta } from "@/components/sections/closing-cta";
@@ -19,7 +19,7 @@ export default function Home() {
       <JsonLd data={websiteJsonLd("ar", arMessages.seo.description)} />
       <Hero locale="ar" />
       <Features locale="ar" />
-      <HowItWorks locale="ar" />
+      <PhoneStory />
       <Screenshots />
       <VideoSlot />
       <ClosingCta locale="ar" />
