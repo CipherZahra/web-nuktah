@@ -311,79 +311,12 @@
   }
 }
 
-/* ============ Dark mode (prefers-color-scheme) ============
-   Everything below is unlayered on purpose: it must beat the generated
-   `theme`/`utilities` layers (later declaration, same specificity) without
-   touching a single component.
-
-   Notes / TODOs:
-   - Theme is OS-driven on purpose (decided 2026-11-05: no manual toggle).
-     If a switch is ever wanted: duplicate this whole block under
-     `:root[data-theme="dark"]` + a navbar control with localStorage.
-   - The palette is derived from the light theme + brand green, not copied
-     from the app. TODO(dark): confirm the exact dark colours against the app.
-   - Dark-mode app captures exist in /screens (dark_home.webp,
-     dark_analytics.webp) — kept for future use since the gallery section
-     was removed 2026-11-15. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --color-primary-bg: #0b1220;
-    --color-card-bg: #131c2e;
-    --color-text-primary: #f1f5f9;
-    --color-text-secondary: #b3bfce;
-    --color-text-muted: #8d9aae;
-    --color-border: #263449;
-    --color-border-subtle: rgba(148, 163, 184, 0.16);
-    /* 8% of the accent is invisible on a near-black canvas. */
-    --color-accent-subtle: rgba(52, 211, 153, 0.14);
-    /* Link hover: #065F46 on #0B1220 ≈ 1.6:1 — unusable in the dark. */
-    --color-emerald-800: #6ee7b7;
-    /* Status pairs keep bg↔text contrast when both halves are flipped. */
-    --color-red-50: #2a1215;
-    --color-red-600: #f87171;
-    --color-red-500: #f87171;
-    --color-red-200: #7f1d1d;
-    --color-amber-50: #2c2109;
-    --color-amber-600: #fbbf24;
-    --color-amber-200: #78350f;
-  }
-
-  /* `bg-white` follows --color-white, which text-white shares — so the
-     utility itself is retargeted here instead of the token. Opacity
-     variants compile to literals (#fffc …) and need explicit rules. */
-  .bg-white {
-    background-color: var(--color-card-bg);
-  }
-  .bg-white\/60 {
-    background-color: color-mix(in srgb, var(--color-card-bg) 72%, transparent);
-  }
-  .bg-white\/80 {
-    background-color: color-mix(in srgb, var(--color-card-bg) 86%, transparent);
-  }
-  .bg-white\/90 {
-    background-color: color-mix(in srgb, var(--color-card-bg) 93%, transparent);
-  }
-  .bg-white\/95 {
-    background-color: color-mix(in srgb, var(--color-card-bg) 96%, transparent);
-  }
-
-  /* Brand green is kept as a background (white on #047857 ≈ 5.1:1), so the
-     TEXT uses of it are lifted to stay readable on a dark canvas. */
-  .text-accent {
-    color: #34d399;
-  }
-  .text-accent-hover,
-  .hover\:text-accent-hover:hover {
-    color: #6ee7b7;
-  }
-  .prose-nuktah a,
-  .prose-nuktah code {
-    color: #6ee7b7;
-  }
-
-  /* Focus outline needs 3:1 against what surrounds it (WCAG 1.4.11). */
-  :focus-visible {
-    outline-color: #34d399;
-  }
+/* ============ Light-only ============
+   Dark mode (the whole `@media (prefers-color-scheme: dark)` block) was
+   removed 2026-11-15 on request — the site is light in every scheme.
+   `color-scheme: light` pins the UA to light chrome (scrollbars, form
+   controls, caption colours) even when the OS reports dark; without it
+   `normal` would let the browser follow the system. */
+:root {
+  color-scheme: light;
 }

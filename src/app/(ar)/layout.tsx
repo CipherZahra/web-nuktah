@@ -44,10 +44,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#047857" },
-    { media: "(prefers-color-scheme: dark)", color: "#0B1220" },
-  ],
+  // Light-only (dark mode removed 2026-11-15): green chrome in every scheme.
+  themeColor: "#047857",
 };
 
 export default function ArLayout({ children }: { children: React.ReactNode }) {

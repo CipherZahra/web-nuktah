@@ -44,8 +44,8 @@ or a decision that hasn't been supplied. Nothing here was invented.
    home page on request.** The download page keeps its three public-flow steps
    (open the listing → «تثبيت» → sign up with your email); the tester invite
    and approval wait are gone. Copy approved by you.
-7. **Dark-mode palette (§8)** — derived from the light theme + brand green,
-   not copied from the app. Confirm the app's dark colours and I'll align.
+7. ~~**Dark-mode palette (§8)**~~ — moot since dark mode was removed
+   2026-11-15 (see #13); the site is light-only now.
 8. ~~**Header CTA label (§1/§7)**~~ — **resolved 2026-11-10:** the primary
    label is `ابدأ مجانًا` / "Start free" everywhere — short enough for the
    360px bar, so header and hero no longer differ. `nav.download` (nav + footer
@@ -70,11 +70,13 @@ or a decision that hasn't been supplied. Nothing here was invented.
 12. **Fonts (§8)** — kept Amiri (headings) + IBM Plex Sans Arabic, now 400/700
     only (≤2 weights per family); `font-medium` maps to 400, `font-semibold`
     to 700. Two woff2 files are no longer downloaded.
-13. **Dark-mode toggle (§8)** — **decided: OS-driven only, no toggle.**
-    Only `prefers-color-scheme` is implemented; the site shows light when the
-    OS is light, dark when the OS is dark (confirmed 2026-11-05). If a manual
-    switch is ever wanted: duplicate the dark block under
-    `:root[data-theme="dark"]` plus a control in the navbar.
+13. ~~**Dark-mode toggle (§8)**~~ — **superseded 2026-11-15: dark mode was
+     removed entirely on request ("keep it light").** Gone: the whole
+     `@media (prefers-color-scheme: dark)` block in `globals.css` and the
+     dark `theme-color` entries in both locale layouts; `:root` now pins
+     `color-scheme: light` so UA chrome (scrollbars, form controls) stays
+     light even on a dark OS. Want it back → recover the deleted block from
+     git history (it had no toggle — OS-driven only).
 
 ## Not built (optional §13)
 
