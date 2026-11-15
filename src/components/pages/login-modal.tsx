@@ -66,6 +66,8 @@ export function LoginModal({
   const [busy, setBusy] = useState(false);
   const [errorKey, setErrorKey] = useState<ErrKey | "">("");
   const tokenRef = useRef("");
+  const isInteractiveRef = useRef(false);
+  const widgetErrorRef = useRef(false);
   const widgetIdRef = useRef<string | null>(null);
   const twRef = useRef<HTMLDivElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -98,22 +100,36 @@ export function LoginModal({
     widgetIdRef.current = null;
     if (twRef.current) twRef.current.innerHTML = "";
     tokenRef.current = "";
+    isInteractiveRef.current = false;
+    widgetErrorRef.current = false;
   }, []);
 
   const renderWidget = useCallback(() => {
     if (!window.turnstile || !twRef.current) return;
     destroyWidget();
+    widgetErrorRef.current = false;
+    isInteractiveRef.current = false;
     widgetIdRef.current = window.turnstile.render(twRef.current, {
       sitekey: TURNSTILE_SITEKEY,
-      theme: "auto",
+      theme: "light",
+      appearance: "interaction-only",
       callback: (v: string) => {
         tokenRef.current = v;
+        isInteractiveRef.current = false;
+      },
+      "before-interactive-callback": () => {
+        isInteractiveRef.current = true;
+      },
+      "after-interactive-callback": () => {
+        isInteractiveRef.current = false;
       },
       "expired-callback": () => {
         tokenRef.current = "";
       },
       "error-callback": () => {
         tokenRef.current = "";
+        widgetErrorRef.current = true;
+        isInteractiveRef.current = false;
       },
     });
   }, [destroyWidget]);
@@ -146,14 +162,54 @@ export function LoginModal({
   const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (busy) return;
-    if (!tokenRef.current) {
+
+    // If an interactive checkbox is currently displayed and uncompleted, prompt to check it.
+    if (isInteractiveRef.current && !tokenRef.current) {
       setErrorKey("captchaMissing");
       return;
     }
+
     setBusy(true);
     setErrorKey("");
+
+    let token = tokenRef.current;
+    if (!token) {
+      try {
+        // Turnstile verifies silently in the background: wait briefly for the token
+        // to complete without prematurely showing a false-positive "check the box" error.
+        token = await new Promise<string>((resolve, reject) => {
+          const start = Date.now();
+          const iv = setInterval(() => {
+            if (tokenRef.current) {
+              clearInterval(iv);
+              resolve(tokenRef.current);
+            } else if (widgetErrorRef.current) {
+              clearInterval(iv);
+              reject(new Error("error"));
+            } else if (isInteractiveRef.current) {
+              clearInterval(iv);
+              reject(new Error("interactive"));
+            } else if (Date.now() - start >= 5000) {
+              clearInterval(iv);
+              reject(new Error("timeout"));
+            }
+          }, 80);
+        });
+      } catch (err) {
+        setBusy(false);
+        if (err instanceof Error && err.message === "interactive") {
+          setErrorKey("captchaMissing");
+        } else if (err instanceof Error && err.message === "error") {
+          setErrorKey("captchaRejected");
+        } else {
+          setErrorKey("captchaMissing");
+        }
+        return;
+      }
+    }
+
     try {
-      await signInWithPassword(email.trim(), password, tokenRef.current);
+      await signInWithPassword(email.trim(), password, token);
       onSuccess();
     } catch (err) {
       setErrorKey(mapAuthError(err instanceof Error ? err.message : "error"));
