@@ -35,8 +35,16 @@ export function HeroCtaPair({
   const isAnchor = secondaryHref?.startsWith("#") ?? false;
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4">
-      <Button size="xl" asChild>
+    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+      {/* Hero gets extra presence over the base variants: rounder corners,
+          a brand glow that deepens on hover (primary lifts slightly), and a
+          solid surface + shadow for the secondary so it doesn't wash out on
+          the hero gradient. twMerge lets these override the variant bases. */}
+      <Button
+        size="xl"
+        asChild
+        className="gap-2 rounded-2xl font-semibold shadow-glow hover:shadow-glow-lg hover:-translate-y-0.5"
+      >
         <a
           href={playUrl}
           target="_blank"
@@ -49,7 +57,12 @@ export function HeroCtaPair({
       </Button>
 
       {secondaryLabel && secondaryHref && (
-        <Button size="xl" variant="outline" asChild>
+        <Button
+          size="xl"
+          variant="outline"
+          asChild
+          className="gap-2 rounded-2xl border-border bg-card-bg font-semibold shadow-sm hover:shadow-md"
+        >
           <a
             href={secondaryHref}
             onClick={() => isAnchor && trackEvent("how_it_works_click")}

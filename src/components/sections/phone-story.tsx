@@ -33,7 +33,8 @@ const SHOTS: Record<string, string> = {
 
 /**
  * Six-step paper→app scroll story. Replaces the old HowItWorks list and keeps
- * `id="how-it-works"` so the hero anchor still works.
+ * `id="how-it-works"` for in-page links and bookmarks (the hero CTA moved to
+ * /pricing on 2026-11-15).
  *
  * Motion is CSS-only per repo rules: the sticky phone crossfades between
  * screenshots (`transition-opacity`), step activation comes from an

@@ -56,10 +56,12 @@ export function Hero({ locale }: { locale: Locale }) {
             {copy.subtitle}
           </p>
 
+          {/* Locale-resolved plain <a> (never next-intl's Link — see
+              AGENTS.md): AR lives at the root, EN under /en. */}
           <HeroCtaPair
             primaryLabel={copy.ctaPrimary}
             secondaryLabel={copy.ctaSecondary}
-            secondaryHref="#how-it-works"
+            secondaryHref={locale === "ar" ? "/pricing" : "/en/pricing"}
             isRTL={isRTL}
             event="cta_join_hero"
           />
