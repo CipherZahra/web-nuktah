@@ -13,7 +13,6 @@ export type EventName =
   | "cta_join_footer"
   | "how_it_works_click"
   | "video_play"
-  | "gallery_swipe"
   | "qr_click"
   | "download_visit";
 

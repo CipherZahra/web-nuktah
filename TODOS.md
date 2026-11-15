@@ -15,13 +15,14 @@ or a decision that hasn't been supplied. Nothing here was invented.
    **Waiting on you:** upload
    `nuktah_add_grades_manually_tutorial_v4.mp4` (58.5s, 1080×1920) to YouTube
    as *unlisted*, send me the URL → I set it in `.env.local` and rebuild.
-2. ~~**Dark-mode app screenshot (§6b)**~~ — **resolved 2026-11-15:**
-   `dark_home.webp` + `dark_analytics.webp` (real app captures from the
-   AI-Studio folder) were converted and appended to the gallery — it now runs
-   7 shots.
+2. ~~**Dark-mode app screenshot (§6b)**~~ — **resolved 2026-11-15, then
+   made moot the same day:** `dark_home.webp` + `dark_analytics.webp` (real
+   app captures from the AI-Studio folder) were converted, but the whole
+   screenshots gallery was removed on request (see #10). The two dark shots
+   stay in `public/screens` for future use.
 3. **Analytics provider (§12)** — every event is called from the UI
    (`cta_join_hero`, `cta_join_footer`, `how_it_works_click`, `video_play`,
-   `gallery_swipe`, `qr_click`, `download_visit`), but `src/lib/analytics.ts`
+   `qr_click`, `download_visit`), but `src/lib/analytics.ts`
    only forwards to `window.plausible` / `window.gtag`, and neither is
    installed. The Cloudflare Web Analytics beacon has no custom-event API, so
    today the calls no-op. Drop in a Plausible snippet or `gtag.js` and the
@@ -57,14 +58,15 @@ or a decision that hasn't been supplied. Nothing here was invented.
    verbatim. A 2-line version for approval:
    «منصّة لمسح كشوف النقاط وإدخال العلامات تلقائيًا، ومطابقتها برقم التسجيل
    قبل الاعتماد.»
-10. **Gallery size (§6b)** — trimmed 8 → 5 screens (home, scan, reading,
-    gradebook, analytics), then **+2 dark screens 2026-11-15 = 7**.
-    `phone_02` (import), `phone_05` (manual entry — now used as the video
-    poster) and `phone_08` (sharing) are still in `public/screens` and can be
-    re-added.
-11. **Carousel dots (§9)** — dot hit area is 24×44px: AA (2.5.8) passes, but
-    your 44px-wide target would need 5×44px + two 44px arrows > 360px.
-    Arrows, dots and swipe all reach the same result.
+10. ~~**Gallery size (§6b)**~~ — **the entire screenshots gallery was
+    removed 2026-11-15 on request** ("See Nuktah in action" section: component,
+    both page usages, `screenshots` message keys and the `shot-enter`
+    keyframes all deleted). The story section now shows the app screens step
+    by step instead. All 9 raw shots remain in `public/screens` (`phone_01`
+    … `phone_08`, plus `dark_home`/`dark_analytics`) and can be re-added if
+    you ever want a gallery back; `phone_05` is reused as the video poster.
+11. ~~**Carousel dots (§9)**~~ — moot since the gallery was removed
+    2026-11-15 (was: dot hit area 24×44px, AA (2.5.8) pass).
 12. **Fonts (§8)** — kept Amiri (headings) + IBM Plex Sans Arabic, now 400/700
     only (≤2 weights per family); `font-medium` maps to 400, `font-semibold`
     to 700. Two woff2 files are no longer downloaded.

@@ -165,22 +165,6 @@
   animation-delay: calc(var(--reveal-i, 0) * 60ms);
 }
 
-/* Screenshot carousel: replays on each remount (key change). The slide
-   direction (--shot-x) is set inline by the component per locale. */
-@keyframes shot-enter {
-  from {
-    opacity: 0;
-    transform: translateX(var(--shot-x, 40px));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.shot-enter {
-  animation: shot-enter 0.25s ease-out both;
-}
-
 /* Navbar: drop-in on first paint, matching the old framer-motion entrance. */
 @keyframes nav-drop {
   from {
@@ -338,8 +322,9 @@
      `:root[data-theme="dark"]` + a navbar control with localStorage.
    - The palette is derived from the light theme + brand green, not copied
      from the app. TODO(dark): confirm the exact dark colours against the app.
-   - App screenshots in the gallery are light-themed and stay that way.
-     TODO(dark): capture a dark-mode screen and add it to /screens. */
+   - Dark-mode app captures exist in /screens (dark_home.webp,
+     dark_analytics.webp) — kept for future use since the gallery section
+     was removed 2026-11-15. */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;

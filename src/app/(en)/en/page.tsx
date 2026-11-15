@@ -3,7 +3,6 @@ import { canonical, websiteJsonLd } from "@/lib/jsonld";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
 import { PhoneStory } from "@/components/sections/phone-story";
-import { Screenshots } from "@/components/sections/screenshots";
 import { VideoSlot } from "@/components/sections/video-slot";
 import { ClosingCta } from "@/components/sections/closing-cta";
 import enMessages from "../../../../messages/en.json";
@@ -20,7 +19,6 @@ export default function Home() {
       <Hero locale="en" />
       <Features locale="en" />
       <PhoneStory />
-      <Screenshots />
       <VideoSlot />
       <ClosingCta locale="en" />
     </>

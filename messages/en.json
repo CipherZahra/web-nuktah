@@ -106,21 +106,6 @@
       }
     ]
   },
-  "screenshots": {
-    "label": "App screenshots",
-    "title": "See Nuktah in action",
-    "subtitle": "Screens from the app showing a clean, simple interface.",
-    "home": "Home",
-    "homeDark": "Home (dark mode)",
-    "scan": "Scanning",
-    "reading": "Smart reading",
-    "gradebook": "Gradebook",
-    "analytics": "Analytics",
-    "analyticsDark": "Analytics (dark mode)",
-    "prev": "Previous",
-    "next": "Next",
-    "goTo": "Go to slide"
-  },
   "download": {
     "ctaPlay": "Start free"
   },
