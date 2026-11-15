@@ -138,7 +138,7 @@ export function TopUpModal({
           : "border-border bg-white hover:border-accent/40",
       )}
     >
-      <span className="block text-sm font-bold text-text-primary">{label}</span>
+      <span className="block text-sm font-bold text-text-primary text-balance">{label}</span>
       <span className="block text-xs text-text-muted mt-0.5">{hint}</span>
     </button>
   );
@@ -161,11 +161,13 @@ export function TopUpModal({
         onKeyDown={trapFocus}
         className="relative w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-3xl border border-border bg-white p-6 shadow-lg"
       >
+        {/* Sticky in-flow close button: owns its own row at the top (nothing
+            can sit under it) and stays pinned while a long dialog scrolls. */}
         <button
           type="button"
           onClick={onClose}
           aria-label={t("close")}
-          className="absolute top-3 end-3 grid h-8 w-8 place-items-center rounded-lg border border-border bg-card-bg text-text-muted transition-colors hover:text-text-primary hover:border-accent/50 cursor-pointer"
+          className="sticky top-3 z-20 ms-auto mb-4 grid h-8 w-8 place-items-center rounded-lg border border-border bg-card-bg text-text-muted transition-colors hover:text-text-primary hover:border-accent/50 cursor-pointer"
         >
           <X size={16} strokeWidth={2.4} />
         </button>
@@ -207,7 +209,7 @@ export function TopUpModal({
                     onClick={() => applyCredits(String(c))}
                     aria-pressed={credits === c && creditsDraft === String(c)}
                     className={cn(
-                      "rounded-lg border px-3 py-1.5 text-sm font-semibold transition-colors cursor-pointer",
+                      "inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg border px-3 py-1.5 text-sm font-semibold transition-colors cursor-pointer",
                       credits === c && creditsDraft === String(c)
                         ? "border-accent bg-accent text-white"
                         : "border-border bg-white text-text-secondary hover:border-accent/40",
@@ -227,11 +229,26 @@ export function TopUpModal({
                 value={creditsDraft}
                 onChange={(e) => applyCredits(e.target.value)}
                 aria-invalid={isCustom && !creditsValid}
+                aria-label={t("checkout.customTitle")}
                 className={inputCls}
               />
-              <p className="mt-1.5 text-xs text-text-muted">
-                {t("checkout.customMin", { min: CUSTOM_MIN_CREDITS })}
-              </p>
+              {/* Live error: the submit button is disabled while credits are
+                  invalid, so `error === "credits"` alone can never fire from
+                  a click — show the message as soon as the draft is bad.
+                  Display only; disabled/submit logic is untouched. */}
+              {error === "credits" ||
+              (creditsDraft.trim() !== "" && !creditsValid) ? (
+                <p role="alert" className="mt-1.5 text-xs text-red-600">
+                  {t("checkout.errCredits", {
+                    min: CUSTOM_MIN_CREDITS,
+                    max: CUSTOM_MAX_CREDITS,
+                  })}
+                </p>
+              ) : (
+                <p className="mt-1.5 text-xs text-text-muted">
+                  {t("checkout.customMin", { min: CUSTOM_MIN_CREDITS })}
+                </p>
+              )}
             </fieldset>
           )}
           <div>
@@ -252,6 +269,11 @@ export function TopUpModal({
               onChange={(e) => setName(e.target.value)}
               className={inputCls}
             />
+            {error === "name" && (
+              <p role="alert" className="mt-1.5 text-sm text-red-600">
+                {t("checkout.errName")}
+              </p>
+            )}
           </div>
           <div>
             <label
@@ -268,7 +290,10 @@ export function TopUpModal({
               dir="ltr"
               value={email}
               readOnly
-              className={cn(inputCls, "bg-card-bg text-text-secondary")}
+              className={cn(
+                inputCls,
+                "bg-primary-bg text-text-secondary cursor-not-allowed",
+              )}
             />
           </div>
           <div>
@@ -289,6 +314,11 @@ export function TopUpModal({
               onChange={(e) => setPhone(e.target.value)}
               className={inputCls}
             />
+            {error === "phone" && (
+              <p role="alert" className="mt-1.5 text-sm text-red-600">
+                {t("checkout.errPhone")}
+              </p>
+            )}
           </div>
           <div>
             <span className="block text-xs font-semibold text-text-muted mb-1.5">
@@ -330,20 +360,11 @@ export function TopUpModal({
               </Link>
             </span>
           </label>
-          <p role="alert" className="text-sm text-red-600">
-            {error === "name"
-              ? t("checkout.errName")
-              : error === "phone"
-                ? t("checkout.errPhone")
-                : error === "credits"
-                  ? t("checkout.errCredits", {
-                      min: CUSTOM_MIN_CREDITS,
-                      max: CUSTOM_MAX_CREDITS,
-                    })
-                  : error === "pay"
-                    ? t("err.payFail")
-                    : ""}
-          </p>
+          {error === "pay" && (
+            <p role="alert" className="text-sm text-red-600">
+              {t("err.payFail")}
+            </p>
+          )}
           <button
             type="submit"
             disabled={busy || !agreeTerms || (isCustom && !creditsValid)}

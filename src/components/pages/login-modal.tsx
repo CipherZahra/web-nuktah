@@ -189,11 +189,13 @@ export function LoginModal({
         onKeyDown={trapFocus}
         className="relative w-full max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-3xl border border-border bg-white p-6 shadow-lg"
       >
+        {/* Sticky in-flow close button: owns its own row at the top (nothing
+            can sit under it) and stays pinned while a long dialog scrolls. */}
         <button
           type="button"
           onClick={onClose}
           aria-label={t("close")}
-          className="absolute top-3 end-3 grid h-8 w-8 place-items-center rounded-lg border border-border bg-card-bg text-text-muted transition-colors hover:text-text-primary hover:border-accent/50 cursor-pointer"
+          className="sticky top-3 z-20 ms-auto mb-4 grid h-8 w-8 place-items-center rounded-lg border border-border bg-card-bg text-text-muted transition-colors hover:text-text-primary hover:border-accent/50 cursor-pointer"
         >
           <X size={16} strokeWidth={2.4} />
         </button>
@@ -256,9 +258,11 @@ export function LoginModal({
             />
           </div>
           <div ref={twRef} className="flex justify-center min-h-[65px]" />
-          <p role="alert" className="text-sm text-red-600">
-            {errorKey ? t(`err.${errorKey}`) : ""}
-          </p>
+          {errorKey && (
+            <p role="alert" className="text-sm text-red-600">
+              {t(`err.${errorKey}`)}
+            </p>
+          )}
           <button
             type="submit"
             disabled={busy}
