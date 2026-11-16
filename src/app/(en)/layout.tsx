@@ -12,6 +12,16 @@ const BUILD_TIME = new Date();
 export const metadata: Metadata = {
   title: enMessages.seo.title,
   description: enMessages.seo.description,
+  keywords: [
+    "grade sheet scanner",
+    "handwritten grade sheet scanner",
+    "scan handwritten grades",
+    "mark entry app",
+    "matricule grading",
+    "Excel gradebook",
+    "digitization file",
+    "teacher app Algeria",
+  ],
   authors: [{ name: "Nuktah" }],
   creator: "Bayan",
   publisher: "Nuktah",

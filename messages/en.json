@@ -13,7 +13,7 @@
   "hero": {
     "badge": "For teachers in Algeria",
     "title": "Nuktah — no mark goes missing.",
-    "subtitle": "An intelligent platform that scans paper grade sheets and enters marks automatically, matching each one to its student's matricule — reviewed before you approve it.",
+    "subtitle": "Photograph the sheet → the AI reads the marks → matches each student by matricule → review → save → export to the digitization file or Excel.",
     "ctaPrimary": "Start free",
     "ctaSecondary": "Top up your credits"
   },
@@ -32,7 +32,7 @@
     "sync": "Secure sync",
     "syncDesc": "Your data is stored and available on all your devices.",
     "export": "Approved export formats",
-    "exportDesc": "Export marks and reports to Excel and PDF in one tap."
+    "exportDesc": "Export marks and reports to the digitization file, Excel and PDF in one tap."
   },
   "story": {
     "label": "How it works",
@@ -131,10 +131,10 @@
     "instagram": "Instagram"
   },
   "seo": {
-    "title": "Nuktah — Grade sheet scanning and mark entry for teachers",
-    "description": "An app that scans paper grade sheets and enters marks automatically, matching them to each matricule — every mark reviewed before approval. Built for Algerian teachers.",
-    "ogTitle": "Nuktah — Grade sheet scanning and mark entry for teachers",
-    "ogDescription": "An app that scans paper grade sheets and enters marks automatically, matching them to each matricule — every mark reviewed before approval. Built for Algerian teachers."
+    "title": "Nuktah — handwritten grade sheet scanner for teachers",
+    "description": "Scans handwritten grade sheets and enters marks automatically, matching each to its matricule — every mark reviewed before approval. For Algerian teachers.",
+    "ogTitle": "Nuktah — handwritten grade sheet scanner for teachers",
+    "ogDescription": "Scans handwritten grade sheets and enters marks automatically, matching each to its matricule — every mark reviewed before approval. For Algerian teachers."
   },
   "pricing": {
     "title": "Pricing",
@@ -308,6 +308,36 @@
         "cat": "account",
         "q": "How do I contact support?",
         "a": "Email us at support@nuktah.app — we will get back to you as soon as we can."
+      },
+      {
+        "cat": "basics",
+        "q": "What is the digitization file, and does Nuktah export to it?",
+        "a": "The digitization file (ملف الرقمنة) is where your marks live as data instead of paper. In Nuktah you record marks in the app, then export them to the digitization file — or to Excel or PDF — while your original file stays untouched."
+      },
+      {
+        "cat": "basics",
+        "q": "How do I record marks manually?",
+        "a": "From the manual entry screen: pick your class, record absences, then type the marks on the keypad — review and save. Manual entry is always free and never spends a credit."
+      },
+      {
+        "cat": "basics",
+        "q": "What's the difference between scanning and manual entry?",
+        "a": "Scanning reads the paper with the camera and spends a credit only after a successful read; manual entry types marks on the keypad and is always free — both go through review before saving."
+      },
+      {
+        "cat": "scanning",
+        "q": "Can it read handwritten grades?",
+        "a": "Yes — photograph the handwritten sheet, the marks are extracted and matched to registration numbers, and you review every line before saving. If a line is misread, correct it on the review screen."
+      },
+      {
+        "cat": "scanning",
+        "q": "How do I convert a paper grade sheet to Excel?",
+        "a": "Scan the sheet or enter marks manually → review and save → then export your gradebook to Excel or to the digitization file, with the same student columns and matricules."
+      },
+      {
+        "cat": "scanning",
+        "q": "Does it match grades by student name?",
+        "a": "No — every mark is matched by the student's fixed matricule, because a name can repeat within the same class or be spelled differently. That's what prevents misattribution."
       }
     ],
     "contactTitle": "Still stuck?",

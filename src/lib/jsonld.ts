@@ -32,6 +32,28 @@ function homeUrl(lang: SiteLang): string {
   return lang === "ar" ? `${BASE}/` : `${BASE}/en/`;
 }
 
+/**
+ * BreadcrumbList schema for inner pages. `trail` runs root → leaf; the
+ * last entry is the current page and carries no path. Helps search and
+ * AI crawlers understand site hierarchy (visible breadcrumbs are not
+ * rendered — schema only).
+ */
+export function breadcrumbJsonLd(
+  lang: SiteLang,
+  trail: { name: string; path?: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      ...(item.path ? { item: `${BASE}${item.path}` } : {}),
+    })),
+  };
+}
+
 export function websiteJsonLd(lang: SiteLang, description: string) {
   const name = lang === "ar" ? "نقطة" : "Nuktah";
   return {
@@ -65,6 +87,18 @@ export function websiteJsonLd(lang: SiteLang, description: string) {
         url: homeUrl(lang),
         description,
         inLanguage: lang === "ar" ? "ar-DZ" : "en",
+        image: `${BASE}/og.png`,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "DZD",
+          availability: "https://schema.org/InStock",
+        },
+        publisher: {
+          "@type": "Organization",
+          name,
+          url: homeUrl(lang),
+        },
       },
     ],
   };

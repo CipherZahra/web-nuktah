@@ -1,0 +1,32 @@
+# Nuktah — نقطة
+
+> Nuktah (نقطة) is an Android app for teachers in Algeria. It scans handwritten
+> grade sheets with the camera, extracts the marks, matches every student by
+> matricule (رقم التسجيل), lets you review every line before saving, and exports
+> to the ministry digitization file (ملف الرقمنة), Excel and PDF.
+
+## Key facts
+
+- Free tier: manual grade entry is always free, plus 2 scans and 1 import; credits never expire.
+- Import the original ministry Excel file (.xlsx / .xls) — primary, middle and secondary levels.
+- Grade components follow the Algerian system: مستمر، فرض، اختبار (continuous, test, exam).
+- Scanning needs an internet connection; manual entry works offline.
+- Pricing: pay per credit, no subscription (https://nuktah.app/pricing/).
+- Availability: public release on Google Play, no invite or closed test needed.
+
+## Pages
+
+- Home (Arabic): https://nuktah.app/
+- Home (English): https://nuktah.app/en/
+- Download: https://nuktah.app/download/ · https://nuktah.app/en/download/
+- FAQ: https://nuktah.app/faq/ · https://nuktah.app/en/faq/
+- Guides: https://nuktah.app/guides/ · https://nuktah.app/en/guides/
+- Support: https://nuktah.app/support/
+- Google Play: https://play.google.com/store/apps/details?id=app.nuktah
+
+## عربي
+
+نقطة تطبيق جزائري للأستاذ: صوّر كشف النقاط المكتوب بخط اليد، تُقرأ العلامات
+وتُطابَق مع أرقام التسجيل، تراجع كل سطر قبل الحفظ، ثم تصدّر إلى ملف الرقمنة
+أو Excel أو PDF. الإدخال اليدوي مجاني دائمًا، واستيراد ملف الوزارة مدعوم
+لجميع الأطوار. الأسعار بالرصيد بدون اشتراك. التطبيق متاح للجميع على Google Play.

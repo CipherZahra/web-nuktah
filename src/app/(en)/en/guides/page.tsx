@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getGuides, formatGuideDate } from "@/lib/guides";
 import { GuidesList } from "@/components/pages/guides-index";
 import enMessages from "../../../../../messages/en.json";
-import { canonical } from "@/lib/jsonld";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbJsonLd, canonical } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: `${enMessages.guides.title} — Nuktah`,
@@ -20,5 +21,15 @@ export default function Page() {
   const dateLabels = Object.fromEntries(
     guides.map((g) => [g.slug, formatGuideDate(g.date, "en")])
   );
-  return <GuidesList guides={guides} dateLabels={dateLabels} />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd("en", [
+          { name: enMessages.nav.home },
+          { name: enMessages.guides.title, path: "/en/guides" },
+        ])}
+      />
+      <GuidesList guides={guides} dateLabels={dateLabels} />
+    </>
+  );
 }

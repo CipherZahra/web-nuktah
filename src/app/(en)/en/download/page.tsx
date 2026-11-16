@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { DownloadPage } from "@/components/pages/download-page";
 import enMessages from "../../../../../messages/en.json";
-import { canonical } from "@/lib/jsonld";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbJsonLd, canonical } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: `${enMessages.downloadPage.title} — Nuktah`,
@@ -10,5 +11,15 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <DownloadPage />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd("en", [
+          { name: enMessages.nav.home },
+          { name: enMessages.downloadPage.title, path: "/en/download" },
+        ])}
+      />
+      <DownloadPage />
+    </>
+  );
 }

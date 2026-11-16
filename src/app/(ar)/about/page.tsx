@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { AboutPage } from "@/components/pages/about-page";
 import arMessages from "../../../../messages/ar.json";
-import { canonical } from "@/lib/jsonld";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbJsonLd, canonical } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
   title: `${arMessages.about.title} — نقطة`,
@@ -10,5 +11,15 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <AboutPage />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd("ar", [
+          { name: arMessages.nav.home },
+          { name: arMessages.about.title, path: "/about" },
+        ])}
+      />
+      <AboutPage />
+    </>
+  );
 }
