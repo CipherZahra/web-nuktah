@@ -6,7 +6,7 @@ import { canonical } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: `${arMessages.downloadPage.title} — نقطة`,
   ...canonical("/download"),
-  description: arMessages.downloadPage.lead,
+  description: `${arMessages.downloadPage.lead} ${arMessages.downloadPage.availableNow}`,
 };
 
 export default function Page() {

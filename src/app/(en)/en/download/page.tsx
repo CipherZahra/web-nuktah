@@ -6,7 +6,7 @@ import { canonical } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: `${enMessages.downloadPage.title} — Nuktah`,
   ...canonical("/en/download"),
-  description: enMessages.downloadPage.lead,
+  description: `${enMessages.downloadPage.lead} ${enMessages.downloadPage.availableNow}`,
 };
 
 export default function Page() {

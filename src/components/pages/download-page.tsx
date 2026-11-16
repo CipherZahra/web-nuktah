@@ -33,6 +33,11 @@ export function DownloadPage() {
       <section className="py-16 md:py-24">
         <div className="container-main max-w-4xl mx-auto">
           <div className="rounded-2xl border border-accent/20 bg-accent-subtle p-8 md:p-10 text-center mb-14">
+            {/* Positive availability statement in the slot the old
+                closed-test notice used to occupy. */}
+            <p className="text-sm font-semibold text-accent-hover mb-4">
+              {t("availableNow")}
+            </p>
             <a
               href={PLAY_URL}
               target="_blank"
