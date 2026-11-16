@@ -446,7 +446,6 @@
     "close": "Close",
     "checkout": {
       "title": "Payment details",
-      "hint": "Enter your details once — they appear pre-filled on the secure payment page.",
       "name": "Full name",
       "namePlaceholder": "Full name",
       "email": "Email",

@@ -185,13 +185,10 @@ export function TopUpModal({
 
         <h3
           id="topup-modal-title"
-          className="pe-8 text-lg font-bold text-text-primary"
+          className="pe-8 mb-4 text-lg font-bold text-text-primary"
         >
           {t("checkout.title")}
         </h3>
-        <p className="mt-1 mb-4 text-sm text-text-secondary">
-          {t("checkout.hint")}
-        </p>
 
         <form onSubmit={submit} noValidate className="space-y-4">
           {isCustom && (
@@ -252,6 +249,9 @@ export function TopUpModal({
           <div>
             <label htmlFor="topup-name" className={labelCls}>
               {t("checkout.name")}
+              <span aria-hidden="true" className="text-red-600">
+                {" *"}
+              </span>
             </label>
             <input
               id="topup-name"
@@ -273,6 +273,9 @@ export function TopUpModal({
           <div>
             <label htmlFor="topup-email" className={labelCls}>
               {t("checkout.email")}
+              <span aria-hidden="true" className="text-red-600">
+                {" *"}
+              </span>
             </label>
             <input
               id="topup-email"
