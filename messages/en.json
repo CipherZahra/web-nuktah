@@ -181,7 +181,7 @@
       }
     ],
     "featuredBadge": "Most chosen",
-    "buy": "Buy now",
+    "buyCredits": "Buy {credits} credits",
     "youChoose": "You choose",
     "chooseCredits": "Choose credits",
     "close": "Close",

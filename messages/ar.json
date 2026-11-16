@@ -181,7 +181,7 @@
       }
     ],
     "featuredBadge": "الأكثر اختيارًا",
-    "buy": "اشترِ الآن",
+    "buyCredits": "اشترِ {credits} نقطة",
     "youChoose": "أنت تحدد",
     "chooseCredits": "اختر نقاطك",
     "close": "إغلاق",

@@ -124,7 +124,7 @@ export function PricingPage() {
                       </span>
                     </div>
                   )}
-                  <p className="text-sm text-text-secondary mb-6">
+                  <p className="text-lg font-semibold text-text-primary mb-6">
                     {plan.credits} {plan.creditsUnit}
                   </p>
                   <div className="mt-auto">
@@ -138,7 +138,7 @@ export function PricingPage() {
                         ? t("login.working")
                         : isCustom
                           ? t("chooseCredits")
-                          : t("buy")}
+                          : t("buyCredits", { credits: plan.credits })}
                     </Button>
                   </div>
                 </div>
