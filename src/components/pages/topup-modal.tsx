@@ -10,6 +10,7 @@ import {
   CUSTOM_RATE_DZD,
   startCheckout,
 } from "@/lib/checkout";
+import { inputCls, labelCls } from "@/lib/form-ui";
 import { useModalDialog } from "@/lib/use-modal-dialog";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n";
@@ -122,9 +123,6 @@ export function TopUpModal({
 
   if (!open) return null;
 
-  const inputCls =
-    "w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-2 focus:outline-accent/50 focus:border-accent transition-colors";
-
   const methodBtn = (m: PaymentMethod, label: string, hint: string) => (
     <button
       key={m}
@@ -195,10 +193,10 @@ export function TopUpModal({
           {t("checkout.hint")}
         </p>
 
-        <form onSubmit={submit} noValidate className="space-y-3">
+        <form onSubmit={submit} noValidate className="space-y-4">
           {isCustom && (
             <fieldset className="rounded-xl border border-border bg-card-bg/50 p-3">
-              <legend className="px-1 text-xs font-semibold text-text-muted">
+              <legend className="px-1 text-sm font-semibold text-text-muted">
                 {t("checkout.customTitle")}
               </legend>
               <div className="flex flex-wrap gap-2 mb-2.5">
@@ -252,10 +250,7 @@ export function TopUpModal({
             </fieldset>
           )}
           <div>
-            <label
-              htmlFor="topup-name"
-              className="block text-xs font-semibold text-text-muted"
-            >
+            <label htmlFor="topup-name" className={labelCls}>
               {t("checkout.name")}
             </label>
             <input
@@ -276,10 +271,7 @@ export function TopUpModal({
             )}
           </div>
           <div>
-            <label
-              htmlFor="topup-email"
-              className="block text-xs font-semibold text-text-muted"
-            >
+            <label htmlFor="topup-email" className={labelCls}>
               {t("checkout.email")}
             </label>
             <input
@@ -297,10 +289,7 @@ export function TopUpModal({
             />
           </div>
           <div>
-            <label
-              htmlFor="topup-phone"
-              className="block text-xs font-semibold text-text-muted"
-            >
+            <label htmlFor="topup-phone" className={labelCls}>
               {t("checkout.phone")}
             </label>
             <input
@@ -321,7 +310,7 @@ export function TopUpModal({
             )}
           </div>
           <div>
-            <span className="block text-xs font-semibold text-text-muted mb-1.5">
+            <span className={labelCls}>
               {t("checkout.method")}
             </span>
             <div className="flex gap-3">

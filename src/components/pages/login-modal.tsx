@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 
 import { signInWithPassword } from "@/lib/checkout";
+import { inputCls, labelCls } from "@/lib/form-ui";
 import { useModalDialog } from "@/lib/use-modal-dialog";
 
 const TURNSTILE_SITEKEY = "0x4AAAAAAFCsl8lNhObCk4Qw";
@@ -224,9 +225,6 @@ export function LoginModal({
 
   if (!open) return null;
 
-  const inputCls =
-    "w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-2 focus:outline-accent/50 focus:border-accent transition-colors";
-
   return (
     <div
       className="fixed inset-0 z-[60] grid place-items-center p-4"
@@ -273,12 +271,9 @@ export function LoginModal({
           {t("login.hint")}
         </p>
 
-        <form onSubmit={submit} noValidate className="space-y-3">
+        <form onSubmit={submit} noValidate className="space-y-4">
           <div>
-            <label
-              htmlFor="login-email"
-              className="block text-xs font-semibold text-text-muted"
-            >
+            <label htmlFor="login-email" className={labelCls}>
               {t("login.email")}
             </label>
             <input
@@ -296,10 +291,7 @@ export function LoginModal({
             />
           </div>
           <div>
-            <label
-              htmlFor="login-password"
-              className="block text-xs font-semibold text-text-muted"
-            >
+            <label htmlFor="login-password" className={labelCls}>
               {t("login.password")}
             </label>
             <input
