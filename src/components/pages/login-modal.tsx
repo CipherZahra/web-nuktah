@@ -284,7 +284,6 @@ export function LoginModal({
               autoComplete="email"
               inputMode="email"
               dir="ltr"
-              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={inputCls}
