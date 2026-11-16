@@ -13,7 +13,7 @@
   "hero": {
     "badge": "For teachers in Algeria",
     "title": "Nuktah — no mark goes missing.",
-    "subtitle": "Photograph the sheet → the AI reads the marks → matches each student by matricule → review → save → export to the digitization file or Excel.",
+    "subtitle": "An intelligent app that reads handwritten grade sheets with AI and records each mark matched to its student's matricule — every mark reviewed before saving, then exported to the digitization file or Excel.",
     "ctaPrimary": "Start free",
     "ctaSecondary": "Top up your credits"
   },
