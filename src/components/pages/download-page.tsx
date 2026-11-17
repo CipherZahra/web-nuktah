@@ -57,7 +57,7 @@ export function DownloadPage() {
                     alt={t("playButton")}
                     width={646}
                     height={250}
-                    className="h-16 md:h-20 w-auto"
+                    className="h-20 md:h-24 w-auto"
                   />
                 </a>
 
@@ -99,7 +99,7 @@ export function DownloadPage() {
 
               <div className="flex justify-center">
                 <PhoneMockup
-                  imageSrc="/screens/dark_home.webp"
+                  imageSrc="/screens/light_home.webp"
                   imageAlt={t("mockupAlt")}
                   className="w-44 md:w-56"
                 />
