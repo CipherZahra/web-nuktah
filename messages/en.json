@@ -358,6 +358,7 @@
       "An email address for a free account."
     ],
     "qrAlt": "Scan the QR code to download the Nuktah app",
+    "mockupAlt": "Nuktah app screen showing the class gradebook with saved student marks",
     "qrCaption": "Scan the code to download",
     "joinTitle": "Three steps to download",
     "joinStep1": "Open the app's page on Google Play",
