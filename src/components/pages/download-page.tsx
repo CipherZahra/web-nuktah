@@ -99,7 +99,7 @@ export function DownloadPage() {
 
               <div className="flex justify-center">
                 <PhoneMockup
-                  imageSrc="/screens/story_done.webp"
+                  imageSrc="/screens/dark_home.webp"
                   imageAlt={t("mockupAlt")}
                   className="w-44 md:w-56"
                 />

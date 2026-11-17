@@ -348,7 +348,7 @@
     "title": "Download",
     "h1": "Join Nuktah — start free.",
     "lead": "2 scans and 1 import free — no card, no subscription.",
-    "availableNow": "Available now for everyone on Google Play — no invite needed.",
+    "availableNow": "Get it free on Google Play",
     "playButton": "Download the Nuktah app from Google Play",
     "needsTitle": "What you need",
     "needsItems": [
@@ -358,7 +358,7 @@
       "An email address for a free account."
     ],
     "qrAlt": "Scan the QR code to download the Nuktah app",
-    "mockupAlt": "Nuktah app screen showing the class gradebook with saved student marks",
+    "mockupAlt": "Nuktah app home screen",
     "qrCaption": "Scan the code to download",
     "joinTitle": "Three steps to download",
     "joinStep1": "Open the app's page on Google Play",
