@@ -23,12 +23,6 @@ export function DownloadPage() {
     trackEvent("download_visit");
   }, []);
 
-  const joinSteps = [
-    { title: t("joinStep1"), desc: t("joinStep1Desc") },
-    { title: t("joinStep2"), desc: t("joinStep2Desc") },
-    { title: t("joinStep3"), desc: t("joinStep3Desc") },
-  ];
-
   return (
     <>
       <PageHero ns="downloadPage" />
@@ -123,33 +117,6 @@ export function DownloadPage() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Install flow: open the listing → install → sign up. */}
-          <div className="rounded-2xl border border-border/60 bg-white p-8">
-            <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-8 text-text-primary text-center">
-              {t("joinTitle")}
-            </h2>
-            <ol className="grid md:grid-cols-3 gap-5">
-              {joinSteps.map((step, i) => (
-                <li
-                  key={step.title}
-                  className="rounded-xl border border-border/60 bg-accent-subtle/40 p-6"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 shrink-0 rounded-lg bg-accent text-white text-sm font-bold flex items-center justify-center">
-                      {i + 1}
-                    </span>
-                    <h3 className="font-bold text-base text-text-primary">
-                      {step.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    {step.desc}
-                  </p>
-                </li>
-              ))}
-            </ol>
           </div>
 
           {/* Help — same card style as the sections above. */}
