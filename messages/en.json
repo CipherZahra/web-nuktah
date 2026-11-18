@@ -346,8 +346,9 @@
   },
   "downloadPage": {
     "title": "Download",
-    "h1": "Join Nuktah — start free.",
+    "h1": "All your grades in one place!",
     "lead": "2 scans and 1 import free — no card, no subscription.",
+    "heroLead": "Download the Nuktah app and enjoy managing your grades, tracking your balance, and using our services with ease.",
     "availableNow": "Get it free on Google Play",
     "playButton": "Download the Nuktah app from Google Play",
     "needsTitle": "What you need",
@@ -359,11 +360,16 @@
     ],
     "qrAlt": "Scan the QR code to download the Nuktah app",
     "mockupAlt": "Nuktah app home screen",
-    "qrCaption": "Scan the code to download",
+    "qrCaption": "Or scan the QR code to download instantly",
+    "benefits": [
+      { "title": "Secure and reliable", "desc": "Your data protected" },
+      { "title": "Easy to use", "desc": "A simple, fast experience" },
+      { "title": "Free to download", "desc": "Start now" }
+    ],
     "joinHelpTitle": "Couldn't install?",
     "joinHelpText": "Email us and we'll answer any question:",
     "joinHelpEmail": "support@nuktah.app",
-    "ctaPricing": "See pricing"
+    "ctaPricing": "Discover pricing and packages"
   },
   "about": {
     "title": "About us",

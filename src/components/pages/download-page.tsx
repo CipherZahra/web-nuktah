@@ -3,13 +3,17 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Gift, ShieldCheck, Zap } from "lucide-react";
 
-import { PageHero } from "@/components/pages/page-hero";
 import { PhoneMockup } from "@/components/sections/phone-mockup";
+import { Button } from "@/components/ui/button";
 import { PLAY_URL } from "@/lib/config";
 import { trackEvent } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 import { Link } from "@/i18n";
+
+/** Benefit row icons — one per `downloadPage.benefits` entry, in order. */
+const BENEFIT_ICONS = [ShieldCheck, Zap, Gift];
 
 export function DownloadPage() {
   const t = useTranslations("downloadPage");
@@ -17,91 +21,160 @@ export function DownloadPage() {
   const isRTL = locale === "ar";
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
   const badge = isRTL ? "/badges/play-ar.png" : "/badges/play-en.png";
+  const benefits = t.raw("benefits") as { title: string; desc: string }[];
 
   // Landing here is itself a funnel step (spec: download_visit).
   useEffect(() => {
     trackEvent("download_visit");
   }, []);
 
+  /* Product visual: the real app home screen in the shared device frame,
+     lifted off the white band by a mint halo (the "subtle shadow"). */
+  const phone = (
+    <div
+      data-reveal="up"
+      className={cn(
+        "relative flex justify-center",
+        // RTL DOM order puts the download block first (reading start), so on
+        // mobile the phone is reordered ahead of it — spec'd stack is
+        // heading → phone → badge/QR. Back to DOM order from md up.
+        isRTL && "order-first md:order-none",
+      )}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-8 -inset-y-10 rounded-[50%] bg-accent-light/50 blur-3xl"
+      />
+      <PhoneMockup
+        imageSrc="/screens/light_home.webp"
+        imageAlt={t("mockupAlt")}
+        priority
+        className="relative w-52 md:w-64"
+      />
+    </div>
+  );
+
+  /* The conversion block: availability line → official badge → real QR →
+     secondary pricing action. Centred on mobile, start-aligned on desktop. */
+  const download = (
+    <div
+      data-reveal="up"
+      className="flex flex-col items-center text-center md:items-start md:text-start"
+    >
+      <p className="text-sm font-semibold text-accent-hover mb-5">
+        {t("availableNow")}
+      </p>
+
+      {/* Official Play badge, linked to the real listing. Biggest element
+          in the column and the only thing wearing a hover lift. */}
+      <a
+        href={PLAY_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group inline-block rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      >
+        <Image
+          src={badge}
+          alt={t("playButton")}
+          width={646}
+          height={250}
+          priority
+          className="h-24 md:h-28 w-auto"
+        />
+      </a>
+
+      {/* Real QR (encodes PLAY_URL) in its own card. Shown on mobile too —
+          the spec's mobile stack lists it below the button. */}
+      <div className="mt-7 w-full max-w-xs rounded-2xl border border-border/60 bg-white p-5 shadow-sm">
+        <a
+          href={PLAY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackEvent("qr_click")}
+          className="mx-auto block w-fit rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+        >
+          <Image
+            src="/qr-play.png"
+            alt={t("qrAlt")}
+            width={740}
+            height={740}
+            loading="lazy"
+            className="w-36 h-36 md:w-40 md:h-40 rounded-xl"
+          />
+        </a>
+        <p className="mt-3 text-sm font-medium text-accent-hover text-center">
+          {t("qrCaption")}
+        </p>
+      </div>
+
+      {/* Secondary action — green outline, never a competing solid CTA. */}
+      <Button
+        asChild
+        variant="outline"
+        className="mt-6 gap-2 rounded-2xl border-accent/40 bg-white px-6 font-semibold text-accent hover:border-accent hover:bg-accent-subtle hover:text-accent-hover"
+      >
+        <Link href="/pricing">
+          {t("ctaPricing")}
+          <ArrowIcon size={16} aria-hidden="true" />
+        </Link>
+      </Button>
+    </div>
+  );
+
   return (
     <>
-      <PageHero ns="downloadPage" />
-
-      <section className="py-16 md:py-24">
-        {/* Single column, one card style, one gap scale — no nested
-            max-w wrappers or per-section margin ad-hods. */}
-        <div className="container-main max-w-4xl mx-auto flex flex-col gap-8">
-          {/* Download card: the page's primary action + first product
-              visual. Availability line stays — it counters stale AI
-              answers about the old closed test. */}
-          <div className="rounded-2xl border border-accent/20 bg-accent-subtle p-8 md:p-10">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="flex flex-col items-center text-center md:items-start md:text-start">
-                <p className="text-sm font-semibold text-accent-hover mb-5">
-                  {t("availableNow")}
-                </p>
-                <a
-                  href={PLAY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block transition-transform duration-200 hover:scale-[1.02]"
-                >
-                  <Image
-                    src={badge}
-                    alt={t("playButton")}
-                    width={646}
-                    height={250}
-                    className="h-20 md:h-24 w-auto"
-                  />
-                </a>
-
-                {/* QR is a desktop affordance only — on a phone the badge
-                    is one tap away and a QR is dead weight. Tappable on
-                    the phone it is scanned with, and counted. */}
-                <div className="hidden md:flex mt-6 items-center gap-4">
-                  <a
-                    href={PLAY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent("qr_click")}
-                    className="block"
-                  >
-                    <Image
-                      src="/qr-play.png"
-                      alt={t("qrAlt")}
-                      width={740}
-                      height={740}
-                      loading="lazy"
-                      className="w-32 h-32 rounded-xl border-2 border-accent/25 bg-white p-2 shadow-glow"
-                    />
-                  </a>
-                  <span className="text-sm font-medium text-accent-hover">
-                    {t("qrCaption")}
-                  </span>
-                </div>
-
-                {/* Pricing demoted from a competing solid button to a text
-                    link — this page's job is installing, not browsing. */}
-                <Link
-                  href="/pricing"
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent-hover underline-offset-4 hover:underline"
-                >
-                  {t("ctaPricing")}
-                  <ArrowIcon size={14} aria-hidden="true" />
-                </Link>
-              </div>
-
-              <div className="flex justify-center">
-                <PhoneMockup
-                  imageSrc="/screens/light_home.webp"
-                  imageAlt={t("mockupAlt")}
-                  className="w-44 md:w-56"
-                />
-              </div>
-            </div>
+      {/* Hero band: heading + two-column download composition. */}
+      <section className="pt-32 md:pt-40 pb-16 md:pb-24 bg-white border-b border-border-subtle">
+        <div className="container-main max-w-5xl mx-auto">
+          <div data-reveal="up" className="max-w-2xl mx-auto text-center">
+            <span className="text-xs font-semibold text-text-muted tracking-wider mb-4 block">
+              {t("title")}
+            </span>
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-text-primary text-balance">
+              {t("h1")}
+            </h1>
+            <p className="text-text-secondary text-lg leading-relaxed">
+              {t("heroLead")}
+            </p>
           </div>
 
-          {/* Requirements — checklist only, no competing CTA. */}
+          {/* Phone on the visual left, download block on the right, in both
+              locales — RTL flips DOM order, EN keeps it. */}
+          <div className="mt-12 grid gap-10 md:grid-cols-2 md:items-center">
+            {isRTL ? download : phone}
+            {isRTL ? phone : download}
+          </div>
+
+          {/* Three benefits, staggered in with the rest of the page. */}
+          <div data-reveal-group className="mt-12 grid gap-4 sm:grid-cols-3">
+            {benefits.map((benefit, i) => {
+              const Icon = BENEFIT_ICONS[i] ?? ShieldCheck;
+              return (
+                <div
+                  key={benefit.title}
+                  className="flex items-start gap-3 rounded-2xl border border-border/60 bg-white p-5 shadow-xs"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-subtle text-accent">
+                    <Icon size={20} strokeWidth={2.25} aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-text-primary">
+                      {benefit.title}
+                    </p>
+                    <p className="mt-0.5 text-sm text-text-secondary leading-relaxed">
+                      {benefit.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24">
+        {/* Requirements — checklist only, no competing CTA. */}
+        <div className="container-main max-w-4xl mx-auto flex flex-col gap-8">
           <div className="rounded-2xl border border-border/60 bg-white p-8">
             <h2 className="text-xl md:text-2xl font-bold tracking-tight mb-6 text-text-primary">
               {t("needsTitle")}
@@ -119,7 +192,7 @@ export function DownloadPage() {
             </ul>
           </div>
 
-          {/* Help — same card style as the sections above. */}
+          {/* Help — same card style as the section above. */}
           <div className="rounded-2xl border border-border/60 bg-white p-6 text-center">
             <p className="font-bold text-base text-text-primary mb-1">
               {t("joinHelpTitle")}
