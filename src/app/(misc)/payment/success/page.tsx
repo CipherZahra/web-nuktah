@@ -10,5 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <PaymentResult kind="success" />;
+  return (
+    <PaymentResult
+      kind="success"
+      ar={arMessages.payment}
+      en={enMessages.payment}
+    />
+  );
 }

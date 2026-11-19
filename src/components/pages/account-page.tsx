@@ -15,6 +15,7 @@ import {
 
 import { getValidSession, getUserProfile, signOut } from "@/lib/checkout";
 import { PACKAGE_IDS } from "@/lib/config";
+import { formatDate, formatDzd } from "@/lib/format";
 import { packMetaOf, type PricingPlan } from "@/lib/pricing-meta";
 import {
   fetchBillingHistory,
@@ -74,16 +75,6 @@ function aggregateUsage(entries: LedgerEntry[], locale: string): UsageGroup[] {
   return [...map.values()];
 }
 
-function formatDate(iso: string, locale: string): string {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "—";
-  return new Intl.DateTimeFormat(locale === "ar" ? "ar-DZ" : "en-GB", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  }).format(d);
-}
-
 function purchaseAmountDzd(
   entry: LedgerEntry,
   plans: { credits: string; price: string }[],
@@ -111,18 +102,6 @@ function purchasePlanName(
   if (typeof pkg !== "string") return null;
   const idx = PACKAGE_IDS.indexOf(pkg);
   return idx >= 0 ? (plans[idx]?.name ?? null) : null;
-}
-
-/** Localized DZD amount with thousands grouping, no decimals. */
-function formatDzd(amount: number, locale: string): string {
-  return (
-    new Intl.NumberFormat(locale === "ar" ? "ar-DZ" : "en-DZ", {
-      style: "currency",
-      currency: "DZD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount)
-  );
 }
 
 /** One display row in the Purchases tab; same-day ad rewards collapse here. */

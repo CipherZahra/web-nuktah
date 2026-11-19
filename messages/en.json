@@ -535,9 +535,17 @@
   },
   "payment": {
     "successTitle": "Payment received",
-    "successDesc": "Your Nuktah payment was received and your credits are on the way. They appear in the app automatically within a few minutes.",
+    "successDesc": "Thank you! Your payment has been confirmed and your credits have been added to your account. You can start using them in the app right away.",
     "failureTitle": "Payment not completed",
-    "failureDesc": "The payment was not completed. You have not been charged — you can try again from the app."
+    "failureDesc": "You have not been charged. You can try again from the app.",
+    "orderTitle": "Payment summary",
+    "orderAmount": "Amount",
+    "orderDate": "Date",
+    "balanceLabel": "Your balance now",
+    "balanceUnit": "credits",
+    "ctaAccount": "Account",
+    "ctaOpenApp": "Open the app",
+    "ctaHome": "Home"
   },
   "video": {
     "label": "Manual grade entry · always free",
