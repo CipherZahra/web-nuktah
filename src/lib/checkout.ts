@@ -181,7 +181,8 @@ export function signOut(): void {
 export interface CheckoutCustomer {
   name: string;
   email?: string;
-  phone?: string;
+  /** Required — every payer types it (validated in the top-up modal). */
+  phone: string;
 }
 
 export interface CheckoutOptions {

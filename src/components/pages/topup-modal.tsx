@@ -64,6 +64,7 @@ export function TopUpModal({
     "",
   );
   const nameRef = useRef<HTMLInputElement | null>(null);
+  const phoneRef = useRef<HTMLInputElement | null>(null);
   const { dialogRef, trapFocus } = useModalDialog(open, onClose, nameRef);
 
   const creditsValid =
@@ -98,8 +99,10 @@ export function TopUpModal({
       nameRef.current?.focus();
       return;
     }
-    if (trimmedPhone && !/^\+?\d{8,15}$/.test(trimmedPhone)) {
+    // Phone is mandatory: empty or malformed both block checkout.
+    if (!trimmedPhone || !/^\+?\d{8,15}$/.test(trimmedPhone)) {
       setError("phone");
+      phoneRef.current?.focus();
       return;
     }
     setBusy(true);
@@ -109,7 +112,7 @@ export function TopUpModal({
         customer: {
           name: trimmedName,
           email,
-          ...(trimmedPhone ? { phone: trimmedPhone } : {}),
+          phone: trimmedPhone,
         },
         paymentMethod: method,
         ...(isCustom ? { credits } : {}),
@@ -294,9 +297,13 @@ export function TopUpModal({
           <div>
             <label htmlFor="topup-phone" className={labelCls}>
               {t("checkout.phone")}
+              <span aria-hidden="true" className="text-red-600">
+                {" *"}
+              </span>
             </label>
             <input
               id="topup-phone"
+              ref={phoneRef}
               type="tel"
               name="tel"
               autoComplete="tel"
@@ -308,7 +315,8 @@ export function TopUpModal({
             />
             {error === "phone" && (
               <p role="alert" className="mt-1.5 text-sm text-red-600">
-                {t("checkout.errPhone")}
+                {/* Empty → "required"; filled-but-bad → format hint. */}
+                {phone.trim() ? t("checkout.errPhone") : t("checkout.errPhoneRequired")}
               </p>
             )}
           </div>

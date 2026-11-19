@@ -458,6 +458,7 @@
       "methodCibHint": "Bank card via SATIM",
       "errName": "Enter a valid name (at least 2 characters).",
       "errPhone": "Invalid phone number — format: +213… or digits only.",
+      "errPhoneRequired": "Enter your phone number — required to complete payment.",
       "agreeTerms": "I agree to the",
       "terms": "Terms of Use",
       "working": "Redirecting…",
