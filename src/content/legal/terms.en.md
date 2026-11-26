@@ -54,9 +54,7 @@ The validity and use of credit are subject to the rules shown inside the app and
 
 ## 8. Advertising
 
-The app may show ads through external advertising services. Ads and the data linked to them are subject to the Privacy Policy and the relevant policies.
-
-Some ads may be optional and linked to additional features shown inside the app.
+The app does not show advertising.
 
 ## 9. Fair use
 

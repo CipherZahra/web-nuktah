@@ -54,11 +54,7 @@ Some external services may process the technical information needed to provide t
 
 ## 4. Advertising
 
-The app may show banner ads, interstitial ads, and rewarded ads.
-
-Watching a rewarded ad is optional and grants additional credit according to the limits and terms shown inside the app.
-
-Advertising identifiers and information about interaction with ads may be collected or processed according to your device settings and the ad provider's policies. You can manage some advertising options from your device settings where those options are available.
+The app does not show advertising. Nuktah does not include banner ads, interstitial ads, or rewarded ads, and no advertising identifiers or information about interaction with ads are collected.
 
 ## 5. Payments
 
@@ -78,7 +74,6 @@ The categories of services used include:
 
 - Account and database hosting: to operate accounts and store the data linked to them.
 - AI image processing: to extract grades from grade-sheet photos when the user requests it.
-- Advertising services: to show ads and manage interaction with rewarded ads.
 - Payment processing: to complete transactions and confirm their status.
 - Technical error monitoring: to diagnose faults and improve the service's stability.
 
